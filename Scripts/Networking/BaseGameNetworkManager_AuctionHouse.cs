@@ -12,6 +12,7 @@ namespace MultiplayerARPG
          */
         [Header("Auction House")]
         public ushort createAuctionMsgType = 300;
+        public string auctionHouseServiceUrl = "http://localhost:9800/auction-house";
 
         [DevExtMethods("RegisterServerMessages")]
         protected void RegisterServerMessages_AuctionHouse()
