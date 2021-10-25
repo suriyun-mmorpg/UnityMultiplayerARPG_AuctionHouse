@@ -19,6 +19,14 @@ namespace MultiplayerARPG
             RegisterServerMessage(createAuctionMsgType, HandleCreateAuctionAtServer);
         }
 
+        public void CreateAuction(CreateAuctionMessage createAuction)
+        {
+            if (!IsClientConnected)
+                return;
+            // Send create auction message to server
+            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, createAuctionMsgType, createAuction);
+        }
+
         private void HandleCreateAuctionAtServer(MessageHandlerData messageHandler)
         {
             IPlayerCharacterData playerCharacterData;
