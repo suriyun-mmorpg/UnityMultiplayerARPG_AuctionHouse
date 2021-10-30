@@ -1,6 +1,6 @@
 ﻿using LiteNetLib.Utils;
 
-namespace MultiplayerARPG
+namespace MultiplayerARPG.Auction
 {
     public struct CreateAuctionMessage : INetSerializable
     {
