@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MultiplayerARPG.Auction;
+using UnityEngine;
 
 namespace MultiplayerARPG
 {
