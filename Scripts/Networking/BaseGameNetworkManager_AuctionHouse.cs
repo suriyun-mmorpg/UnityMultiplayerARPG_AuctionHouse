@@ -1,4 +1,5 @@
 ﻿using LiteNetLibManager;
+using MultiplayerARPG.Auction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,16 @@ namespace MultiplayerARPG
          */
         [Header("Auction House")]
         public ushort createAuctionMsgType = 300;
+        public ushort bidMsgType = 301;
+        public ushort buyoutMsgType = 301;
         public string auctionHouseServiceUrl = "http://localhost:9800/auction-house";
 
         [DevExtMethods("RegisterServerMessages")]
         protected void RegisterServerMessages_AuctionHouse()
         {
             RegisterServerMessage(createAuctionMsgType, HandleCreateAuctionAtServer);
+            RegisterServerMessage(bidMsgType, HandleCreateAuctionAtServer);
+            RegisterServerMessage(buyoutMsgType, HandleCreateAuctionAtServer);
         }
 
         public void CreateAuction(CreateAuctionMessage createAuction)
@@ -51,6 +56,60 @@ namespace MultiplayerARPG
 
             // Remove item from inventory
             playerCharacterData.DecreaseItemsByIndex(createAuction.indexOfItem, createAuction.amount);
+        }
+
+        public void Bid(BidMessage bid)
+        {
+            if (!IsClientConnected)
+                return;
+            // Send create auction message to server
+            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, bidMsgType, bid);
+        }
+
+        private void HandleBidAtServer(MessageHandlerData messageHandler)
+        {
+            IPlayerCharacterData playerCharacterData;
+            if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
+            {
+                // Do nothing, player character is not enter the game yet.
+                return;
+            }
+            BidMessage bid = messageHandler.ReadMessage<BidMessage>();
+            // Get highest bidding price from service
+
+            // Validate gold
+
+            // Tell the service to add to bid
+
+            // Reduce gold
+            playerCharacterData.Gold -= bid.price;
+        }
+
+        public void Buyout(BuyoutMessage buyout)
+        {
+            if (!IsClientConnected)
+                return;
+            // Send create auction message to server
+            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, buyoutMsgType, buyout);
+        }
+
+        private void HandleBuyoutAtServer(MessageHandlerData messageHandler)
+        {
+            IPlayerCharacterData playerCharacterData;
+            if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
+            {
+                // Do nothing, player character is not enter the game yet.
+                return;
+            }
+            BuyoutMessage buyout = messageHandler.ReadMessage<BuyoutMessage>();
+            // Get buyout price from service
+            int price = 0;
+            // Validate gold
+
+            // Tell the service to add to buyout
+
+            // Reduce gold
+            playerCharacterData.Gold -= price;
         }
     }
 }
