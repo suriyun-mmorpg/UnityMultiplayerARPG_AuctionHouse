@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace MultiplayerARPG.Auction
 {
@@ -71,5 +72,11 @@ namespace MultiplayerARPG.Auction
                 auctionId = Data.id,
             });
         }
+
+        [System.Serializable]
+        public class DataEvent : UnityEvent<Auction> { }
+
+        [System.Serializable]
+        public class UIEvent : UnityEvent<UIAuction> { }
     }
 }
