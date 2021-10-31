@@ -6,7 +6,6 @@ namespace MultiplayerARPG.Auction
     public class AuctionListResponse
     {
         public List<AuctionData> list = new List<AuctionData>();
-        public int offset = 0;
         public int limit = 20;
         public int page = 1;
         public int totalPage = 1;
