@@ -1,6 +1,6 @@
 ﻿namespace MultiplayerARPG.Auction
 {
-    public class UIAuctionSelectionManager : UISelectionManager<Auction, UIAuction, UIAuction.DataEvent, UIAuction.UIEvent>
+    public class UIAuctionSelectionManager : UISelectionManager<AuctionData, UIAuction, UIAuction.DataEvent, UIAuction.UIEvent>
     {
     }
 }

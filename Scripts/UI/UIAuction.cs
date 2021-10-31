@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace MultiplayerARPG.Auction
 {
-    public class UIAuction : UISelectionEntry<Auction>
+    public class UIAuction : UISelectionEntry<AuctionData>
     {
         [Header("String Formats")]
         [Tooltip("Format => {0} = {Bid Price}")]
@@ -74,7 +74,7 @@ namespace MultiplayerARPG.Auction
         }
 
         [System.Serializable]
-        public class DataEvent : UnityEvent<Auction> { }
+        public class DataEvent : UnityEvent<AuctionData> { }
 
         [System.Serializable]
         public class UIEvent : UnityEvent<UIAuction> { }

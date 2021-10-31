@@ -1,7 +1,7 @@
 ﻿namespace MultiplayerARPG.Auction
 {
     [System.Serializable]
-    public struct Auction
+    public struct AuctionData
     {
         public int id;
         public int buyoutPrice;
@@ -9,5 +9,9 @@
         public string sellerId;
         public string sellerName;
         public long timeLeft;
+        public bool isEnd;
+        public bool isBuyout;
+        public string winnerId;
+        public string winnerName;
     }
 }

@@ -3,6 +3,7 @@ using MultiplayerARPG.Auction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityRestClient;
 
 namespace MultiplayerARPG
 {
@@ -16,6 +17,9 @@ namespace MultiplayerARPG
         public ushort bidMsgType = 301;
         public ushort buyoutMsgType = 301;
         public string auctionHouseServiceUrl = "http://localhost:9800/auction-house";
+
+        public AuctionRestClient RestClientForClient { get; private set; }
+        public AuctionRestClient RestClientForServer { get; private set; }
 
         [DevExtMethods("RegisterServerMessages")]
         protected void RegisterServerMessages_AuctionHouse()
@@ -33,7 +37,7 @@ namespace MultiplayerARPG
             ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, createAuctionMsgType, createAuction);
         }
 
-        private void HandleCreateAuctionAtServer(MessageHandlerData messageHandler)
+        private async void HandleCreateAuctionAtServer(MessageHandlerData messageHandler)
         {
             IPlayerCharacterData playerCharacterData;
             if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
@@ -53,7 +57,20 @@ namespace MultiplayerARPG
                 return;
             }
             // Tell the service to add to bidding list
-
+            RestClient.Result createResult = await RestClientForServer.CreateAuction(
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].dataId,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].level,
+                createAuction.amount,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].durability,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].randomSeed,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].WriteSockets(),
+                createAuction.startPrice,
+                createAuction.buyoutPrice);
+            if (createResult.IsNetworkError || createResult.IsHttpError)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
             // Remove item from inventory
             playerCharacterData.DecreaseItemsByIndex(createAuction.indexOfItem, createAuction.amount);
         }
@@ -66,7 +83,7 @@ namespace MultiplayerARPG
             ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, bidMsgType, bid);
         }
 
-        private void HandleBidAtServer(MessageHandlerData messageHandler)
+        private async void HandleBidAtServer(MessageHandlerData messageHandler)
         {
             IPlayerCharacterData playerCharacterData;
             if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
@@ -76,11 +93,30 @@ namespace MultiplayerARPG
             }
             BidMessage bid = messageHandler.ReadMessage<BidMessage>();
             // Get highest bidding price from service
-
+            RestClient.Result<AuctionData> getResult = await RestClientForServer.GetAuction(bid.auctionId);
+            if (getResult.IsNetworkError || getResult.IsHttpError)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
             // Validate gold
-
+            if (bid.price <= getResult.Content.bidPrice)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
+            if (playerCharacterData.Gold < getResult.Content.bidPrice)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
             // Tell the service to add to bid
-
+            RestClient.Result bidResult = await RestClientForServer.Bid(playerCharacterData.Id, bid.auctionId, bid.price);
+            if (bidResult.IsNetworkError || bidResult.IsHttpError)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
             // Reduce gold
             playerCharacterData.Gold -= bid.price;
         }
@@ -93,7 +129,7 @@ namespace MultiplayerARPG
             ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, buyoutMsgType, buyout);
         }
 
-        private void HandleBuyoutAtServer(MessageHandlerData messageHandler)
+        private async void HandleBuyoutAtServer(MessageHandlerData messageHandler)
         {
             IPlayerCharacterData playerCharacterData;
             if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
@@ -103,11 +139,26 @@ namespace MultiplayerARPG
             }
             BuyoutMessage buyout = messageHandler.ReadMessage<BuyoutMessage>();
             // Get buyout price from service
-            int price = 0;
+            RestClient.Result<AuctionData> getResult = await RestClientForServer.GetAuction(buyout.auctionId);
+            if (getResult.IsNetworkError || getResult.IsHttpError)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
+            int price = getResult.Content.buyoutPrice;
             // Validate gold
-
+            if (playerCharacterData.Gold < getResult.Content.buyoutPrice)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
             // Tell the service to add to buyout
-
+            RestClient.Result buyoutResult = await RestClientForServer.Buyout(playerCharacterData.Id, buyout.auctionId);
+            if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
             // Reduce gold
             playerCharacterData.Gold -= price;
         }
