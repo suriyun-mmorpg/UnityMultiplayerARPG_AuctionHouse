@@ -43,19 +43,21 @@ namespace MultiplayerARPG.Auction
             return Post(GetUrl(url, "/internal/auction"), form, accessToken);
         }
 
-        public Task<Result> Bid(string characterId, int id, int price)
+        public Task<Result> Bid(string characterId, string characterName, int id, int price)
         {
             Dictionary<string, object> form = new Dictionary<string, object>();
             form.Add(nameof(characterId), characterId);
+            form.Add(nameof(characterName), characterName);
             form.Add(nameof(id), id);
             form.Add(nameof(price), price);
             return Post(GetUrl(url, "/internal/bid"), form, accessToken);
         }
 
-        public Task<Result> Buyout(string characterId, int id)
+        public Task<Result> Buyout(string characterId, string characterName, int id)
         {
             Dictionary<string, object> form = new Dictionary<string, object>();
             form.Add(nameof(characterId), characterId);
+            form.Add(nameof(characterName), characterName);
             form.Add(nameof(id), id);
             return Post(GetUrl(url, "/internal/buyout"), form, accessToken);
         }
