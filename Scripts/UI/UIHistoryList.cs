@@ -5,17 +5,29 @@ namespace MultiplayerARPG.Auction
 {
     public class UIHistoryList : MonoBehaviour
     {
+        [Header("String Formats")]
+        [Tooltip("Format => {0} = {Page} / {Total Page}")]
+        public UILocaleKeySetting formatKeyPage = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_SIMPLE_MIN_BY_MAX);
+
         [Header("UI Elements")]
         public GameObject listEmptyObject;
         public UIAuction uiDialog;
         public UIAuction uiPrefab;
         public Transform uiContainer;
+        public TextWrapper textPage;
         public int limitPerPage = 20;
-        private int page;
+        private int page = 1;
         public int Page
         {
             get { return page; }
-            set { page = value; }
+            set
+            {
+                page = value;
+            }
+        }
+        public int TotalPage
+        {
+            get; set;
         }
 
         private UIList cacheList;
@@ -53,6 +65,7 @@ namespace MultiplayerARPG.Auction
             CacheSelectionManager.eventOnDeselected.AddListener(OnDeselect);
             if (uiDialog != null)
                 uiDialog.onHide.AddListener(OnDialogHide);
+            page = 1;
             Refresh();
         }
 
@@ -90,12 +103,17 @@ namespace MultiplayerARPG.Auction
 
         public void Refresh()
         {
-            RefreshRoutine();
+            GoToPageRoutine(Page);
         }
 
-        private async void RefreshRoutine()
+        public void GoToPage(int page)
         {
-            RestClient.Result<AuctionListResponse> result = await BaseGameNetworkManager.Singleton.RestClientForClient.GetHistoryList(limitPerPage, Page);
+            GoToPageRoutine(page);
+        }
+
+        private async void GoToPageRoutine(int page)
+        {
+            RestClient.Result<AuctionListResponse> result = await BaseGameNetworkManager.Singleton.RestClientForClient.GetHistoryList(limitPerPage, page);
             int selectedId = CacheSelectionManager.SelectedUI != null ? CacheSelectionManager.SelectedUI.Data.id : 0;
             CacheSelectionManager.DeselectSelectedUI();
             CacheSelectionManager.Clear();
@@ -115,6 +133,22 @@ namespace MultiplayerARPG.Auction
             });
             if (listEmptyObject != null)
                 listEmptyObject.SetActive(result.Content.list.Count == 0);
+        }
+
+        public void OnClickNextPage()
+        {
+            if (page + 1 > TotalPage)
+                Page = TotalPage;
+            else
+                Page = Page + 1;
+        }
+
+        public void OnClickPreviousPage()
+        {
+            if (page - 1 < 1)
+                Page = 1;
+            else
+                Page = Page - 1;
         }
     }
 }
