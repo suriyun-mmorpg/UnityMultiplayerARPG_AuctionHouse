@@ -62,10 +62,15 @@ namespace MultiplayerARPG
                 playerCharacterData.NonEquipItems[createAuction.indexOfItem].level,
                 createAuction.amount,
                 playerCharacterData.NonEquipItems[createAuction.indexOfItem].durability,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].exp,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].lockRemainsDuration,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].expireTime,
                 playerCharacterData.NonEquipItems[createAuction.indexOfItem].randomSeed,
                 playerCharacterData.NonEquipItems[createAuction.indexOfItem].WriteSockets(),
                 createAuction.startPrice,
-                createAuction.buyoutPrice);
+                createAuction.buyoutPrice,
+                playerCharacterData.Id,
+                playerCharacterData.CharacterName);
             if (createResult.IsNetworkError || createResult.IsHttpError)
             {
                 // TODO: Send error messages to client
