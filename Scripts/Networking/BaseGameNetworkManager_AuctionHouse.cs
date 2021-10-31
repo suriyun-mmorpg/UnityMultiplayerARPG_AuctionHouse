@@ -69,7 +69,7 @@ namespace MultiplayerARPG
                 playerCharacterData.NonEquipItems[createAuction.indexOfItem].WriteSockets(),
                 createAuction.startPrice,
                 createAuction.buyoutPrice,
-                playerCharacterData.Id,
+                playerCharacterData.UserId,
                 playerCharacterData.CharacterName);
             if (createResult.IsNetworkError || createResult.IsHttpError)
             {
@@ -116,7 +116,7 @@ namespace MultiplayerARPG
                 return;
             }
             // Tell the service to add to bid
-            RestClient.Result bidResult = await RestClientForServer.Bid(playerCharacterData.Id, playerCharacterData.CharacterName, bid.auctionId, bid.price);
+            RestClient.Result bidResult = await RestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, bid.auctionId, bid.price);
             if (bidResult.IsNetworkError || bidResult.IsHttpError)
             {
                 // TODO: Send error messages to client
@@ -158,7 +158,7 @@ namespace MultiplayerARPG
                 return;
             }
             // Tell the service to add to buyout
-            RestClient.Result buyoutResult = await RestClientForServer.Buyout(playerCharacterData.Id, playerCharacterData.CharacterName, buyout.auctionId);
+            RestClient.Result buyoutResult = await RestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, buyout.auctionId);
             if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
             {
                 // TODO: Send error messages to client

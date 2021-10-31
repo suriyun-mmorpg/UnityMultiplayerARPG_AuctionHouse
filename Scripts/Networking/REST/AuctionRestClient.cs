@@ -11,12 +11,16 @@ namespace MultiplayerARPG.Auction
 
         public Task<Result<AuctionListResponse>> GetAuctionList(int limit = 20, int page = 1)
         {
-            return Get<AuctionListResponse>(GetUrl(url, "/"), accessToken);
+            return Get<AuctionListResponse>(GetUrl(url, "/"), accessToken,
+                new KeyValuePair<string, object>(nameof(limit), limit),
+                new KeyValuePair<string, object>(nameof(page), page));
         }
 
         public Task<Result<AuctionListResponse>> GetHistoryList(int limit = 20, int page = 1)
         {
-            return Get<AuctionListResponse>(GetUrl(url, "/history"), accessToken);
+            return Get<AuctionListResponse>(GetUrl(url, "/history"), accessToken,
+                new KeyValuePair<string, object>(nameof(limit), limit),
+                new KeyValuePair<string, object>(nameof(page), page));
         }
 
         public Task<Result<AuctionData>> GetAuction(int id)
@@ -43,20 +47,20 @@ namespace MultiplayerARPG.Auction
             return Post(GetUrl(url, "/internal/auction"), form, accessToken);
         }
 
-        public Task<Result> Bid(string characterId, string characterName, int id, int price)
+        public Task<Result> Bid(string userId, string characterName, int id, int price)
         {
             Dictionary<string, object> form = new Dictionary<string, object>();
-            form.Add(nameof(characterId), characterId);
+            form.Add(nameof(userId), userId);
             form.Add(nameof(characterName), characterName);
             form.Add(nameof(id), id);
             form.Add(nameof(price), price);
             return Post(GetUrl(url, "/internal/bid"), form, accessToken);
         }
 
-        public Task<Result> Buyout(string characterId, string characterName, int id)
+        public Task<Result> Buyout(string userId, string characterName, int id)
         {
             Dictionary<string, object> form = new Dictionary<string, object>();
-            form.Add(nameof(characterId), characterId);
+            form.Add(nameof(userId), userId);
             form.Add(nameof(characterName), characterName);
             form.Add(nameof(id), id);
             return Post(GetUrl(url, "/internal/buyout"), form, accessToken);

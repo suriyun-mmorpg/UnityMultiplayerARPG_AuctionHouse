@@ -11,7 +11,7 @@
         public long timeLeft;
         public bool isEnd;
         public bool isBuyout;
-        public string winnerId;
-        public string winnerName;
+        public string buyerId;
+        public string buyerName;
     }
 }
