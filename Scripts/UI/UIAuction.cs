@@ -21,6 +21,7 @@ namespace MultiplayerARPG.Auction
         public TextWrapper textBuyoutPrice;
         public TextWrapper textSellerName;
         public TextWrapper textTimeLeft;
+        public UICharacterItems uiItems;
 
         protected override void UpdateData()
         {
@@ -52,6 +53,21 @@ namespace MultiplayerARPG.Auction
                 textTimeLeft.text = string.Format(
                     LanguageManager.GetText(formatKeyTimeLeft),
                     string.Format("{0} Days {1} Hrs. {2} Min.", diff.Days, diff.Hours, diff.Minutes));
+            }
+
+            if (uiItems != null)
+            {
+                Mail mail = new Mail();
+                mail.ReadItems(Data.itemData);
+                if (mail.Items.Count > 0)
+                {
+                    uiItems.UpdateData(GameInstance.PlayingCharacter, mail.Items);
+                    uiItems.Show();
+                }
+                else
+                {
+                    uiItems.Hide();
+                }
             }
         }
 
