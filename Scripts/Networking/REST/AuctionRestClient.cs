@@ -28,18 +28,10 @@ namespace MultiplayerARPG.Auction
             return Get<AuctionData>(GetUrl(url, $"/{id}"), accessToken);
         }
 
-        public Task<Result> CreateAuction(int itemDataId, int itemLevel, int itemAmount, float itemDurability, int itemExp, float itemLockRemainsDuration, long itemExpireTime, int itemRandomSeed, string itemSockets, int startPrice, int buyoutPrice, string sellerId, string sellerName)
+        public Task<Result> CreateAuction(string itemData, int startPrice, int buyoutPrice, string sellerId, string sellerName)
         {
             Dictionary<string, object> form = new Dictionary<string, object>();
-            form.Add(nameof(itemDataId), itemDataId);
-            form.Add(nameof(itemLevel), itemLevel);
-            form.Add(nameof(itemAmount), itemAmount);
-            form.Add(nameof(itemDurability), itemDurability);
-            form.Add(nameof(itemExp), itemExp);
-            form.Add(nameof(itemLockRemainsDuration), itemLockRemainsDuration);
-            form.Add(nameof(itemExpireTime), itemExpireTime);
-            form.Add(nameof(itemRandomSeed), itemRandomSeed);
-            form.Add(nameof(itemSockets), itemSockets);
+            form.Add(nameof(itemData), itemData);
             form.Add(nameof(startPrice), startPrice);
             form.Add(nameof(buyoutPrice), buyoutPrice);
             form.Add(nameof(sellerId), sellerId);

@@ -57,16 +57,10 @@ namespace MultiplayerARPG
                 return;
             }
             // Tell the service to add to bidding list
+            Mail mail = new Mail();
+            mail.Items.Add(playerCharacterData.NonEquipItems[createAuction.indexOfItem]);
             RestClient.Result createResult = await RestClientForServer.CreateAuction(
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].dataId,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].level,
-                createAuction.amount,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].durability,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].exp,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].lockRemainsDuration,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].expireTime,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].randomSeed,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].WriteSockets(),
+                mail.WriteItems(),
                 createAuction.startPrice,
                 createAuction.buyoutPrice,
                 playerCharacterData.UserId,

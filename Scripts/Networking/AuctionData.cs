@@ -13,5 +13,6 @@
         public bool isBuyout;
         public string buyerId;
         public string buyerName;
+        public string itemData;
     }
 }
