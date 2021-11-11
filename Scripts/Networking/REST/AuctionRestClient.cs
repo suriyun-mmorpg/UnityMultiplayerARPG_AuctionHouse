@@ -63,5 +63,10 @@ namespace MultiplayerARPG.Auction
             form.Add(nameof(id), id);
             return Post(GetUrl(url, "/internal/buyout"), form, accessToken);
         }
+
+        public Task<Result<DurationOptionsResponse>> GetDurationOptions()
+        {
+            return Get<DurationOptionsResponse>(GetUrl(url, "/duration-options"));
+        }
     }
 }
