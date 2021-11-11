@@ -30,9 +30,10 @@ namespace MultiplayerARPG
             getAccessTokenMsgType = 1303,
         };
         public string auctionHouseServiceUrl = "http://localhost:9800/auction-house";
+        public string auctionHouseSecretKey = "secret";
 
-        public AuctionRestClient AuctionRestClientForClient { get; private set; }
-        public AuctionRestClient AuctionRestClientForServer { get; private set; }
+        public AuctionRestClient AuctionRestClientForClient { get; private set; } = new AuctionRestClient();
+        public AuctionRestClient AuctionRestClientForServer { get; private set; } = new AuctionRestClient();
         public readonly List<int> AuctionDurationOptions = new List<int>();
 
         [DevExtMethods("RegisterMessages")]
@@ -43,6 +44,12 @@ namespace MultiplayerARPG
             RegisterServerMessage(auctionHouseMessageTypes.buyoutMsgType, HandleBuyoutAtServer);
             RegisterServerMessage(auctionHouseMessageTypes.getAccessTokenMsgType, HandleGetAuctionAccessTokenAtServer);
             RegisterClientMessage(auctionHouseMessageTypes.getAccessTokenMsgType, HandleGetAuctionAccessTokenAtClient);
+        }
+
+        [DevExtMethods("OnStartServer")]
+        protected void OnStartServer_AuctionHouse()
+        {
+            AuctionRestClientForServer.accessToken = auctionHouseSecretKey;
         }
 
         [DevExtMethods("OnClientOnlineSceneLoaded")]
