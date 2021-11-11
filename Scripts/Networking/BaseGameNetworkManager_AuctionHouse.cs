@@ -9,24 +9,48 @@ namespace MultiplayerARPG
 {
     public partial class BaseGameNetworkManager
     {
+        [SerializeField]
+        public class AuctionHouseMessageTypes
+        {
+            public ushort createAuctionMsgType;
+            public ushort bidMsgType;
+            public ushort buyoutMsgType;
+            public ushort getAccessTokenMsgType;
+        }
+
         /*
          * Do `Item Listing`, `Sell History`, `Bid Listing`, `Bidding`, `Buying` directly with service
          */
         [Header("Auction House")]
-        public ushort createAuctionMsgType = 300;
-        public ushort bidMsgType = 301;
-        public ushort buyoutMsgType = 301;
+        public AuctionHouseMessageTypes auctionHouseMessageTypes = new AuctionHouseMessageTypes()
+        {
+            createAuctionMsgType = 1300,
+            bidMsgType = 1301,
+            buyoutMsgType = 1302,
+            getAccessTokenMsgType = 1303,
+        };
         public string auctionHouseServiceUrl = "http://localhost:9800/auction-house";
 
         public AuctionRestClient RestClientForClient { get; private set; }
         public AuctionRestClient RestClientForServer { get; private set; }
 
-        [DevExtMethods("RegisterServerMessages")]
-        protected void RegisterServerMessages_AuctionHouse()
+        [DevExtMethods("RegisterMessages")]
+        protected void RegisterMessages_AuctionHouse()
         {
-            RegisterServerMessage(createAuctionMsgType, HandleCreateAuctionAtServer);
-            RegisterServerMessage(bidMsgType, HandleCreateAuctionAtServer);
-            RegisterServerMessage(buyoutMsgType, HandleCreateAuctionAtServer);
+            RegisterServerMessage(auctionHouseMessageTypes.createAuctionMsgType, HandleCreateAuctionAtServer);
+            RegisterServerMessage(auctionHouseMessageTypes.bidMsgType, HandleBidAtServer);
+            RegisterServerMessage(auctionHouseMessageTypes.buyoutMsgType, HandleBuyoutAtServer);
+            RegisterServerMessage(auctionHouseMessageTypes.getAccessTokenMsgType, HandleGetAuctionAccessTokenAtServer);
+            RegisterClientMessage(auctionHouseMessageTypes.getAccessTokenMsgType, HandleGetAuctionAccessTokenAtClient);
+        }
+
+        [DevExtMethods("OnClientOnlineSceneLoaded")]
+        protected void OnClientOnlineSceneLoaded_AuctionHouse()
+        {
+            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
+            {
+                writer.Put(GameInstance.UserId);
+            });
         }
 
         public void CreateAuction(CreateAuctionMessage createAuction)
@@ -34,7 +58,7 @@ namespace MultiplayerARPG
             if (!IsClientConnected)
                 return;
             // Send create auction message to server
-            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, createAuctionMsgType, createAuction);
+            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.createAuctionMsgType, createAuction);
         }
 
         private async void HandleCreateAuctionAtServer(MessageHandlerData messageHandler)
@@ -64,7 +88,8 @@ namespace MultiplayerARPG
                 createAuction.startPrice,
                 createAuction.buyoutPrice,
                 playerCharacterData.UserId,
-                playerCharacterData.CharacterName);
+                playerCharacterData.CharacterName,
+                createAuction.durationOption);
             if (createResult.IsNetworkError || createResult.IsHttpError)
             {
                 // TODO: Send error messages to client
@@ -79,7 +104,7 @@ namespace MultiplayerARPG
             if (!IsClientConnected)
                 return;
             // Send create auction message to server
-            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, bidMsgType, bid);
+            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.bidMsgType, bid);
         }
 
         private async void HandleBidAtServer(MessageHandlerData messageHandler)
@@ -125,7 +150,7 @@ namespace MultiplayerARPG
             if (!IsClientConnected)
                 return;
             // Send create auction message to server
-            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, buyoutMsgType, buyout);
+            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.buyoutMsgType, buyout);
         }
 
         private async void HandleBuyoutAtServer(MessageHandlerData messageHandler)
@@ -160,6 +185,26 @@ namespace MultiplayerARPG
             }
             // Reduce gold
             playerCharacterData.Gold -= price;
+        }
+
+        private async void HandleGetAuctionAccessTokenAtServer(MessageHandlerData messageHandler)
+        {
+            string userId = messageHandler.Reader.GetString();
+            RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await RestClientForServer.GetAccessToken(userId);
+            if (getAccessTokenResult.IsNetworkError || getAccessTokenResult.IsHttpError)
+            {
+                // TODO: Send error messages to client
+                return;
+            }
+            ServerSendPacket(messageHandler.ConnectionId, 0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
+            {
+                writer.Put(getAccessTokenResult.Content["accessToken"]);
+            });
+        }
+
+        private void HandleGetAuctionAccessTokenAtClient(MessageHandlerData messageHandler)
+        {
+            RestClientForClient.accessToken = messageHandler.Reader.GetString();
         }
     }
 }

@@ -28,7 +28,12 @@ namespace MultiplayerARPG.Auction
             return Get<AuctionData>(GetUrl(url, $"/{id}"), accessToken);
         }
 
-        public Task<Result> CreateAuction(string itemData, int startPrice, int buyoutPrice, string sellerId, string sellerName)
+        public Task<Result<Dictionary<string, string>>> GetAccessToken(string userId)
+        {
+            return Get<Dictionary<string, string>>(GetUrl(url, "/internal/access-token"), accessToken, new KeyValuePair<string, object>(nameof(userId), userId));
+        }
+
+        public Task<Result> CreateAuction(string itemData, int startPrice, int buyoutPrice, string sellerId, string sellerName, int durationOption)
         {
             Dictionary<string, object> form = new Dictionary<string, object>();
             form.Add(nameof(itemData), itemData);
@@ -36,6 +41,7 @@ namespace MultiplayerARPG.Auction
             form.Add(nameof(buyoutPrice), buyoutPrice);
             form.Add(nameof(sellerId), sellerId);
             form.Add(nameof(sellerName), sellerName);
+            form.Add(nameof(durationOption), durationOption);
             return Post(GetUrl(url, "/internal/auction"), form, accessToken);
         }
 

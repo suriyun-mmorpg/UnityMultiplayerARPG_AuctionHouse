@@ -8,6 +8,7 @@ namespace MultiplayerARPG.Auction
         public short amount;
         public int startPrice;
         public int buyoutPrice;
+        public int durationOption;
 
         public void Deserialize(NetDataReader reader)
         {
@@ -15,6 +16,7 @@ namespace MultiplayerARPG.Auction
             amount = reader.GetPackedShort();
             startPrice = reader.GetPackedShort();
             buyoutPrice = reader.GetPackedShort();
+            durationOption = reader.GetPackedInt();
         }
 
         public void Serialize(NetDataWriter writer)
@@ -23,6 +25,7 @@ namespace MultiplayerARPG.Auction
             writer.PutPackedShort(amount);
             writer.PutPackedInt(startPrice);
             writer.PutPackedInt(buyoutPrice);
+            writer.PutPackedInt(durationOption);
         }
     }
 }
