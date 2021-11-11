@@ -31,8 +31,9 @@ namespace MultiplayerARPG
         };
         public string auctionHouseServiceUrl = "http://localhost:9800/auction-house";
 
-        public AuctionRestClient RestClientForClient { get; private set; }
-        public AuctionRestClient RestClientForServer { get; private set; }
+        public AuctionRestClient AuctionRestClientForClient { get; private set; }
+        public AuctionRestClient AuctionRestClientForServer { get; private set; }
+        public readonly List<int> AuctionDurationOptions = new List<int>();
 
         [DevExtMethods("RegisterMessages")]
         protected void RegisterMessages_AuctionHouse()
@@ -50,6 +51,22 @@ namespace MultiplayerARPG
             ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
             {
                 writer.Put(GameInstance.UserId);
+            });
+            GetAuctionDurationOptions();
+        }
+
+        protected void GetAuctionDurationOptions()
+        {
+            AuctionRestClientForClient.GetDurationOptions().ContinueWith((response) =>
+            {
+                if (response.Result.IsNetworkError || response.Result.IsHttpError)
+                {
+                    // TODO: Send error messages to client
+                    GetAuctionDurationOptions();
+                    return;
+                }
+                AuctionDurationOptions.Clear();
+                AuctionDurationOptions.AddRange(response.Result.Content.durationOptions);
             });
         }
 
@@ -83,7 +100,7 @@ namespace MultiplayerARPG
             // Tell the service to add to bidding list
             Mail mail = new Mail();
             mail.Items.Add(playerCharacterData.NonEquipItems[createAuction.indexOfItem]);
-            RestClient.Result createResult = await RestClientForServer.CreateAuction(
+            RestClient.Result createResult = await AuctionRestClientForServer.CreateAuction(
                 mail.WriteItems(),
                 createAuction.startPrice,
                 createAuction.buyoutPrice,
@@ -117,7 +134,7 @@ namespace MultiplayerARPG
             }
             BidMessage bid = messageHandler.ReadMessage<BidMessage>();
             // Get highest bidding price from service
-            RestClient.Result<AuctionData> getResult = await RestClientForServer.GetAuction(bid.auctionId);
+            RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(bid.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
                 // TODO: Send error messages to client
@@ -135,7 +152,7 @@ namespace MultiplayerARPG
                 return;
             }
             // Tell the service to add to bid
-            RestClient.Result bidResult = await RestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, bid.auctionId, bid.price);
+            RestClient.Result bidResult = await AuctionRestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, bid.auctionId, bid.price);
             if (bidResult.IsNetworkError || bidResult.IsHttpError)
             {
                 // TODO: Send error messages to client
@@ -163,7 +180,7 @@ namespace MultiplayerARPG
             }
             BuyoutMessage buyout = messageHandler.ReadMessage<BuyoutMessage>();
             // Get buyout price from service
-            RestClient.Result<AuctionData> getResult = await RestClientForServer.GetAuction(buyout.auctionId);
+            RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(buyout.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
                 // TODO: Send error messages to client
@@ -177,7 +194,7 @@ namespace MultiplayerARPG
                 return;
             }
             // Tell the service to add to buyout
-            RestClient.Result buyoutResult = await RestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, buyout.auctionId);
+            RestClient.Result buyoutResult = await AuctionRestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, buyout.auctionId);
             if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
             {
                 // TODO: Send error messages to client
@@ -190,7 +207,7 @@ namespace MultiplayerARPG
         private async void HandleGetAuctionAccessTokenAtServer(MessageHandlerData messageHandler)
         {
             string userId = messageHandler.Reader.GetString();
-            RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await RestClientForServer.GetAccessToken(userId);
+            RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await AuctionRestClientForServer.GetAccessToken(userId);
             if (getAccessTokenResult.IsNetworkError || getAccessTokenResult.IsHttpError)
             {
                 // TODO: Send error messages to client
@@ -204,7 +221,7 @@ namespace MultiplayerARPG
 
         private void HandleGetAuctionAccessTokenAtClient(MessageHandlerData messageHandler)
         {
-            RestClientForClient.accessToken = messageHandler.Reader.GetString();
+            AuctionRestClientForClient.accessToken = messageHandler.Reader.GetString();
         }
     }
 }

@@ -113,7 +113,7 @@ namespace MultiplayerARPG.Auction
 
         private async void GoToPageRoutine(int page)
         {
-            RestClient.Result<AuctionListResponse> result = await BaseGameNetworkManager.Singleton.RestClientForClient.GetHistoryList(limitPerPage, page);
+            RestClient.Result<AuctionListResponse> result = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetHistoryList(limitPerPage, page);
             int selectedId = CacheSelectionManager.SelectedUI != null ? CacheSelectionManager.SelectedUI.Data.id : 0;
             CacheSelectionManager.DeselectSelectedUI();
             CacheSelectionManager.Clear();
