@@ -9,7 +9,7 @@ namespace MultiplayerARPG
 {
     public partial class BaseGameNetworkManager
     {
-        [SerializeField]
+        [System.Serializable]
         public class AuctionHouseMessageTypes
         {
             public ushort createAuctionMsgType;
