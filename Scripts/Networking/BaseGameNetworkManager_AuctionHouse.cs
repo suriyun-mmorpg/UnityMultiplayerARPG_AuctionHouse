@@ -49,12 +49,14 @@ namespace MultiplayerARPG
         [DevExtMethods("OnStartServer")]
         protected void OnStartServer_AuctionHouse()
         {
+            AuctionRestClientForServer.url = auctionHouseServiceUrl;
             AuctionRestClientForServer.accessToken = auctionHouseSecretKey;
         }
 
         [DevExtMethods("OnClientOnlineSceneLoaded")]
         protected void OnClientOnlineSceneLoaded_AuctionHouse()
         {
+            AuctionRestClientForClient.url = auctionHouseServiceUrl;
             ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
             {
                 writer.Put(GameInstance.UserId);
