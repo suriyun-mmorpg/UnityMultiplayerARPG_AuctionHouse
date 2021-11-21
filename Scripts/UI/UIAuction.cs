@@ -12,6 +12,8 @@ namespace MultiplayerARPG.Auction
         public UILocaleKeySetting formatKeyBuyoutPrice = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_SIMPLE);
         [Tooltip("Format => {0} = {Seller Name}")]
         public UILocaleKeySetting formatKeySellerName = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_SIMPLE);
+        [Tooltip("Format => {0} = {Buyer Name}")]
+        public UILocaleKeySetting formatKeyBuyerName = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_SIMPLE);
         [Tooltip("Format => {0} = {Ends In}")]
         public UILocaleKeySetting formatKeyTimeLeft = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_SIMPLE);
 
@@ -20,6 +22,7 @@ namespace MultiplayerARPG.Auction
         public TextWrapper textBidPrice;
         public TextWrapper textBuyoutPrice;
         public TextWrapper textSellerName;
+        public TextWrapper textBuyerName;
         public TextWrapper textTimeLeft;
         public UICharacterItems uiItems;
 
@@ -44,6 +47,13 @@ namespace MultiplayerARPG.Auction
                 textSellerName.text = string.Format(
                     LanguageManager.GetText(formatKeySellerName),
                     Data.sellerName);
+            }
+
+            if (textBuyerName != null)
+            {
+                textBuyerName.text = string.Format(
+                    LanguageManager.GetText(formatKeyBuyerName),
+                    Data.buyerName);
             }
 
             if (textTimeLeft != null)
