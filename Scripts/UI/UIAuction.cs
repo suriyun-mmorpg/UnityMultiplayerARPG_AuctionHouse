@@ -24,7 +24,7 @@ namespace MultiplayerARPG.Auction
         public TextWrapper textSellerName;
         public TextWrapper textBuyerName;
         public TextWrapper textTimeLeft;
-        public UICharacterItems uiItems;
+        public UICharacterItem uiItem;
 
         protected override void UpdateData()
         {
@@ -65,18 +65,18 @@ namespace MultiplayerARPG.Auction
                     string.Format("{0} Days {1} Hrs. {2} Min.", diff.Days, diff.Hours, diff.Minutes));
             }
 
-            if (uiItems != null)
+            if (uiItem != null)
             {
                 Mail mail = new Mail();
                 mail.ReadItems(Data.itemData);
                 if (mail.Items.Count > 0)
                 {
-                    uiItems.UpdateData(GameInstance.PlayingCharacter, mail.Items);
-                    uiItems.Show();
+                    uiItem.Setup(new UICharacterItemData(mail.Items[0], InventoryType.Unknow), GameInstance.PlayingCharacter, 0);
+                    uiItem.Show();
                 }
                 else
                 {
-                    uiItems.Hide();
+                    uiItem.Hide();
                 }
             }
         }
@@ -84,6 +84,11 @@ namespace MultiplayerARPG.Auction
         public void OnClickBid()
         {
             int bidPrice = int.Parse(inputBidPrice.text);
+            OnClickBid(bidPrice);
+        }
+
+        public void OnClickBid(int bidPrice)
+        {
             BaseGameNetworkManager.Singleton.Bid(new BidMessage()
             {
                 auctionId = Data.id,
