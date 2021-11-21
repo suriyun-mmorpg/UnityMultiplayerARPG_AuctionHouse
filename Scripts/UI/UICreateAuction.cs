@@ -1,40 +1,52 @@
-﻿using MultiplayerARPG.Auction;
-using MultiplayerARPG.MMO;
+﻿using MultiplayerARPG.MMO;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace MultiplayerARPG
+namespace MultiplayerARPG.Auction
 {
-    public partial class UICharacterItem
+    public partial class UICreateAuction : MonoBehaviour
     {
         [Header("Create Auction")]
         public InputFieldWrapper inputCreateAuctionAmount;
         public InputFieldWrapper inputCreateAuctionStartPrice;
         public InputFieldWrapper inputCreateAuctionBuyoutPrice;
+        public UICharacterItem uiItem;
+        public UnityEvent onCreateAuction = new UnityEvent();
 
         protected short maxCreateAuctionAmount = 0;
 
         [DevExtMethods("Show")]
         protected virtual void Show_CreateAuction()
         {
-            short amount = CharacterItem == null ? (short)1 : CharacterItem.amount;
+            short amount = uiItem.CharacterItem == null ? (short)1 : uiItem.CharacterItem.amount;
             maxCreateAuctionAmount = amount;
-            inputCreateAuctionAmount.text = amount.ToString();
-            inputCreateAuctionAmount.onValueChanged.RemoveListener(InputCreateAuctionAmountOnValueChanged);
-            inputCreateAuctionAmount.onValueChanged.AddListener(InputCreateAuctionAmountOnValueChanged);
-            inputCreateAuctionStartPrice.text = "0";
-            inputCreateAuctionStartPrice.onValueChanged.RemoveListener(InputCreateAuctionStartPriceOnValueChanged);
-            inputCreateAuctionStartPrice.onValueChanged.AddListener(InputCreateAuctionStartPriceOnValueChanged);
-            inputCreateAuctionBuyoutPrice.text = "0";
-            inputCreateAuctionBuyoutPrice.onValueChanged.RemoveListener(InputCreateAuctionBuyoutPriceOnValueChanged);
-            inputCreateAuctionBuyoutPrice.onValueChanged.AddListener(InputCreateAuctionBuyoutPriceOnValueChanged);
+            if (inputCreateAuctionAmount)
+            {
+                inputCreateAuctionAmount.text = amount.ToString();
+                inputCreateAuctionAmount.onValueChanged.RemoveListener(InputCreateAuctionAmountOnValueChanged);
+                inputCreateAuctionAmount.onValueChanged.AddListener(InputCreateAuctionAmountOnValueChanged);
+            }
+            if (inputCreateAuctionStartPrice)
+            {
+                inputCreateAuctionStartPrice.SetTextWithoutNotify("0");
+                inputCreateAuctionStartPrice.onValueChanged.RemoveListener(InputCreateAuctionStartPriceOnValueChanged);
+                inputCreateAuctionStartPrice.onValueChanged.AddListener(InputCreateAuctionStartPriceOnValueChanged);
+            }
+            if (inputCreateAuctionBuyoutPrice)
+            {
+                inputCreateAuctionBuyoutPrice.SetTextWithoutNotify("0");
+                inputCreateAuctionBuyoutPrice.onValueChanged.RemoveListener(InputCreateAuctionBuyoutPriceOnValueChanged);
+                inputCreateAuctionBuyoutPrice.onValueChanged.AddListener(InputCreateAuctionBuyoutPriceOnValueChanged);
+            }
         }
 
         [DevExtMethods("UpdateData")]
         protected virtual void UpdateData_CreateAuction()
         {
-            short amount = CharacterItem == null ? (short)0 : CharacterItem.amount;
+            short amount = uiItem.CharacterItem == null ? (short)0 : uiItem.CharacterItem.amount;
             maxCreateAuctionAmount = amount;
-            inputCreateAuctionAmount.text = amount.ToString();
+            if (inputCreateAuctionAmount)
+                inputCreateAuctionAmount.SetTextWithoutNotify(amount.ToString());
         }
 
         protected void InputCreateAuctionAmountOnValueChanged(string text)
@@ -68,12 +80,12 @@ namespace MultiplayerARPG
             int buyoutPrice = int.Parse(inputCreateAuctionBuyoutPrice.text);
             (BaseGameNetworkManager.Singleton as MapNetworkManager).CreateAuction(new CreateAuctionMessage()
             {
-                indexOfItem = IndexOfData,
+                indexOfItem = uiItem.IndexOfData,
                 amount = amount,
                 startPrice = startPrice,
                 buyoutPrice = buyoutPrice,
             });
-            Hide();
+            onCreateAuction.Invoke();
         }
     }
 }
