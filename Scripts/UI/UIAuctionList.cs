@@ -3,7 +3,7 @@ using UnityRestClient;
 
 namespace MultiplayerARPG.Auction
 {
-    public class UIAuctionList : MonoBehaviour
+    public class UIAuctionList : UIBase
     {
         public enum ListMode
         {
@@ -22,6 +22,7 @@ namespace MultiplayerARPG.Auction
         public UIAuction uiDialog;
         public UIAuction uiPrefab;
         public Transform uiContainer;
+        public InputFieldWrapper inputBidPrice;
         public TextWrapper textPage;
         public int limitPerPage = 20;
         private int page = 1;
@@ -179,7 +180,8 @@ namespace MultiplayerARPG.Auction
         {
             if (!CacheSelectionManager.SelectedUI)
                 return;
-            CacheSelectionManager.SelectedUI.OnClickBid();
+            int bidPrice = int.Parse(inputBidPrice.text);
+            CacheSelectionManager.SelectedUI.OnClickBid(bidPrice);
         }
 
         public void OnClickBuyout()
