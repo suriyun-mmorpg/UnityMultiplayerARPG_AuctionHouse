@@ -189,7 +189,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1108594110997305845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -872,7 +872,7 @@ MonoBehaviour:
   onHideWithObject:
     m_PersistentCalls:
       m_Calls: []
-  objectSelected: {fileID: 0}
+  objectSelected: {fileID: 1304638847729011064}
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyBidPrice:
@@ -987,9 +987,6 @@ MonoBehaviour:
   objectSelected: {fileID: 0}
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
-  inputCreateAuctionAmount: {fileID: 0}
-  inputCreateAuctionStartPrice: {fileID: 0}
-  inputCreateAuctionBuyoutPrice: {fileID: 0}
   formatKeyTitle:
     localeKey: 5
     customKey: 
