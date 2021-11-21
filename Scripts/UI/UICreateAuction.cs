@@ -15,9 +15,9 @@ namespace MultiplayerARPG.Auction
 
         protected short maxCreateAuctionAmount = 0;
 
-        [DevExtMethods("Show")]
-        protected virtual void Show_CreateAuction()
+        protected virtual void OnEnable()
         {
+            uiItem.onUpdateData += OnUpdateData;
             short amount = uiItem.CharacterItem == null ? (short)1 : uiItem.CharacterItem.amount;
             maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
@@ -40,13 +40,17 @@ namespace MultiplayerARPG.Auction
             }
         }
 
-        [DevExtMethods("UpdateData")]
-        protected virtual void UpdateData_CreateAuction()
+        protected virtual void OnDisable()
         {
-            short amount = uiItem.CharacterItem == null ? (short)0 : uiItem.CharacterItem.amount;
+            uiItem.onUpdateData -= OnUpdateData;
+        }
+
+        protected void OnUpdateData(UICharacterItemData data)
+        {
+            short amount = uiItem.CharacterItem == null ? (short)1 : data.characterItem.amount;
             maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
-                inputCreateAuctionAmount.SetTextWithoutNotify(amount.ToString());
+                inputCreateAuctionAmount.text = amount.ToString();
         }
 
         protected void InputCreateAuctionAmountOnValueChanged(string text)
