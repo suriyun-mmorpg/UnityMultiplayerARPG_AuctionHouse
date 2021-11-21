@@ -7392,7 +7392,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4775885012798894828}
-        m_MethodName: OnClickEquip
+        m_MethodName: OnClickCreateAuction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
