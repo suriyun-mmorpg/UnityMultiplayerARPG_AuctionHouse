@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityRestClient;
 
-namespace MultiplayerARPG
+namespace MultiplayerARPG.MMO
 {
-    public partial class BaseGameNetworkManager
+    public partial class MapNetworkManager
     {
         [System.Serializable]
         public class AuctionHouseMessageTypes
@@ -29,7 +29,7 @@ namespace MultiplayerARPG
             buyoutMsgType = 1302,
             getAccessTokenMsgType = 1303,
         };
-        public string auctionHouseServiceUrl = "http://localhost:9800/auction-house";
+        public string auctionHouseServiceUrl = "http://localhost:9800";
         public string auctionHouseSecretKey = "secret";
 
         public AuctionRestClient AuctionRestClientForClient { get; private set; } = new AuctionRestClient();
@@ -37,7 +37,7 @@ namespace MultiplayerARPG
         public readonly List<int> AuctionDurationOptions = new List<int>();
 
         [DevExtMethods("RegisterMessages")]
-        protected void RegisterMessages_AuctionHouse()
+        private void RegisterMessages_AuctionHouse()
         {
             RegisterServerMessage(auctionHouseMessageTypes.createAuctionMsgType, HandleCreateAuctionAtServer);
             RegisterServerMessage(auctionHouseMessageTypes.bidMsgType, HandleBidAtServer);
@@ -47,14 +47,14 @@ namespace MultiplayerARPG
         }
 
         [DevExtMethods("OnStartServer")]
-        protected void OnStartServer_AuctionHouse()
+        private void OnStartServer_AuctionHouse()
         {
             AuctionRestClientForServer.url = auctionHouseServiceUrl;
             AuctionRestClientForServer.accessToken = auctionHouseSecretKey;
         }
 
         [DevExtMethods("OnClientOnlineSceneLoaded")]
-        protected void OnClientOnlineSceneLoaded_AuctionHouse()
+        private void OnClientOnlineSceneLoaded_AuctionHouse()
         {
             AuctionRestClientForClient.url = auctionHouseServiceUrl;
             ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
@@ -64,7 +64,7 @@ namespace MultiplayerARPG
             GetAuctionDurationOptions();
         }
 
-        protected void GetAuctionDurationOptions()
+        private void GetAuctionDurationOptions()
         {
             AuctionRestClientForClient.GetDurationOptions().ContinueWith((response) =>
             {

@@ -1,4 +1,5 @@
 ﻿using MultiplayerARPG.Auction;
+using MultiplayerARPG.MMO;
 using UnityEngine;
 
 namespace MultiplayerARPG
@@ -15,7 +16,7 @@ namespace MultiplayerARPG
             short amount = short.Parse(inputCreateAuctionAmount.text);
             int startPrice = int.Parse(inputCreateAuctionStartPrice.text);
             int buyoutPrice = int.Parse(inputCreateAuctionBuyoutPrice.text);
-            BaseGameNetworkManager.Singleton.CreateAuction(new CreateAuctionMessage()
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).CreateAuction(new CreateAuctionMessage()
             {
                 indexOfItem = IndexOfData,
                 amount = amount,

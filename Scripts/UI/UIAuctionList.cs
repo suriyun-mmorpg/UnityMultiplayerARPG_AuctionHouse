@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MultiplayerARPG.MMO;
+using UnityEngine;
 using UnityRestClient;
 
 namespace MultiplayerARPG.Auction
@@ -76,7 +77,7 @@ namespace MultiplayerARPG.Auction
                 uiDialog.onHide.AddListener(OnDialogHide);
             page = 1;
             if (textPage)
-                textPage.text = string.Format(formatKeyPage.ToString(), 1, 1);
+                textPage.text = string.Format(formatKeyPage.ToFormat(), 1, 1);
             Refresh();
         }
 
@@ -128,13 +129,13 @@ namespace MultiplayerARPG.Auction
             switch (listMode)
             {
                 case ListMode.SellHistory:
-                    result = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetSellHistoryList(limitPerPage, page);
+                    result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetSellHistoryList(limitPerPage, page);
                     break;
                 case ListMode.BuyHistory:
-                    result = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetBuyHistoryList(limitPerPage, page);
+                    result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetBuyHistoryList(limitPerPage, page);
                     break;
                 default:
-                    result = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetAuctionList(limitPerPage, page);
+                    result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetAuctionList(limitPerPage, page);
                     break;
             }
             int selectedId = CacheSelectionManager.SelectedUI != null ? CacheSelectionManager.SelectedUI.Data.id : 0;

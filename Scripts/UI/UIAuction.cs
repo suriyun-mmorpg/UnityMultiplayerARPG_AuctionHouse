@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MultiplayerARPG.MMO;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace MultiplayerARPG.Auction
@@ -89,7 +90,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickBid(int bidPrice)
         {
-            BaseGameNetworkManager.Singleton.Bid(new BidMessage()
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).Bid(new BidMessage()
             {
                 auctionId = Data.id,
                 price = bidPrice,
@@ -98,7 +99,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickBuyout()
         {
-            BaseGameNetworkManager.Singleton.Buyout(new BuyoutMessage()
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).Buyout(new BuyoutMessage()
             {
                 auctionId = Data.id,
             });
