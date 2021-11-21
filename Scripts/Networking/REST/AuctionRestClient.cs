@@ -16,9 +16,16 @@ namespace MultiplayerARPG.Auction
                 new KeyValuePair<string, object>(nameof(page), page));
         }
 
-        public Task<Result<AuctionListResponse>> GetHistoryList(int limit = 20, int page = 1)
+        public Task<Result<AuctionListResponse>> GetSellHistoryList(int limit = 20, int page = 1)
         {
-            return Get<AuctionListResponse>(GetUrl(url, "/history"), accessToken,
+            return Get<AuctionListResponse>(GetUrl(url, "/sell-history"), accessToken,
+                new KeyValuePair<string, object>(nameof(limit), limit),
+                new KeyValuePair<string, object>(nameof(page), page));
+        }
+
+        public Task<Result<AuctionListResponse>> GetBuyHistoryList(int limit = 20, int page = 1)
+        {
+            return Get<AuctionListResponse>(GetUrl(url, "/buy-history"), accessToken,
                 new KeyValuePair<string, object>(nameof(limit), limit),
                 new KeyValuePair<string, object>(nameof(page), page));
         }
