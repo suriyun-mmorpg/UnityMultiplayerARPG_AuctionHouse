@@ -93,6 +93,7 @@ namespace MultiplayerARPG.MMO
             if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
             {
                 // Do nothing, player character is not enter the game yet.
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_LOGGED_IN);
                 return;
             }
             // Require index of non equip items, amount, starting auction price, buyout price (optional, 0 = no buyout)
@@ -104,6 +105,7 @@ namespace MultiplayerARPG.MMO
                 playerCharacterData.NonEquipItems[createAuction.indexOfItem].amount < createAuction.amount)
             {
                 // Do nothing, wrong index of item or item amount is over than it has
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INVALID_ITEM_INDEX);
                 return;
             }
             // Tell the service to add to bidding list
@@ -120,7 +122,7 @@ namespace MultiplayerARPG.MMO
                 createAuction.durationOption);
             if (createResult.IsNetworkError || createResult.IsHttpError)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
                 return;
             }
             // Remove item from inventory
@@ -141,6 +143,7 @@ namespace MultiplayerARPG.MMO
             if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
             {
                 // Do nothing, player character is not enter the game yet.
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_LOGGED_IN);
                 return;
             }
             BidMessage bid = messageHandler.ReadMessage<BidMessage>();
@@ -148,25 +151,25 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(bid.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INVALID_DATA);
                 return;
             }
             // Validate gold
             if (bid.price <= getResult.Content.bidPrice)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
                 return;
             }
             if (playerCharacterData.Gold < getResult.Content.bidPrice)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
                 return;
             }
             // Tell the service to add to bid
             RestClient.Result bidResult = await AuctionRestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, bid.auctionId, bid.price);
             if (bidResult.IsNetworkError || bidResult.IsHttpError)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
                 return;
             }
             // Reduce gold
@@ -187,6 +190,7 @@ namespace MultiplayerARPG.MMO
             if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
             {
                 // Do nothing, player character is not enter the game yet.
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_LOGGED_IN);
                 return;
             }
             BuyoutMessage buyout = messageHandler.ReadMessage<BuyoutMessage>();
@@ -194,21 +198,21 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(buyout.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
                 return;
             }
             int price = getResult.Content.buyoutPrice;
             // Validate gold
             if (playerCharacterData.Gold < getResult.Content.buyoutPrice)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
                 return;
             }
             // Tell the service to add to buyout
             RestClient.Result buyoutResult = await AuctionRestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, buyout.auctionId);
             if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
                 return;
             }
             // Reduce gold
@@ -221,7 +225,7 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await AuctionRestClientForServer.GetAccessToken(userId);
             if (getAccessTokenResult.IsNetworkError || getAccessTokenResult.IsHttpError)
             {
-                // TODO: Send error messages to client
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
                 return;
             }
             ServerSendPacket(messageHandler.ConnectionId, 0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
