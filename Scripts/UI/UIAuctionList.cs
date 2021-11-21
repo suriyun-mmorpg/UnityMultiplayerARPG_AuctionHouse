@@ -5,11 +5,16 @@ namespace MultiplayerARPG.Auction
 {
     public class UIAuctionList : MonoBehaviour
     {
+        [Header("String Formats")]
+        [Tooltip("Format => {0} = {Page} / {Total Page}")]
+        public UILocaleKeySetting formatKeyPage = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_SIMPLE_MIN_BY_MAX);
+
         [Header("UI Elements")]
         public GameObject listEmptyObject;
         public UIAuction uiDialog;
         public UIAuction uiPrefab;
         public Transform uiContainer;
+        public TextWrapper textPage;
         public int limitPerPage = 20;
         private int page = 1;
         public int Page
@@ -61,6 +66,8 @@ namespace MultiplayerARPG.Auction
             if (uiDialog != null)
                 uiDialog.onHide.AddListener(OnDialogHide);
             page = 1;
+            if (textPage)
+                textPage.text = string.Format(formatKeyPage.ToString(), 1, 1);
             Refresh();
         }
 
@@ -128,6 +135,8 @@ namespace MultiplayerARPG.Auction
             });
             if (listEmptyObject != null)
                 listEmptyObject.SetActive(result.Content.list.Count == 0);
+            if (textPage)
+                textPage.text = string.Format(formatKeyPage.ToString(), result.Content.page, result.Content.totalPage);
         }
 
         public void OnClickNextPage()

@@ -66,6 +66,8 @@ namespace MultiplayerARPG.Auction
             if (uiDialog != null)
                 uiDialog.onHide.AddListener(OnDialogHide);
             page = 1;
+            if (textPage)
+                textPage.text = string.Format(formatKeyPage.ToString(), 1, 1);
             Refresh();
         }
 
@@ -133,6 +135,8 @@ namespace MultiplayerARPG.Auction
             });
             if (listEmptyObject != null)
                 listEmptyObject.SetActive(result.Content.list.Count == 0);
+            if (textPage)
+                textPage.text = string.Format(formatKeyPage.ToString(), result.Content.page, result.Content.totalPage);
         }
 
         public void OnClickNextPage()
