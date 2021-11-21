@@ -1044,7 +1044,7 @@ MonoBehaviour:
   formatKeyItemType:
     localeKey: 58
     customKey: 
-  uiTextTitle: {fileID: 0}
+  uiTextTitle: {fileID: 1284753957031112886}
   uiTextDescription: {fileID: 0}
   uiTextRarity: {fileID: 0}
   uiTextLevel: {fileID: 0}
