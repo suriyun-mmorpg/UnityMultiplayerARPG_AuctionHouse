@@ -111,6 +111,8 @@ namespace MultiplayerARPG
             mail.Items.Add(playerCharacterData.NonEquipItems[createAuction.indexOfItem]);
             RestClient.Result createResult = await AuctionRestClientForServer.CreateAuction(
                 mail.WriteItems(),
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].GetItem().DefaultTitle,
+                playerCharacterData.NonEquipItems[createAuction.indexOfItem].level,
                 createAuction.startPrice,
                 createAuction.buyoutPrice,
                 playerCharacterData.UserId,
