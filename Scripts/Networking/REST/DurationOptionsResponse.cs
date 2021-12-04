@@ -5,6 +5,6 @@ namespace MultiplayerARPG.Auction
     [System.Serializable]
     public class DurationOptionsResponse
     {
-        public List<int> durationOptions = new List<int>();
+        public List<DurationOption> durationOptions = new List<DurationOption>();
     }
 }

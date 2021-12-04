@@ -34,7 +34,6 @@ namespace MultiplayerARPG.MMO
 
         public AuctionRestClient AuctionRestClientForClient { get; private set; } = new AuctionRestClient();
         public AuctionRestClient AuctionRestClientForServer { get; private set; } = new AuctionRestClient();
-        public readonly List<int> AuctionDurationOptions = new List<int>();
 
         [DevExtMethods("RegisterMessages")]
         private void RegisterMessages_AuctionHouse()
@@ -61,22 +60,6 @@ namespace MultiplayerARPG.MMO
             {
                 writer.Put(GameInstance.UserId);
             });
-            GetAuctionDurationOptions();
-        }
-
-        private void GetAuctionDurationOptions()
-        {
-            AuctionRestClientForClient.GetDurationOptions().ContinueWith((response) =>
-            {
-                if (response.Result.IsNetworkError || response.Result.IsHttpError)
-                {
-                    // TODO: Send error messages to client
-                    GetAuctionDurationOptions();
-                    return;
-                }
-                AuctionDurationOptions.Clear();
-                AuctionDurationOptions.AddRange(response.Result.Content.durationOptions);
-            });
         }
 
         public void CreateAuction(CreateAuctionMessage createAuction)
@@ -96,11 +79,24 @@ namespace MultiplayerARPG.MMO
                 ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_LOGGED_IN);
                 return;
             }
-            // Require index of non equip items, amount, starting auction price, buyout price (optional, 0 = no buyout)
-            // Check player's item, then tell the service to add to bidding list, and remove it from inventory
             CreateAuctionMessage createAuction = messageHandler.ReadMessage<CreateAuctionMessage>();
             if (createAuction.amount <= 0)
                 createAuction.amount = 1;
+            // Reduce gold by create auction price
+            RestClient.Result<DurationOptionsResponse> durationOptionsResult = await AuctionRestClientForServer.GetDurationOptions();
+            if (durationOptionsResult.IsNetworkError || durationOptionsResult.IsHttpError)
+            {
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                return;
+            }
+            int createAuctionPrice = durationOptionsResult.Content.durationOptions[createAuction.durationOption].price;
+            if (playerCharacterData.Gold < createAuctionPrice)
+            {
+                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                return;
+            }
+            // Require index of non equip items, amount, starting auction price, buyout price (optional, 0 = no buyout)
+            // Check player's item, then tell the service to add to bidding list, and remove it from inventory
             if (createAuction.indexOfItem >= playerCharacterData.NonEquipItems.Count ||
                 playerCharacterData.NonEquipItems[createAuction.indexOfItem].amount < createAuction.amount)
             {
@@ -127,6 +123,7 @@ namespace MultiplayerARPG.MMO
             }
             // Remove item from inventory
             playerCharacterData.DecreaseItemsByIndex(createAuction.indexOfItem, createAuction.amount);
+            playerCharacterData.Gold -= createAuctionPrice;
         }
 
         public void Bid(BidMessage bid)
