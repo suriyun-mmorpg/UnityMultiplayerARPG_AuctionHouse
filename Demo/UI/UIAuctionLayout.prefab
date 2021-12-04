@@ -10002,7 +10002,7 @@ MonoBehaviour:
   uiPrefab: {fileID: 9067476589778600541, guid: 61b9700ca65faad47a7a33cbf72a9087,
     type: 3}
   uiContainer: {fileID: 6952695397857917441}
-  inputBidPrice: {fileID: 0}
+  inputBidPrice: {fileID: 1089661670181281479}
   textPage: {fileID: 1898698117403119541}
   limitPerPage: 20
 --- !u!1 &5223581027271783176
@@ -11001,7 +11001,7 @@ MonoBehaviour:
   uiPrefab: {fileID: 9067476589778600541, guid: 61b9700ca65faad47a7a33cbf72a9087,
     type: 3}
   uiContainer: {fileID: 2446997127313207441}
-  inputBidPrice: {fileID: 0}
+  inputBidPrice: {fileID: 5187307837259166920}
   textPage: {fileID: 1618310473097779093}
   limitPerPage: 20
 --- !u!1 &5553839524883309843
