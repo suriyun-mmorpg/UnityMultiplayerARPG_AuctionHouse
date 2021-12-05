@@ -1,6 +1,6 @@
-﻿using LiteNetLibManager;
+﻿using Cysharp.Threading.Tasks;
+using LiteNetLibManager;
 using MultiplayerARPG.Auction;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityRestClient;
@@ -12,10 +12,10 @@ namespace MultiplayerARPG.MMO
         [System.Serializable]
         public class AuctionHouseMessageTypes
         {
-            public ushort createAuctionMsgType;
-            public ushort bidMsgType;
-            public ushort buyoutMsgType;
-            public ushort getAccessTokenMsgType;
+            public ushort createAuctionRequestType;
+            public ushort bidRequestType;
+            public ushort buyoutRequestType;
+            public ushort getAccessTokenRequestType;
         }
 
         /*
@@ -24,10 +24,10 @@ namespace MultiplayerARPG.MMO
         [Header("Auction House")]
         public AuctionHouseMessageTypes auctionHouseMessageTypes = new AuctionHouseMessageTypes()
         {
-            createAuctionMsgType = 1300,
-            bidMsgType = 1301,
-            buyoutMsgType = 1302,
-            getAccessTokenMsgType = 1303,
+            createAuctionRequestType = 1300,
+            bidRequestType = 1301,
+            buyoutRequestType = 1302,
+            getAccessTokenRequestType = 1303,
         };
         public string auctionHouseServiceUrl = "http://localhost:9800";
         public string auctionHouseSecretKey = "secret";
@@ -38,11 +38,10 @@ namespace MultiplayerARPG.MMO
         [DevExtMethods("RegisterMessages")]
         private void RegisterMessages_AuctionHouse()
         {
-            RegisterServerMessage(auctionHouseMessageTypes.createAuctionMsgType, HandleCreateAuctionAtServer);
-            RegisterServerMessage(auctionHouseMessageTypes.bidMsgType, HandleBidAtServer);
-            RegisterServerMessage(auctionHouseMessageTypes.buyoutMsgType, HandleBuyoutAtServer);
-            RegisterServerMessage(auctionHouseMessageTypes.getAccessTokenMsgType, HandleGetAuctionAccessTokenAtServer);
-            RegisterClientMessage(auctionHouseMessageTypes.getAccessTokenMsgType, HandleGetAuctionAccessTokenAtClient);
+            RegisterRequestToServer<CreateAuctionMessage, ResponseCreateAuctionMessage>(auctionHouseMessageTypes.createAuctionRequestType, HandleCreateAuctionAtServer);
+            RegisterRequestToServer<BidMessage, ResponseBidMessage>(auctionHouseMessageTypes.bidRequestType, HandleBidAtServer);
+            RegisterRequestToServer<BuyoutMessage, ResponseBuyoutMessage>(auctionHouseMessageTypes.buyoutRequestType, HandleBuyoutAtServer);
+            RegisterRequestToServer<EmptyMessage, ResponseAccessTokenMessage>(auctionHouseMessageTypes.getAccessTokenRequestType, HandleGetAuctionAccessTokenAtServer);
         }
 
         [DevExtMethods("OnStartServer")]
@@ -56,184 +55,269 @@ namespace MultiplayerARPG.MMO
         private void OnClientOnlineSceneLoaded_AuctionHouse()
         {
             AuctionRestClientForClient.url = auctionHouseServiceUrl;
-            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
-            {
-                writer.Put(GameInstance.UserId);
-            });
         }
 
-        public void CreateAuction(CreateAuctionMessage createAuction)
+        public void CreateAuction(CreateAuctionMessage createAuction, ResponseDelegate<ResponseCreateAuctionMessage> callback)
         {
             if (!IsClientConnected)
                 return;
             // Send create auction message to server
-            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.createAuctionMsgType, createAuction);
+            ClientSendRequest(auctionHouseMessageTypes.createAuctionRequestType, createAuction, callback);
         }
 
-        private async void HandleCreateAuctionAtServer(MessageHandlerData messageHandler)
+        private async UniTaskVoid HandleCreateAuctionAtServer(RequestHandlerData requestHandler, CreateAuctionMessage request,
+            RequestProceedResultDelegate<ResponseCreateAuctionMessage> result)
         {
             IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
             {
                 // Do nothing, player character is not enter the game yet.
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_LOGGED_IN);
+                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
+                });
                 return;
             }
-            CreateAuctionMessage createAuction = messageHandler.ReadMessage<CreateAuctionMessage>();
-            if (createAuction.amount <= 0)
-                createAuction.amount = 1;
+            if (request.amount <= 0)
+                request.amount = 1;
             // Reduce gold by create auction price
             RestClient.Result<DurationOptionsResponse> durationOptionsResult = await AuctionRestClientForServer.GetDurationOptions();
             if (durationOptionsResult.IsNetworkError || durationOptionsResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
+                });
                 return;
             }
-            int createAuctionPrice = durationOptionsResult.Content.durationOptions[createAuction.durationOption].price;
+            int createAuctionPrice = durationOptionsResult.Content.durationOptions[request.durationOption].price;
             if (playerCharacterData.Gold < createAuctionPrice)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
+                });
                 return;
             }
             // Require index of non equip items, amount, starting auction price, buyout price (optional, 0 = no buyout)
             // Check player's item, then tell the service to add to bidding list, and remove it from inventory
-            if (createAuction.indexOfItem >= playerCharacterData.NonEquipItems.Count ||
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].amount < createAuction.amount)
+            if (request.indexOfItem >= playerCharacterData.NonEquipItems.Count ||
+                playerCharacterData.NonEquipItems[request.indexOfItem].amount < request.amount)
             {
                 // Do nothing, wrong index of item or item amount is over than it has
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INVALID_ITEM_INDEX);
+                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_INVALID_ITEM_INDEX,
+                });
                 return;
             }
             // Tell the service to add to bidding list
             Mail mail = new Mail();
-            mail.Items.Add(playerCharacterData.NonEquipItems[createAuction.indexOfItem]);
+            mail.Items.Add(playerCharacterData.NonEquipItems[request.indexOfItem]);
             RestClient.Result createResult = await AuctionRestClientForServer.CreateAuction(
                 mail.WriteItems(),
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].GetItem().DefaultTitle,
-                playerCharacterData.NonEquipItems[createAuction.indexOfItem].level,
-                createAuction.startPrice,
-                createAuction.buyoutPrice,
+                playerCharacterData.NonEquipItems[request.indexOfItem].GetItem().DefaultTitle,
+                playerCharacterData.NonEquipItems[request.indexOfItem].level,
+                request.startPrice,
+                request.buyoutPrice,
                 playerCharacterData.UserId,
                 playerCharacterData.CharacterName,
-                createAuction.durationOption);
+                request.durationOption);
             if (createResult.IsNetworkError || createResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
+                });
                 return;
             }
             // Remove item from inventory
-            playerCharacterData.DecreaseItemsByIndex(createAuction.indexOfItem, createAuction.amount);
+            playerCharacterData.DecreaseItemsByIndex(request.indexOfItem, request.amount);
             playerCharacterData.Gold -= createAuctionPrice;
+            result.Invoke(AckResponseCode.Success, new ResponseCreateAuctionMessage());
         }
 
-        public void Bid(BidMessage bid)
+        public void Bid(BidMessage bid, ResponseDelegate<ResponseBidMessage> callback)
         {
             if (!IsClientConnected)
                 return;
             // Send create auction message to server
-            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.bidMsgType, bid);
+            ClientSendRequest(auctionHouseMessageTypes.bidRequestType, bid, callback);
         }
 
-        private async void HandleBidAtServer(MessageHandlerData messageHandler)
+        private async UniTaskVoid HandleBidAtServer(RequestHandlerData requestHandler, BidMessage request,
+            RequestProceedResultDelegate<ResponseBidMessage> result)
         {
             IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
             {
                 // Do nothing, player character is not enter the game yet.
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_LOGGED_IN);
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
+                });
                 return;
             }
-            BidMessage bid = messageHandler.ReadMessage<BidMessage>();
             // Get highest bidding price from service
-            RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(bid.auctionId);
+            RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(request.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INVALID_DATA);
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
+                });
+                return;
+            }
+            // Seller cannot bid
+            if (playerCharacterData.UserId.Equals(getResult.Content.sellerId))
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ALLOWED,
+                });
                 return;
             }
             // Validate gold
-            if (bid.price <= getResult.Content.bidPrice)
+            if (request.price <= getResult.Content.bidPrice)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
+                });
+                return;
+            }
+            // Validate buyout price
+            if (getResult.Content.buyoutPrice > 0 && request.price >= getResult.Content.buyoutPrice)
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_BAD_REQUEST,
+                });
                 return;
             }
             if (playerCharacterData.Gold < getResult.Content.bidPrice)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
+                });
                 return;
             }
             // Tell the service to add to bid
-            RestClient.Result bidResult = await AuctionRestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, bid.auctionId, bid.price);
+            RestClient.Result bidResult = await AuctionRestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, request.auctionId, request.price);
             if (bidResult.IsNetworkError || bidResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
                 return;
             }
             // Reduce gold
-            playerCharacterData.Gold -= bid.price;
+            playerCharacterData.Gold -= request.price;
+            result.Invoke(AckResponseCode.Success, new ResponseBidMessage());
         }
 
-        public void Buyout(BuyoutMessage buyout)
+        public void Buyout(BuyoutMessage buyout, ResponseDelegate<ResponseBuyoutMessage> callback)
         {
             if (!IsClientConnected)
                 return;
             // Send create auction message to server
-            ClientSendPacket(0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.buyoutMsgType, buyout);
+            ClientSendRequest(auctionHouseMessageTypes.buyoutRequestType, buyout, callback);
         }
 
-        private async void HandleBuyoutAtServer(MessageHandlerData messageHandler)
+        private async UniTaskVoid HandleBuyoutAtServer(RequestHandlerData requestHandler, BuyoutMessage request,
+            RequestProceedResultDelegate<ResponseBuyoutMessage> result)
         {
             IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(messageHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
             {
                 // Do nothing, player character is not enter the game yet.
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_LOGGED_IN);
+                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
+                });
                 return;
             }
-            BuyoutMessage buyout = messageHandler.ReadMessage<BuyoutMessage>();
             // Get buyout price from service
-            RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(buyout.auctionId);
+            RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(request.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                {
+                    message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
+                });
+                return;
+            }
+            // Seller cannot bid
+            if (playerCharacterData.UserId.Equals(getResult.Content.sellerId))
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ALLOWED,
+                });
+                return;
+            }
+            // Validate buyout price
+            if (getResult.Content.buyoutPrice <= 0)
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ALLOWED,
+                });
                 return;
             }
             int price = getResult.Content.buyoutPrice;
             // Validate gold
             if (playerCharacterData.Gold < getResult.Content.buyoutPrice)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
                 return;
             }
             // Tell the service to add to buyout
-            RestClient.Result buyoutResult = await AuctionRestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, buyout.auctionId);
+            RestClient.Result buyoutResult = await AuctionRestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, request.auctionId);
             if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
                 return;
             }
             // Reduce gold
             playerCharacterData.Gold -= price;
+            result.Invoke(AckResponseCode.Success, new ResponseBuyoutMessage());
         }
 
-        private async void HandleGetAuctionAccessTokenAtServer(MessageHandlerData messageHandler)
+        public void GetAccessToken(ResponseDelegate<ResponseAccessTokenMessage> callback)
         {
-            string userId = messageHandler.Reader.GetString();
-            RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await AuctionRestClientForServer.GetAccessToken(userId);
-            if (getAccessTokenResult.IsNetworkError || getAccessTokenResult.IsHttpError)
+            if (!IsClientConnected)
+                return;
+            // Send create auction message to server
+            ClientSendRequest(auctionHouseMessageTypes.getAccessTokenRequestType, EmptyMessage.Value, callback);
+        }
+
+        private async UniTaskVoid HandleGetAuctionAccessTokenAtServer(RequestHandlerData requestHandler, EmptyMessage request,
+            RequestProceedResultDelegate<ResponseAccessTokenMessage> result)
+        {
+            IPlayerCharacterData playerCharacterData;
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
             {
-                ServerGameMessageHandlers.SendGameMessage(messageHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                // Do nothing, player character is not enter the game yet.
+                result.Invoke(AckResponseCode.Error, new ResponseAccessTokenMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
+                });
                 return;
             }
-            ServerSendPacket(messageHandler.ConnectionId, 0, LiteNetLib.DeliveryMethod.ReliableUnordered, auctionHouseMessageTypes.getAccessTokenMsgType, (writer) =>
+            RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await AuctionRestClientForServer.GetAccessToken(playerCharacterData.UserId);
+            if (getAccessTokenResult.IsNetworkError || getAccessTokenResult.IsHttpError)
             {
-                writer.Put(getAccessTokenResult.Content["accessToken"]);
+                result.Invoke(AckResponseCode.Error, new ResponseAccessTokenMessage()
+                {
+                    message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
+                });
+                return;
+            }
+            result.Invoke(AckResponseCode.Success, new ResponseAccessTokenMessage()
+            {
+                accessToken = getAccessTokenResult.Content["accessToken"]
             });
-        }
-
-        private void HandleGetAuctionAccessTokenAtClient(MessageHandlerData messageHandler)
-        {
-            AuctionRestClientForClient.accessToken = messageHandler.Reader.GetString();
         }
     }
 }
