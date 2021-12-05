@@ -63,7 +63,7 @@ namespace MultiplayerARPG.Auction
             {
                 if (cacheSelectionManager == null)
                     cacheSelectionManager = gameObject.GetOrAddComponent<UIAuctionSelectionManager>();
-                cacheSelectionManager.selectionMode = UISelectionMode.SelectSingle;
+                cacheSelectionManager.selectionMode = UISelectionMode.Toggle;
                 return cacheSelectionManager;
             }
         }
