@@ -1,4 +1,5 @@
-﻿using MultiplayerARPG.MMO;
+﻿using LiteNetLibManager;
+using MultiplayerARPG.MMO;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,6 +27,10 @@ namespace MultiplayerARPG.Auction
         public TextWrapper textBuyerName;
         public TextWrapper textTimeLeft;
         public UICharacterItem uiItem;
+        public GameObject[] auctionEndedObjects;
+        public GameObject[] underAuctioningObjects;
+        public GameObject[] boughtOutObjects;
+        public GameObject[] notBoughtOutObjects;
 
         protected override void UpdateData()
         {
@@ -80,6 +85,38 @@ namespace MultiplayerARPG.Auction
                     uiItem.Hide();
                 }
             }
+
+            if (auctionEndedObjects != null)
+            {
+                foreach (GameObject obj in auctionEndedObjects)
+                {
+                    obj.SetActive(Data.isEnd);
+                }
+            }
+
+            if (underAuctioningObjects != null)
+            {
+                foreach (GameObject obj in underAuctioningObjects)
+                {
+                    obj.SetActive(!Data.isEnd);
+                }
+            }
+
+            if (boughtOutObjects != null)
+            {
+                foreach (GameObject obj in boughtOutObjects)
+                {
+                    obj.SetActive(Data.isBuyout);
+                }
+            }
+
+            if (notBoughtOutObjects != null)
+            {
+                foreach (GameObject obj in notBoughtOutObjects)
+                {
+                    obj.SetActive(!Data.isBuyout);
+                }
+            }
         }
 
         public void OnClickBid()
@@ -94,7 +131,14 @@ namespace MultiplayerARPG.Auction
             {
                 auctionId = Data.id,
                 price = bidPrice,
-            });
+            }, OnBid);
+        }
+
+        private void OnBid(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseBidMessage response)
+        {
+            if (responseCode.ShowUnhandledResponseMessageDialog(response.message))
+                return;
+            Refresh();
         }
 
         public void OnClickBuyout()
@@ -102,7 +146,22 @@ namespace MultiplayerARPG.Auction
             (BaseGameNetworkManager.Singleton as MapNetworkManager).Buyout(new BuyoutMessage()
             {
                 auctionId = Data.id,
-            });
+            }, OnBuyout);
+        }
+
+        private void OnBuyout(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseBuyoutMessage response)
+        {
+            if (responseCode.ShowUnhandledResponseMessageDialog(response.message))
+                return;
+            Refresh();
+        }
+
+        private async void Refresh()
+        {
+            UnityRestClient.RestClient.Result<AuctionData> result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetAuction(Data.id);
+            if (result.IsNetworkError || result.IsHttpError)
+                return;
+            Data = result.Content;
         }
 
         [System.Serializable]

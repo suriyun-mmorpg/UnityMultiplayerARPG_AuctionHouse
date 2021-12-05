@@ -1,4 +1,5 @@
-﻿using MultiplayerARPG.MMO;
+﻿using LiteNetLibManager;
+using MultiplayerARPG.MMO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -142,7 +143,13 @@ namespace MultiplayerARPG.Auction
                 startPrice = startPrice,
                 buyoutPrice = buyoutPrice,
                 durationOption = durationOptionIndex,
-            });
+            }, OnCreateAuction);
+        }
+
+        private void OnCreateAuction(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseCreateAuctionMessage response)
+        {
+            if (responseCode.ShowUnhandledResponseMessageDialog(response.message))
+                return;
             onCreateAuction.Invoke();
         }
     }

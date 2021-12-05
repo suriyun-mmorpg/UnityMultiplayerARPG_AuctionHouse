@@ -1,4 +1,5 @@
-﻿using MultiplayerARPG.MMO;
+﻿using LiteNetLibManager;
+using MultiplayerARPG.MMO;
 using UnityEngine;
 using UnityRestClient;
 
@@ -67,6 +68,8 @@ namespace MultiplayerARPG.Auction
             }
         }
 
+        private float lastGetAccessToken = float.MinValue;
+
         private void OnEnable()
         {
             CacheSelectionManager.eventOnSelected.RemoveListener(OnSelect);
@@ -78,7 +81,7 @@ namespace MultiplayerARPG.Auction
             page = 1;
             if (textPage)
                 textPage.text = string.Format(formatKeyPage.ToFormat(), 1, 1);
-            Refresh();
+            GetAccessToken();
         }
 
         private void OnDisable()
@@ -113,6 +116,26 @@ namespace MultiplayerARPG.Auction
             }
         }
 
+        public void GetAccessToken()
+        {
+            if (Time.unscaledTime - lastGetAccessToken < 30)
+                return;
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).GetAccessToken(OnGetAccessToken);
+        }
+
+        private void OnGetAccessToken(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseAccessTokenMessage response)
+        {
+            if (responseCode != AckResponseCode.Success)
+            {
+                // Cannot get access token
+                GetAccessToken();
+                return;
+            }
+            lastGetAccessToken = Time.unscaledTime;
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.accessToken = response.accessToken;
+            Refresh();
+        }
+
         public void Refresh()
         {
             GoToPageRoutine(Page);
@@ -141,9 +164,17 @@ namespace MultiplayerARPG.Auction
             int selectedId = CacheSelectionManager.SelectedUI != null ? CacheSelectionManager.SelectedUI.Data.id : 0;
             CacheSelectionManager.DeselectSelectedUI();
             CacheSelectionManager.Clear();
+            CacheList.HideAll();
             if (listEmptyObject != null)
                 listEmptyObject.SetActive(true);
-            if (result.IsNetworkError || result.IsHttpError || result.Content.list.Count == 0)
+            if (result.IsNetworkError)
+                return;
+            if (result.IsHttpError)
+            {
+                GetAccessToken();
+                return;
+            }
+            if (result.Content.list.Count == 0)
                 return;
             UIAuction tempUi;
             CacheList.Generate(result.Content.list, (index, data, ui) =>
