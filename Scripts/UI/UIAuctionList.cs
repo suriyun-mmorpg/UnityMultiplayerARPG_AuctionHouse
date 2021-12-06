@@ -123,7 +123,7 @@ namespace MultiplayerARPG.Auction
             (BaseGameNetworkManager.Singleton as MapNetworkManager).GetAccessToken(OnGetAccessToken);
         }
 
-        private void OnGetAccessToken(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseAccessTokenMessage response)
+        private void OnGetAccessToken(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseClientConfigMessage response)
         {
             if (responseCode != AckResponseCode.Success)
             {
@@ -132,6 +132,7 @@ namespace MultiplayerARPG.Auction
                 return;
             }
             lastGetAccessToken = Time.unscaledTime;
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.url = response.serviceUrl;
             (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.accessToken = response.accessToken;
             Refresh();
         }

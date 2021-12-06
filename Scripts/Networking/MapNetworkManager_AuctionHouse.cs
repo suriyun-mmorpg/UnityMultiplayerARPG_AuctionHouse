@@ -15,7 +15,7 @@ namespace MultiplayerARPG.MMO
             public ushort createAuctionRequestType;
             public ushort bidRequestType;
             public ushort buyoutRequestType;
-            public ushort getAccessTokenRequestType;
+            public ushort getClientConfigRequestType;
         }
 
         /*
@@ -27,7 +27,7 @@ namespace MultiplayerARPG.MMO
             createAuctionRequestType = 1300,
             bidRequestType = 1301,
             buyoutRequestType = 1302,
-            getAccessTokenRequestType = 1303,
+            getClientConfigRequestType = 1303,
         };
         public string auctionHouseServiceUrl = "http://localhost:9800";
         public string auctionHouseSecretKey = "secret";
@@ -41,7 +41,7 @@ namespace MultiplayerARPG.MMO
             RegisterRequestToServer<CreateAuctionMessage, ResponseCreateAuctionMessage>(auctionHouseMessageTypes.createAuctionRequestType, HandleCreateAuctionAtServer);
             RegisterRequestToServer<BidMessage, ResponseBidMessage>(auctionHouseMessageTypes.bidRequestType, HandleBidAtServer);
             RegisterRequestToServer<BuyoutMessage, ResponseBuyoutMessage>(auctionHouseMessageTypes.buyoutRequestType, HandleBuyoutAtServer);
-            RegisterRequestToServer<EmptyMessage, ResponseAccessTokenMessage>(auctionHouseMessageTypes.getAccessTokenRequestType, HandleGetAuctionAccessTokenAtServer);
+            RegisterRequestToServer<EmptyMessage, ResponseClientConfigMessage>(auctionHouseMessageTypes.getClientConfigRequestType, HandleGetClientConfigAtServer);
         }
 
         [DevExtMethods("OnStartServer")]
@@ -49,12 +49,6 @@ namespace MultiplayerARPG.MMO
         {
             AuctionRestClientForServer.url = auctionHouseServiceUrl;
             AuctionRestClientForServer.accessToken = auctionHouseSecretKey;
-        }
-
-        [DevExtMethods("OnClientOnlineSceneLoaded")]
-        private void OnClientOnlineSceneLoaded_AuctionHouse()
-        {
-            AuctionRestClientForClient.url = auctionHouseServiceUrl;
         }
 
         public void CreateAuction(CreateAuctionMessage createAuction, ResponseDelegate<ResponseCreateAuctionMessage> callback)
@@ -284,22 +278,22 @@ namespace MultiplayerARPG.MMO
             result.Invoke(AckResponseCode.Success, new ResponseBuyoutMessage());
         }
 
-        public void GetAccessToken(ResponseDelegate<ResponseAccessTokenMessage> callback)
+        public void GetAccessToken(ResponseDelegate<ResponseClientConfigMessage> callback)
         {
             if (!IsClientConnected)
                 return;
             // Send create auction message to server
-            ClientSendRequest(auctionHouseMessageTypes.getAccessTokenRequestType, EmptyMessage.Value, callback);
+            ClientSendRequest(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value, callback);
         }
 
-        private async UniTaskVoid HandleGetAuctionAccessTokenAtServer(RequestHandlerData requestHandler, EmptyMessage request,
-            RequestProceedResultDelegate<ResponseAccessTokenMessage> result)
+        private async UniTaskVoid HandleGetClientConfigAtServer(RequestHandlerData requestHandler, EmptyMessage request,
+            RequestProceedResultDelegate<ResponseClientConfigMessage> result)
         {
             IPlayerCharacterData playerCharacterData;
             if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
             {
                 // Do nothing, player character is not enter the game yet.
-                result.Invoke(AckResponseCode.Error, new ResponseAccessTokenMessage()
+                result.Invoke(AckResponseCode.Error, new ResponseClientConfigMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
                 });
@@ -308,14 +302,15 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await AuctionRestClientForServer.GetAccessToken(playerCharacterData.UserId);
             if (getAccessTokenResult.IsNetworkError || getAccessTokenResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseAccessTokenMessage()
+                result.Invoke(AckResponseCode.Error, new ResponseClientConfigMessage()
                 {
                     message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
                 });
                 return;
             }
-            result.Invoke(AckResponseCode.Success, new ResponseAccessTokenMessage()
+            result.Invoke(AckResponseCode.Success, new ResponseClientConfigMessage()
             {
+                serviceUrl = auctionHouseServiceUrl,
                 accessToken = getAccessTokenResult.Content["accessToken"]
             });
         }
