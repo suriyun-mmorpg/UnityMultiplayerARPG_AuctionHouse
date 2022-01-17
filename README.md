@@ -5,7 +5,7 @@ It will connect to [mmorpg-kit-auction-house-service](https://github.com/insthyn
 
 *Require [unity-rest-client](https://github.com/insthync/unity-rest-client)*
 
-*Require Newtonsoft.JSON, you can download the one which made for Unity from this https://github.com/jilleJr/Newtonsoft.Json-for-Unity. It may included with Unity 2020 or above so you might not have to download it.*
+*Require Newtonsoft.JSON, you can download the one which made for Unity from this https://github.com/jilleJr/Newtonsoft.Json-for-Unity. It may included with Unity's version control package, so if you have version control package in your project, you will not to setup Newtonsoft.JSON.*
 
 ## How to use
 
