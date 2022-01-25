@@ -3,9 +3,9 @@ Auction house system extension for MMORPG KIT
 
 It will connect to [mmorpg-kit-auction-house-service](https://github.com/insthync/mmorpg-kit-auction-house-service). So you have to setup it, try googling how to install Node.js, then follow the [instruction](https://github.com/insthync/mmorpg-kit-auction-house-service/blob/main/README.md).
 
-*Require [unity-rest-client](https://github.com/insthync/unity-rest-client)*
-
-*Require Newtonsoft.JSON, you can download the one which made for Unity from this https://github.com/jilleJr/Newtonsoft.Json-for-Unity. It may included with Unity 2020 or above so you might not have to download it.*
+## Deps
+* Require [unity-rest-client](https://github.com/insthync/unity-rest-client)
+* Require Newtonsoft.JSON, you can download the one which made for Unity from this https://github.com/jilleJr/Newtonsoft.Json-for-Unity. Or add `"com.unity.nuget.newtonsoft-json": "2.0.0` to `manifest.json` to use `Newtonsoft.JSON` package which made by Unity.
 
 ## How to use
 
