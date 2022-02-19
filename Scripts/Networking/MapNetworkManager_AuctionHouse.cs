@@ -106,12 +106,14 @@ namespace MultiplayerARPG.MMO
                 return;
             }
             // Tell the service to add to bidding list
+            CharacterItem clonedItemForAmountChanging = playerCharacterData.NonEquipItems[request.indexOfItem].Clone();
+            clonedItemForAmountChanging.amount = request.amount;
             Mail mail = new Mail();
-            mail.Items.Add(playerCharacterData.NonEquipItems[request.indexOfItem]);
+            mail.Items.Add(clonedItemForAmountChanging);
             RestClient.Result createResult = await AuctionRestClientForServer.CreateAuction(
                 mail.WriteItems(),
-                playerCharacterData.NonEquipItems[request.indexOfItem].GetItem().DefaultTitle,
-                playerCharacterData.NonEquipItems[request.indexOfItem].level,
+                clonedItemForAmountChanging.GetItem().DefaultTitle,
+                clonedItemForAmountChanging.level,
                 request.startPrice,
                 request.buyoutPrice,
                 playerCharacterData.UserId,
