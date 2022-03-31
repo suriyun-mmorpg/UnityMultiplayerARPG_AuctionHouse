@@ -11,33 +11,39 @@ namespace MultiplayerARPG.Auction
 
         public Task<Result<AuctionListResponse>> GetAuctionList(int limit = 20, int page = 1)
         {
-            return Get<AuctionListResponse>(GetUrl(url, "/"), accessToken,
-                new KeyValuePair<string, object>(nameof(limit), limit),
-                new KeyValuePair<string, object>(nameof(page), page));
+            Dictionary<string, object> queries = new Dictionary<string, object>();
+            queries[nameof(limit)] = limit;
+            queries[nameof(page)] = page;
+            return Get<AuctionListResponse>(GetUrl(url, "/"), queries, accessToken);
         }
 
         public Task<Result<AuctionListResponse>> GetSellHistoryList(int limit = 20, int page = 1)
         {
-            return Get<AuctionListResponse>(GetUrl(url, "/sell-history"), accessToken,
-                new KeyValuePair<string, object>(nameof(limit), limit),
-                new KeyValuePair<string, object>(nameof(page), page));
+            Dictionary<string, object> queries = new Dictionary<string, object>();
+            queries[nameof(limit)] = limit;
+            queries[nameof(page)] = page;
+            return Get<AuctionListResponse>(GetUrl(url, "/sell-history"), queries, accessToken);
         }
 
         public Task<Result<AuctionListResponse>> GetBuyHistoryList(int limit = 20, int page = 1)
         {
-            return Get<AuctionListResponse>(GetUrl(url, "/buy-history"), accessToken,
-                new KeyValuePair<string, object>(nameof(limit), limit),
-                new KeyValuePair<string, object>(nameof(page), page));
+            Dictionary<string, object> queries = new Dictionary<string, object>();
+            queries[nameof(limit)] = limit;
+            queries[nameof(page)] = page;
+            return Get<AuctionListResponse>(GetUrl(url, "/buy-history"), queries, accessToken);
         }
 
         public Task<Result<AuctionData>> GetAuction(int id)
         {
-            return Get<AuctionData>(GetUrl(url, $"/{id}"), accessToken);
+            Dictionary<string, object> queries = new Dictionary<string, object>();
+            return Get<AuctionData>(GetUrl(url, $"/{id}"), queries, accessToken);
         }
 
         public Task<Result<Dictionary<string, string>>> GetAccessToken(string userId)
         {
-            return Get<Dictionary<string, string>>(GetUrl(url, "/internal/access-token"), accessToken, new KeyValuePair<string, object>(nameof(userId), userId));
+            Dictionary<string, object> queries = new Dictionary<string, object>();
+            queries[nameof(userId)] = userId;
+            return Get<Dictionary<string, string>>(GetUrl(url, "/internal/access-token"), queries, accessToken);
         }
 
         public Task<Result> CreateAuction(string itemData, string metaName, short metaLevel, int startPrice, int buyoutPrice, string sellerId, string sellerName, int durationOption)
