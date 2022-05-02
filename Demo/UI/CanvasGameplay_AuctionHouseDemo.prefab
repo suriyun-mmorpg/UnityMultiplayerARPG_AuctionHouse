@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 114117592907527930}
   - component: {fileID: 114460351426420406}
   - component: {fileID: 114088817493988554}
+  - component: {fileID: -5413415602225289041}
   m_Layer: 5
   m_Name: CanvasGameplay_AuctionHouseDemo
   m_TagString: Untagged
@@ -269,6 +270,29 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-5413415602225289041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164220226400930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69d5067b4b8c6f41880ad1436d30f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiLocalChatMessagePrefab: {fileID: 8230439767929373467, guid: e03cb679b77fa1a4f9b7c459c6dac13b,
+    type: 3}
+  uiGlobalChatMessagePrefab: {fileID: 8230439767929373467, guid: 1d44c72533959cf469a3c0f3b6e4875b,
+    type: 3}
+  uiWhisperChatMessagePrefab: {fileID: 8230439767929373467, guid: c8b48ef4c9600ec4f9a84285dba8eb8a,
+    type: 3}
+  uiPartyChatMessagePrefab: {fileID: 8230439767929373467, guid: de93725987b1aa94da4493821740f28f,
+    type: 3}
+  uiGuildChatMessagePrefab: {fileID: 8230439767929373467, guid: e7981257896674f4b810287c93eb13d1,
+    type: 3}
+  visibleDuration: 3
 --- !u!1 &1979434012980664
 GameObject:
   m_ObjectHideFlags: 0
