@@ -32,8 +32,26 @@ namespace MultiplayerARPG.MMO
         public string auctionHouseServiceUrl = "http://localhost:9800";
         public string auctionHouseSecretKey = "secret";
 
-        public AuctionRestClient AuctionRestClientForClient { get; private set; } = new AuctionRestClient();
-        public AuctionRestClient AuctionRestClientForServer { get; private set; } = new AuctionRestClient();
+        private AuctionRestClient _auctionRestClientForClient;
+        public AuctionRestClient AuctionRestClientForClient
+        {
+            get
+            {
+                if (_auctionRestClientForClient == null)
+                    _auctionRestClientForClient = gameObject.AddComponent<AuctionRestClient>();
+                return _auctionRestClientForClient;
+            }
+        }
+        private AuctionRestClient _auctionRestClientForServer;
+        public AuctionRestClient AuctionRestClientForServer
+        {
+            get
+            {
+                if (_auctionRestClientForServer == null)
+                    _auctionRestClientForServer = gameObject.AddComponent<AuctionRestClient>();
+                return _auctionRestClientForServer;
+            }
+        }
 
         [DevExtMethods("RegisterMessages")]
         private void RegisterMessages_AuctionHouse()
