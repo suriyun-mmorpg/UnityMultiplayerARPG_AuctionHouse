@@ -146,7 +146,7 @@ namespace MultiplayerARPG.MMO
                 return;
             }
             // Remove item from inventory
-            playerCharacterData.DecreaseItemsByIndex(request.indexOfItem, request.amount);
+            playerCharacterData.DecreaseItemsByIndex(request.indexOfItem, request.amount, true);
             playerCharacterData.Gold -= createAuctionPrice;
             result.Invoke(AckResponseCode.Success, new ResponseCreateAuctionMessage());
         }
