@@ -142,6 +142,13 @@ namespace MultiplayerARPG.Auction
             GoToPageRoutine(Page);
         }
 
+        public void RefreshIfActive()
+        {
+            if (!gameObject.activeSelf)
+                return;
+            Refresh();
+        }
+
         public void GoToPage(int page)
         {
             GoToPageRoutine(page);
