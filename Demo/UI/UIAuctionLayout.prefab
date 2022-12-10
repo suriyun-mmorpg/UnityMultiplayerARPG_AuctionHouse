@@ -70,8 +70,10 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyAmount:
+    useCustomValue: 0
     localeKey: 197
     customKey: 
+    customValue: 
   uiTextAmount: {fileID: 4715817393651554504}
 --- !u!222 &749799222011029984
 CanvasRenderer:
@@ -96,6 +98,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -189,6 +192,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -283,6 +287,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -399,6 +404,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -507,6 +513,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -619,6 +626,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -695,6 +703,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.827451, g: 0.18431373, b: 0.18431373, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -723,6 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -753,6 +763,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7875117199005594049}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Hide
         m_Mode: 1
         m_Arguments:
@@ -825,6 +836,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -912,6 +924,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -994,6 +1007,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1022,6 +1036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1071,6 +1086,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &5179844153001706667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,6 +1240,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1300,6 +1317,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1328,6 +1346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1358,6 +1377,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3378439144220025988}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickNextPage
         m_Mode: 1
         m_Arguments:
@@ -1438,8 +1458,10 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyAmount:
+    useCustomValue: 0
     localeKey: 197
     customKey: 
+    customValue: 
   uiTextAllAmounts: {fileID: 4467738735938607814}
   textAmounts: []
   isBonus: 0
@@ -1467,6 +1489,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1561,6 +1584,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1589,6 +1613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1619,6 +1644,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5876162341848727914}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Refresh
         m_Mode: 1
         m_Arguments:
@@ -1692,6 +1718,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1880,6 +1907,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1959,6 +1987,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2053,6 +2082,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2081,6 +2111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -2111,6 +2142,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8757352081869776021}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickPreviousPage
         m_Mode: 1
         m_Arguments:
@@ -2183,6 +2215,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2270,6 +2303,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2349,6 +2383,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2441,6 +2476,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2521,6 +2557,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2625,6 +2662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -2658,6 +2696,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8757352081869776021}
+        m_TargetAssemblyTypeName: MultiplayerARPG.Auction.UIAuctionList, Assembly-CSharp
         m_MethodName: SetVisible
         m_Mode: 0
         m_Arguments:
@@ -2731,6 +2770,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.827451, g: 0.18431373, b: 0.18431373, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2759,6 +2799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -2789,6 +2830,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3780168011455505018}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Hide
         m_Mode: 1
         m_Arguments:
@@ -2860,6 +2902,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2964,6 +3007,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3003,6 +3047,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1637753486485659566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3066,6 +3111,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3175,8 +3221,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   formatKeyPage:
+    useCustomValue: 0
     localeKey: 8
     customKey: 
+    customValue: 
   listMode: 1
   listEmptyObject: {fileID: 0}
   uiDialog: {fileID: 0}
@@ -3249,6 +3297,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3355,6 +3404,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3469,6 +3519,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3502,6 +3553,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7363426893160600789}
+        m_TargetAssemblyTypeName: 
         m_MethodName: set_isOn
         m_Mode: 6
         m_Arguments:
@@ -3516,6 +3568,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3780168011455505018}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Hide
         m_Mode: 1
         m_Arguments:
@@ -3594,6 +3647,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.87843144, g: 0.87843144, b: 0.87843144, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3622,6 +3676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -3716,6 +3771,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3794,6 +3850,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3878,17 +3935,25 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyAmount:
+    useCustomValue: 0
     localeKey: 76
     customKey: 
+    customValue: 
   formatKeyAmountNotEnough:
+    useCustomValue: 0
     localeKey: 77
     customKey: 
+    customValue: 
   formatKeySimpleAmount:
+    useCustomValue: 0
     localeKey: 78
     customKey: 
+    customValue: 
   formatKeyRateAmount:
+    useCustomValue: 0
     localeKey: 213
     customKey: 
+    customValue: 
   uiTextAllAmounts: {fileID: 6640187757734873921}
   textAmounts: []
   displayType: 0
@@ -3921,6 +3986,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4015,6 +4081,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4043,6 +4110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -4073,6 +4141,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8757352081869776021}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Refresh
         m_Mode: 1
         m_Arguments:
@@ -4146,6 +4215,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4253,6 +4323,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4348,6 +4419,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4444,6 +4516,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4558,6 +4631,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4680,8 +4754,10 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyAmount:
+    useCustomValue: 0
     localeKey: 87
     customKey: 
+    customValue: 
   uiTextAmount: {fileID: 709913311791909332}
 --- !u!222 &3262756782258076208
 CanvasRenderer:
@@ -4706,6 +4782,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4799,6 +4876,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4901,6 +4979,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4940,6 +5019,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &2693875344984462498
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,6 +5082,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5152,6 +5233,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5231,6 +5313,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5323,6 +5406,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5411,17 +5495,25 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyAmount:
+    useCustomValue: 0
     localeKey: 76
     customKey: 
+    customValue: 
   formatKeyAmountNotEnough:
+    useCustomValue: 0
     localeKey: 77
     customKey: 
+    customValue: 
   formatKeySimpleAmount:
+    useCustomValue: 0
     localeKey: 209
     customKey: 
+    customValue: 
   formatKeyRateAmount:
+    useCustomValue: 0
     localeKey: 213
     customKey: 
+    customValue: 
   uiTextAllAmounts: {fileID: 4072360728966246366}
   textAmounts: []
   displayType: 0
@@ -5454,6 +5546,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5546,6 +5639,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.7411765, g: 0.7411765, b: 0.7411765, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5620,6 +5714,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5700,6 +5795,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5728,6 +5824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5758,6 +5855,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5876162341848727914}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickNextPage
         m_Mode: 1
         m_Arguments:
@@ -5830,6 +5928,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5858,6 +5957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5888,6 +5988,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8757352081869776021}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickBuyout
         m_Mode: 1
         m_Arguments:
@@ -6034,6 +6135,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6110,6 +6212,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6138,6 +6241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -6168,6 +6272,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3378439144220025988}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Refresh
         m_Mode: 1
         m_Arguments:
@@ -6230,6 +6335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -6263,6 +6369,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3378439144220025988}
+        m_TargetAssemblyTypeName: MultiplayerARPG.Auction.UIAuctionList, Assembly-CSharp
         m_MethodName: SetVisible
         m_Mode: 0
         m_Arguments:
@@ -6334,6 +6441,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6422,8 +6530,10 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyAmount:
+    useCustomValue: 0
     localeKey: 79
     customKey: 
+    customValue: 
   uiTextAllAmounts: {fileID: 4057882056860882346}
   textAmounts: []
   isBonus: 0
@@ -6450,6 +6560,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6542,6 +6653,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6621,6 +6733,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6749,6 +6862,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &3636809441011239786
 GameObject:
   m_ObjectHideFlags: 0
@@ -6863,6 +6977,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &3657938499237175355
 GameObject:
   m_ObjectHideFlags: 0
@@ -6923,6 +7038,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7003,6 +7119,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7116,6 +7233,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7243,6 +7361,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7319,6 +7438,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7433,6 +7553,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7461,6 +7582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7491,6 +7613,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8746543377499324424}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickPreviousDurationOption
         m_Mode: 1
         m_Arguments:
@@ -7561,6 +7684,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.7411765, g: 0.7411765, b: 0.7411765, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7637,6 +7761,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7780,6 +7905,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7872,6 +7998,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7951,6 +8078,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8045,6 +8173,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8073,6 +8202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -8103,6 +8233,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8746543377499324424}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickCreateAuction
         m_Mode: 1
         m_Arguments:
@@ -8175,6 +8306,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8288,6 +8420,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8364,6 +8497,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8392,6 +8526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -8488,6 +8623,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8594,6 +8730,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8674,6 +8811,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8825,6 +8963,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8921,6 +9060,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9010,6 +9150,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9089,6 +9230,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.53333336, b: 0.8980392, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9173,143 +9315,235 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyHpStats:
+    useCustomValue: 0
     localeKey: 20
     customKey: 
+    customValue: 
   formatKeyHpRecoveryStats:
+    useCustomValue: 0
     localeKey: 241
     customKey: 
+    customValue: 
   formatKeyHpLeechRateStats:
+    useCustomValue: 0
     localeKey: 242
     customKey: 
+    customValue: 
   formatKeyMpStats:
+    useCustomValue: 0
     localeKey: 21
     customKey: 
+    customValue: 
   formatKeyMpRecoveryStats:
+    useCustomValue: 0
     localeKey: 243
     customKey: 
+    customValue: 
   formatKeyMpLeechRateStats:
+    useCustomValue: 0
     localeKey: 244
     customKey: 
+    customValue: 
   formatKeyStaminaStats:
+    useCustomValue: 0
     localeKey: 22
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryStats:
+    useCustomValue: 0
     localeKey: 245
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateStats:
+    useCustomValue: 0
     localeKey: 246
     customKey: 
+    customValue: 
   formatKeyFoodStats:
+    useCustomValue: 0
     localeKey: 23
     customKey: 
+    customValue: 
   formatKeyWaterStats:
+    useCustomValue: 0
     localeKey: 24
     customKey: 
+    customValue: 
   formatKeyAccuracyStats:
+    useCustomValue: 0
     localeKey: 26
     customKey: 
+    customValue: 
   formatKeyEvasionStats:
+    useCustomValue: 0
     localeKey: 27
     customKey: 
+    customValue: 
   formatKeyCriRateStats:
+    useCustomValue: 0
     localeKey: 28
     customKey: 
+    customValue: 
   formatKeyCriDmgRateStats:
+    useCustomValue: 0
     localeKey: 29
     customKey: 
+    customValue: 
   formatKeyBlockRateStats:
+    useCustomValue: 0
     localeKey: 30
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateStats:
+    useCustomValue: 0
     localeKey: 31
     customKey: 
+    customValue: 
   formatKeyMoveSpeedStats:
+    useCustomValue: 0
     localeKey: 32
     customKey: 
+    customValue: 
   formatKeyAtkSpeedStats:
+    useCustomValue: 0
     localeKey: 33
     customKey: 
+    customValue: 
   formatKeyWeightLimitStats:
+    useCustomValue: 0
     localeKey: 34
     customKey: 
+    customValue: 
   formatKeySlotLimitStats:
+    useCustomValue: 0
     localeKey: 35
     customKey: 
+    customValue: 
   formatKeyGoldRateStats:
+    useCustomValue: 0
     localeKey: 253
     customKey: 
+    customValue: 
   formatKeyExpRateStats:
+    useCustomValue: 0
     localeKey: 254
     customKey: 
+    customValue: 
   formatKeyHpRateStats:
+    useCustomValue: 0
     localeKey: 198
     customKey: 
+    customValue: 
   formatKeyHpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 247
     customKey: 
+    customValue: 
   formatKeyHpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 248
     customKey: 
+    customValue: 
   formatKeyMpRateStats:
+    useCustomValue: 0
     localeKey: 199
     customKey: 
+    customValue: 
   formatKeyMpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 249
     customKey: 
+    customValue: 
   formatKeyMpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 250
     customKey: 
+    customValue: 
   formatKeyStaminaRateStats:
+    useCustomValue: 0
     localeKey: 200
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 251
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 252
     customKey: 
+    customValue: 
   formatKeyFoodRateStats:
+    useCustomValue: 0
     localeKey: 201
     customKey: 
+    customValue: 
   formatKeyWaterRateStats:
+    useCustomValue: 0
     localeKey: 202
     customKey: 
+    customValue: 
   formatKeyAccuracyRateStats:
+    useCustomValue: 0
     localeKey: 203
     customKey: 
+    customValue: 
   formatKeyEvasionRateStats:
+    useCustomValue: 0
     localeKey: 204
     customKey: 
+    customValue: 
   formatKeyCriRateRateStats:
+    useCustomValue: 0
     localeKey: 205
     customKey: 
+    customValue: 
   formatKeyCriDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 206
     customKey: 
+    customValue: 
   formatKeyBlockRateRateStats:
+    useCustomValue: 0
     localeKey: 207
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 208
     customKey: 
+    customValue: 
   formatKeyMoveSpeedRateStats:
+    useCustomValue: 0
     localeKey: 209
     customKey: 
+    customValue: 
   formatKeyAtkSpeedRateStats:
+    useCustomValue: 0
     localeKey: 210
     customKey: 
+    customValue: 
   formatKeyWeightLimitRateStats:
+    useCustomValue: 0
     localeKey: 211
     customKey: 
+    customValue: 
   formatKeySlotLimitRateStats:
+    useCustomValue: 0
     localeKey: 212
     customKey: 
+    customValue: 
   formatKeyGoldRateRateStats:
+    useCustomValue: 0
     localeKey: 255
     customKey: 
+    customValue: 
   formatKeyExpRateRateStats:
+    useCustomValue: 0
     localeKey: 256
     customKey: 
+    customValue: 
   uiTextStats: {fileID: 1276807701933664146}
   uiTextHp: {fileID: 0}
   uiTextHpRecovery: {fileID: 0}
@@ -9359,6 +9593,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9453,6 +9688,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9547,6 +9783,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &4995311608691860885
 GameObject:
   m_ObjectHideFlags: 0
@@ -9617,14 +9854,20 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyLevel:
+    useCustomValue: 0
     localeKey: 80
     customKey: 
+    customValue: 
   formatKeyLevelNotEnough:
+    useCustomValue: 0
     localeKey: 81
     customKey: 
+    customValue: 
   formatKeySimpleLevel:
+    useCustomValue: 0
     localeKey: 82
     customKey: 
+    customValue: 
   uiTextAllLevels: {fileID: 5624305795512261786}
   textLevels: []
   displayType: 0
@@ -9655,6 +9898,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9751,6 +9995,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9873,6 +10118,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9994,8 +10240,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   formatKeyPage:
+    useCustomValue: 0
     localeKey: 8
     customKey: 
+    customValue: 
   listMode: 0
   listEmptyObject: {fileID: 0}
   uiDialog: {fileID: 0}
@@ -10067,6 +10315,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10095,6 +10344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -10125,6 +10375,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8757352081869776021}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickBid
         m_Mode: 1
         m_Arguments:
@@ -10206,17 +10457,25 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyRequireLevel:
+    useCustomValue: 0
     localeKey: 41
     customKey: 
+    customValue: 
   formatKeyRequireLevelNotEnough:
+    useCustomValue: 0
     localeKey: 261
     customKey: 
+    customValue: 
   formatKeyRequireClasses:
+    useCustomValue: 0
     localeKey: 42
     customKey: 
+    customValue: 
   formatKeyInvalidRequireClasses:
+    useCustomValue: 0
     localeKey: 262
     customKey: 
+    customValue: 
   uiTextRequireLevel: {fileID: 2417457022517694521}
   uiTextRequireClasses: {fileID: 2862010230702031605}
   uiRequireAttributeAmounts: {fileID: 5240135137305639809}
@@ -10245,6 +10504,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &5236950533452767016
 GameObject:
   m_ObjectHideFlags: 0
@@ -10307,6 +10567,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10419,6 +10680,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10507,6 +10769,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10546,6 +10809,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &5299900640625207988
 GameObject:
   m_ObjectHideFlags: 0
@@ -10610,6 +10874,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10638,6 +10903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -10687,6 +10953,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &8672908305714453414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10798,6 +11065,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10884,6 +11152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -10917,6 +11186,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5876162341848727914}
+        m_TargetAssemblyTypeName: MultiplayerARPG.Auction.UIAuctionList, Assembly-CSharp
         m_MethodName: SetVisible
         m_Mode: 0
         m_Arguments:
@@ -10993,8 +11263,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   formatKeyPage:
+    useCustomValue: 0
     localeKey: 8
     customKey: 
+    customValue: 
   listMode: 2
   listEmptyObject: {fileID: 0}
   uiDialog: {fileID: 0}
@@ -11066,6 +11338,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11179,6 +11452,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11272,6 +11546,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11366,6 +11641,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11444,6 +11720,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11524,6 +11801,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11552,6 +11830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -11582,6 +11861,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8757352081869776021}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickNextPage
         m_Mode: 1
         m_Arguments:
@@ -11656,6 +11936,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11684,6 +11965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -11733,6 +12015,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &1089661670181281479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11809,6 +12092,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11837,6 +12121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -11933,6 +12218,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11961,6 +12247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -11991,6 +12278,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3378439144220025988}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickPreviousPage
         m_Mode: 1
         m_Arguments:
@@ -12064,6 +12352,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12172,6 +12461,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12200,6 +12490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -12230,6 +12521,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5876162341848727914}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickPreviousPage
         m_Mode: 1
         m_Arguments:
@@ -12301,6 +12593,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12395,6 +12688,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12475,6 +12769,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12503,6 +12798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -12533,6 +12829,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7875117199005594049}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Show
         m_Mode: 1
         m_Arguments:
@@ -12605,6 +12902,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12721,6 +13019,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12812,6 +13111,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12840,6 +13140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -12870,6 +13171,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5876162341848727914}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickBuyout
         m_Mode: 1
         m_Arguments:
@@ -12942,6 +13244,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12970,6 +13273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -13000,6 +13304,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8746543377499324424}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickNextDurationOption
         m_Mode: 1
         m_Arguments:
@@ -13074,6 +13379,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13102,6 +13408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -13151,6 +13458,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &7764652360090697806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13229,6 +13537,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13257,6 +13566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -13306,6 +13616,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &5187307837259166920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13382,6 +13693,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.53333336, b: 0.8980392, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13457,6 +13769,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13561,6 +13874,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13621,62 +13935,100 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyTitle:
+    useCustomValue: 0
     localeKey: 5
     customKey: 
+    customValue: 
   formatKeyDescription:
+    useCustomValue: 0
     localeKey: 5
     customKey: 
+    customValue: 
   formatKeyRarityTitle:
+    useCustomValue: 0
     localeKey: 66
     customKey: 
+    customValue: 
   formatKeyLevel:
+    useCustomValue: 0
     localeKey: 9
     customKey: 
+    customValue: 
   formatKeyRefineLevel:
+    useCustomValue: 0
     localeKey: 56
     customKey: 
+    customValue: 
   formatKeyTitleWithRefineLevel:
+    useCustomValue: 0
     localeKey: 57
     customKey: 
+    customValue: 
   formatKeySellPrice:
+    useCustomValue: 0
     localeKey: 40
     customKey: 
+    customValue: 
   formatKeyStack:
+    useCustomValue: 0
     localeKey: 67
     customKey: 
+    customValue: 
   formatKeyDurability:
+    useCustomValue: 0
     localeKey: 68
     customKey: 
+    customValue: 
   formatKeyWeight:
+    useCustomValue: 0
     localeKey: 34
     customKey: 
+    customValue: 
   formatKeyExp:
+    useCustomValue: 0
     localeKey: 10
     customKey: 
+    customValue: 
   formatKeyLockRemainsDuration:
+    useCustomValue: 0
     localeKey: 5
     customKey: 
+    customValue: 
   formatKeyBuilding:
+    useCustomValue: 0
     localeKey: 214
     customKey: 
+    customValue: 
   formatKeyPet:
+    useCustomValue: 0
     localeKey: 215
     customKey: 
+    customValue: 
   formatKeyMount:
+    useCustomValue: 0
     localeKey: 216
     customKey: 
+    customValue: 
   formatKeySkill:
+    useCustomValue: 0
     localeKey: 217
     customKey: 
+    customValue: 
   formatKeyCoolDownDuration:
+    useCustomValue: 0
     localeKey: 45
     customKey: 
+    customValue: 
   formatKeyCoolDownRemainsDuration:
+    useCustomValue: 0
     localeKey: 5
     customKey: 
+    customValue: 
   formatKeyItemType:
+    useCustomValue: 0
     localeKey: 58
     customKey: 
+    customValue: 
   uiTextTitle: {fileID: 4064796093352225300}
   uiTextDescription: {fileID: 0}
   uiTextRarity: {fileID: 0}
@@ -13693,13 +14045,17 @@ MonoBehaviour:
     imageGage: {fileID: 0}
     sliderGage: {fileID: 0}
     formatCurrentByMax:
+      useCustomValue: 0
       localeKey: 8
       customKey: 
+      customValue: 
     formatCurrentAmount: N0
     formatMaxAmount: N0
     formatPercentage:
+      useCustomValue: 0
       localeKey: 6
       customKey: 
+      customValue: 
     formatPercentageAmount: N0
   uiTextWeight: {fileID: 2802491290188581437}
   uiTextExp: {fileID: 2382620476153563153}
@@ -13709,13 +14065,17 @@ MonoBehaviour:
     imageGage: {fileID: 0}
     sliderGage: {fileID: 0}
     formatCurrentByMax:
+      useCustomValue: 0
       localeKey: 8
       customKey: 
+      customValue: 
     formatCurrentAmount: N0
     formatMaxAmount: N0
     formatPercentage:
+      useCustomValue: 0
       localeKey: 6
       customKey: 
+      customValue: 
     formatPercentageAmount: N0
   uiTextLockRemainsDuration: {fileID: 7105577824231668188}
   lockObjects: []
@@ -13747,17 +14107,22 @@ MonoBehaviour:
     imageGage: {fileID: 0}
     sliderGage: {fileID: 0}
     formatCurrentByMax:
+      useCustomValue: 0
       localeKey: 8
       customKey: 
+      customValue: 
     formatCurrentAmount: N0
     formatMaxAmount: N0
     formatPercentage:
+      useCustomValue: 0
       localeKey: 6
       customKey: 
+      customValue: 
     formatPercentageAmount: N0
   uiTextBuilding: {fileID: 0}
   uiTextPet: {fileID: 0}
   uiTextMount: {fileID: 0}
+  uiPotionBuff: {fileID: 0}
   uiTextSkill: {fileID: 0}
   uiTextCoolDownDuration: {fileID: 0}
   uiTextCoolDownRemainsDuration: {fileID: 0}
@@ -13869,22 +14234,65 @@ MonoBehaviour:
   inputCreateAuctionStartPrice: {fileID: 5179844153001706667}
   inputCreateAuctionBuyoutPrice: {fileID: 8672908305714453414}
   formatKeyDuration:
+    useCustomValue: 0
     localeKey: 5
     customKey: 
+    customValue: 
   textAuctionCreateDuration: {fileID: 7476988157264858111}
   formatKeyRequireGold:
+    useCustomValue: 0
     localeKey: 90
     customKey: 
+    customValue: 
   formatKeyRequireGoldNotEnough:
+    useCustomValue: 0
     localeKey: 91
     customKey: 
+    customValue: 
   textAuctionCreatePrice: {fileID: 3358047365930886373}
   uiItem: {fileID: 4775885012798894828}
   onCreateAuction:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4775885012798894828}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8757352081869776021}
+        m_TargetAssemblyTypeName: MultiplayerARPG.Auction.UIAuctionList, Assembly-CSharp
+        m_MethodName: RefreshIfActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3378439144220025988}
+        m_TargetAssemblyTypeName: MultiplayerARPG.Auction.UIAuctionList, Assembly-CSharp
+        m_MethodName: RefreshIfActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5876162341848727914}
+        m_TargetAssemblyTypeName: MultiplayerARPG.Auction.UIAuctionList, Assembly-CSharp
+        m_MethodName: RefreshIfActive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13964,11 +14372,15 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyDamage:
+    useCustomValue: 0
     localeKey: 87
     customKey: 
+    customValue: 
   formatKeySumDamage:
+    useCustomValue: 0
     localeKey: 86
     customKey: 
+    customValue: 
   uiTextAllDamages: {fileID: 3433157935397169282}
   uiTextSumDamage: {fileID: 0}
   textDamages: []
@@ -13997,6 +14409,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14089,6 +14502,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14166,6 +14580,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14271,6 +14686,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.53333336, b: 0.8980392, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14334,6 +14750,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &6830173978235900072
 GameObject:
   m_ObjectHideFlags: 0
@@ -14396,6 +14814,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14502,6 +14921,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14581,6 +15001,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14673,6 +15094,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14753,6 +15175,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14859,6 +15282,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14935,6 +15359,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14963,6 +15388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -14993,6 +15419,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5876162341848727914}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnClickBid
         m_Mode: 1
         m_Arguments:
@@ -15079,6 +15506,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &7221929564872529579
 GameObject:
   m_ObjectHideFlags: 0
@@ -15149,143 +15577,235 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyHpStats:
+    useCustomValue: 0
     localeKey: 20
     customKey: 
+    customValue: 
   formatKeyHpRecoveryStats:
+    useCustomValue: 0
     localeKey: 241
     customKey: 
+    customValue: 
   formatKeyHpLeechRateStats:
+    useCustomValue: 0
     localeKey: 242
     customKey: 
+    customValue: 
   formatKeyMpStats:
+    useCustomValue: 0
     localeKey: 21
     customKey: 
+    customValue: 
   formatKeyMpRecoveryStats:
+    useCustomValue: 0
     localeKey: 243
     customKey: 
+    customValue: 
   formatKeyMpLeechRateStats:
+    useCustomValue: 0
     localeKey: 244
     customKey: 
+    customValue: 
   formatKeyStaminaStats:
+    useCustomValue: 0
     localeKey: 22
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryStats:
+    useCustomValue: 0
     localeKey: 245
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateStats:
+    useCustomValue: 0
     localeKey: 246
     customKey: 
+    customValue: 
   formatKeyFoodStats:
+    useCustomValue: 0
     localeKey: 23
     customKey: 
+    customValue: 
   formatKeyWaterStats:
+    useCustomValue: 0
     localeKey: 24
     customKey: 
+    customValue: 
   formatKeyAccuracyStats:
+    useCustomValue: 0
     localeKey: 26
     customKey: 
+    customValue: 
   formatKeyEvasionStats:
+    useCustomValue: 0
     localeKey: 27
     customKey: 
+    customValue: 
   formatKeyCriRateStats:
+    useCustomValue: 0
     localeKey: 28
     customKey: 
+    customValue: 
   formatKeyCriDmgRateStats:
+    useCustomValue: 0
     localeKey: 29
     customKey: 
+    customValue: 
   formatKeyBlockRateStats:
+    useCustomValue: 0
     localeKey: 30
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateStats:
+    useCustomValue: 0
     localeKey: 31
     customKey: 
+    customValue: 
   formatKeyMoveSpeedStats:
+    useCustomValue: 0
     localeKey: 32
     customKey: 
+    customValue: 
   formatKeyAtkSpeedStats:
+    useCustomValue: 0
     localeKey: 33
     customKey: 
+    customValue: 
   formatKeyWeightLimitStats:
+    useCustomValue: 0
     localeKey: 34
     customKey: 
+    customValue: 
   formatKeySlotLimitStats:
+    useCustomValue: 0
     localeKey: 35
     customKey: 
+    customValue: 
   formatKeyGoldRateStats:
+    useCustomValue: 0
     localeKey: 253
     customKey: 
+    customValue: 
   formatKeyExpRateStats:
+    useCustomValue: 0
     localeKey: 254
     customKey: 
+    customValue: 
   formatKeyHpRateStats:
+    useCustomValue: 0
     localeKey: 198
     customKey: 
+    customValue: 
   formatKeyHpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 247
     customKey: 
+    customValue: 
   formatKeyHpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 248
     customKey: 
+    customValue: 
   formatKeyMpRateStats:
+    useCustomValue: 0
     localeKey: 199
     customKey: 
+    customValue: 
   formatKeyMpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 249
     customKey: 
+    customValue: 
   formatKeyMpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 250
     customKey: 
+    customValue: 
   formatKeyStaminaRateStats:
+    useCustomValue: 0
     localeKey: 200
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 251
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 252
     customKey: 
+    customValue: 
   formatKeyFoodRateStats:
+    useCustomValue: 0
     localeKey: 201
     customKey: 
+    customValue: 
   formatKeyWaterRateStats:
+    useCustomValue: 0
     localeKey: 202
     customKey: 
+    customValue: 
   formatKeyAccuracyRateStats:
+    useCustomValue: 0
     localeKey: 203
     customKey: 
+    customValue: 
   formatKeyEvasionRateStats:
+    useCustomValue: 0
     localeKey: 204
     customKey: 
+    customValue: 
   formatKeyCriRateRateStats:
+    useCustomValue: 0
     localeKey: 205
     customKey: 
+    customValue: 
   formatKeyCriDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 206
     customKey: 
+    customValue: 
   formatKeyBlockRateRateStats:
+    useCustomValue: 0
     localeKey: 207
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 208
     customKey: 
+    customValue: 
   formatKeyMoveSpeedRateStats:
+    useCustomValue: 0
     localeKey: 209
     customKey: 
+    customValue: 
   formatKeyAtkSpeedRateStats:
+    useCustomValue: 0
     localeKey: 210
     customKey: 
+    customValue: 
   formatKeyWeightLimitRateStats:
+    useCustomValue: 0
     localeKey: 211
     customKey: 
+    customValue: 
   formatKeySlotLimitRateStats:
+    useCustomValue: 0
     localeKey: 212
     customKey: 
+    customValue: 
   formatKeyGoldRateRateStats:
+    useCustomValue: 0
     localeKey: 255
     customKey: 
+    customValue: 
   formatKeyExpRateRateStats:
+    useCustomValue: 0
     localeKey: 256
     customKey: 
+    customValue: 
   uiTextStats: {fileID: 7014999489315127358}
   uiTextHp: {fileID: 0}
   uiTextHpRecovery: {fileID: 0}
@@ -15335,6 +15855,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15439,17 +15960,25 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyAmount:
+    useCustomValue: 0
     localeKey: 76
     customKey: 
+    customValue: 
   formatKeyAmountNotEnough:
+    useCustomValue: 0
     localeKey: 77
     customKey: 
+    customValue: 
   formatKeySimpleAmount:
+    useCustomValue: 0
     localeKey: 78
     customKey: 
+    customValue: 
   formatKeyRateAmount:
+    useCustomValue: 0
     localeKey: 213
     customKey: 
+    customValue: 
   uiTextAllAmounts: {fileID: 1401091744603166803}
   textAmounts: []
   displayType: 0
@@ -15482,6 +16011,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15576,6 +16106,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.87843144, g: 0.87843144, b: 0.87843144, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15604,6 +16135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -15687,6 +16219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &7327763589747696134
 GameObject:
   m_ObjectHideFlags: 0
@@ -15780,6 +16314,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15856,6 +16391,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15968,6 +16504,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16046,6 +16583,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16124,6 +16662,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16204,6 +16743,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16310,6 +16850,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16389,6 +16930,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16483,6 +17025,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16562,6 +17105,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16656,6 +17200,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16732,6 +17277,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16819,6 +17365,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -16893,6 +17440,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17017,6 +17565,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17129,6 +17678,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17207,6 +17757,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17283,6 +17834,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17311,6 +17863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -17341,6 +17894,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3780168011455505018}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Show
         m_Mode: 1
         m_Arguments:
@@ -17411,6 +17965,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17491,6 +18046,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.827451, g: 0.18431373, b: 0.18431373, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17519,6 +18075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -17549,6 +18106,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4775885012798894828}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Hide
         m_Mode: 1
         m_Arguments:
@@ -17619,6 +18177,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17697,6 +18256,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17775,6 +18335,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17855,6 +18416,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17883,6 +18445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -17993,6 +18556,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &8717415314595932365
 GameObject:
   m_ObjectHideFlags: 0
@@ -18053,6 +18617,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18133,6 +18698,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18247,6 +18813,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18369,168 +18936,276 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyHpStats:
+    useCustomValue: 0
     localeKey: 20
     customKey: 
+    customValue: 
   formatKeyHpRecoveryStats:
+    useCustomValue: 0
     localeKey: 241
     customKey: 
+    customValue: 
   formatKeyHpLeechRateStats:
+    useCustomValue: 0
     localeKey: 242
     customKey: 
+    customValue: 
   formatKeyMpStats:
+    useCustomValue: 0
     localeKey: 21
     customKey: 
+    customValue: 
   formatKeyMpRecoveryStats:
+    useCustomValue: 0
     localeKey: 243
     customKey: 
+    customValue: 
   formatKeyMpLeechRateStats:
+    useCustomValue: 0
     localeKey: 244
     customKey: 
+    customValue: 
   formatKeyStaminaStats:
+    useCustomValue: 0
     localeKey: 22
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryStats:
+    useCustomValue: 0
     localeKey: 245
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateStats:
+    useCustomValue: 0
     localeKey: 246
     customKey: 
+    customValue: 
   formatKeyFoodStats:
+    useCustomValue: 0
     localeKey: 23
     customKey: 
+    customValue: 
   formatKeyWaterStats:
+    useCustomValue: 0
     localeKey: 24
     customKey: 
+    customValue: 
   formatKeyAccuracyStats:
+    useCustomValue: 0
     localeKey: 26
     customKey: 
+    customValue: 
   formatKeyEvasionStats:
+    useCustomValue: 0
     localeKey: 27
     customKey: 
+    customValue: 
   formatKeyCriRateStats:
+    useCustomValue: 0
     localeKey: 28
     customKey: 
+    customValue: 
   formatKeyCriDmgRateStats:
+    useCustomValue: 0
     localeKey: 29
     customKey: 
+    customValue: 
   formatKeyBlockRateStats:
+    useCustomValue: 0
     localeKey: 30
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateStats:
+    useCustomValue: 0
     localeKey: 31
     customKey: 
+    customValue: 
   formatKeyMoveSpeedStats:
+    useCustomValue: 0
     localeKey: 32
     customKey: 
+    customValue: 
   formatKeyAtkSpeedStats:
+    useCustomValue: 0
     localeKey: 33
     customKey: 
+    customValue: 
   formatKeyWeightLimitStats:
+    useCustomValue: 0
     localeKey: 34
     customKey: 
+    customValue: 
   formatKeySlotLimitStats:
+    useCustomValue: 0
     localeKey: 35
     customKey: 
+    customValue: 
   formatKeyGoldRateStats:
+    useCustomValue: 0
     localeKey: 253
     customKey: 
+    customValue: 
   formatKeyExpRateStats:
+    useCustomValue: 0
     localeKey: 254
     customKey: 
+    customValue: 
   formatKeyHpRateStats:
+    useCustomValue: 0
     localeKey: 198
     customKey: 
+    customValue: 
   formatKeyHpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 247
     customKey: 
+    customValue: 
   formatKeyHpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 248
     customKey: 
+    customValue: 
   formatKeyMpRateStats:
+    useCustomValue: 0
     localeKey: 199
     customKey: 
+    customValue: 
   formatKeyMpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 249
     customKey: 
+    customValue: 
   formatKeyMpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 250
     customKey: 
+    customValue: 
   formatKeyStaminaRateStats:
+    useCustomValue: 0
     localeKey: 200
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 251
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 252
     customKey: 
+    customValue: 
   formatKeyFoodRateStats:
+    useCustomValue: 0
     localeKey: 201
     customKey: 
+    customValue: 
   formatKeyWaterRateStats:
+    useCustomValue: 0
     localeKey: 202
     customKey: 
+    customValue: 
   formatKeyAccuracyRateStats:
+    useCustomValue: 0
     localeKey: 203
     customKey: 
+    customValue: 
   formatKeyEvasionRateStats:
+    useCustomValue: 0
     localeKey: 204
     customKey: 
+    customValue: 
   formatKeyCriRateRateStats:
+    useCustomValue: 0
     localeKey: 205
     customKey: 
+    customValue: 
   formatKeyCriDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 206
     customKey: 
+    customValue: 
   formatKeyBlockRateRateStats:
+    useCustomValue: 0
     localeKey: 207
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 208
     customKey: 
+    customValue: 
   formatKeyMoveSpeedRateStats:
+    useCustomValue: 0
     localeKey: 209
     customKey: 
+    customValue: 
   formatKeyAtkSpeedRateStats:
+    useCustomValue: 0
     localeKey: 210
     customKey: 
+    customValue: 
   formatKeyWeightLimitRateStats:
+    useCustomValue: 0
     localeKey: 211
     customKey: 
+    customValue: 
   formatKeySlotLimitRateStats:
+    useCustomValue: 0
     localeKey: 212
     customKey: 
+    customValue: 
   formatKeyGoldRateRateStats:
+    useCustomValue: 0
     localeKey: 255
     customKey: 
+    customValue: 
   formatKeyExpRateRateStats:
+    useCustomValue: 0
     localeKey: 256
     customKey: 
+    customValue: 
   formatKeyAttributeAmount:
+    useCustomValue: 0
     localeKey: 78
     customKey: 
+    customValue: 
   formatKeyAttributeAmountRate:
+    useCustomValue: 0
     localeKey: 213
     customKey: 
+    customValue: 
   formatKeyResistanceAmount:
+    useCustomValue: 0
     localeKey: 79
     customKey: 
+    customValue: 
   formatKeyDamageAmount:
+    useCustomValue: 0
     localeKey: 87
     customKey: 
+    customValue: 
   formatKeyArmorAmount:
+    useCustomValue: 0
     localeKey: 197
     customKey: 
+    customValue: 
   formatKeySkillLevel:
+    useCustomValue: 0
     localeKey: 82
     customKey: 
+    customValue: 
   uiTextAllBonus: {fileID: 3990384748787827075}
   formatKeySocketFilled:
+    useCustomValue: 0
     localeKey: 95
     customKey: 
+    customValue: 
   formatKeySocketEmpty:
+    useCustomValue: 0
     localeKey: 96
     customKey: 
+    customValue: 
 --- !u!222 &7415032444429104921
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18554,6 +19229,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18646,6 +19322,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18734,171 +19411,281 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   updateUIRepeatRate: 0.5
   formatKeyHpStats:
+    useCustomValue: 0
     localeKey: 20
     customKey: 
+    customValue: 
   formatKeyHpRecoveryStats:
+    useCustomValue: 0
     localeKey: 241
     customKey: 
+    customValue: 
   formatKeyHpLeechRateStats:
+    useCustomValue: 0
     localeKey: 242
     customKey: 
+    customValue: 
   formatKeyMpStats:
+    useCustomValue: 0
     localeKey: 21
     customKey: 
+    customValue: 
   formatKeyMpRecoveryStats:
+    useCustomValue: 0
     localeKey: 243
     customKey: 
+    customValue: 
   formatKeyMpLeechRateStats:
+    useCustomValue: 0
     localeKey: 244
     customKey: 
+    customValue: 
   formatKeyStaminaStats:
+    useCustomValue: 0
     localeKey: 22
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryStats:
+    useCustomValue: 0
     localeKey: 245
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateStats:
+    useCustomValue: 0
     localeKey: 246
     customKey: 
+    customValue: 
   formatKeyFoodStats:
+    useCustomValue: 0
     localeKey: 23
     customKey: 
+    customValue: 
   formatKeyWaterStats:
+    useCustomValue: 0
     localeKey: 24
     customKey: 
+    customValue: 
   formatKeyAccuracyStats:
+    useCustomValue: 0
     localeKey: 26
     customKey: 
+    customValue: 
   formatKeyEvasionStats:
+    useCustomValue: 0
     localeKey: 27
     customKey: 
+    customValue: 
   formatKeyCriRateStats:
+    useCustomValue: 0
     localeKey: 28
     customKey: 
+    customValue: 
   formatKeyCriDmgRateStats:
+    useCustomValue: 0
     localeKey: 29
     customKey: 
+    customValue: 
   formatKeyBlockRateStats:
+    useCustomValue: 0
     localeKey: 30
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateStats:
+    useCustomValue: 0
     localeKey: 31
     customKey: 
+    customValue: 
   formatKeyMoveSpeedStats:
+    useCustomValue: 0
     localeKey: 32
     customKey: 
+    customValue: 
   formatKeyAtkSpeedStats:
+    useCustomValue: 0
     localeKey: 33
     customKey: 
+    customValue: 
   formatKeyWeightLimitStats:
+    useCustomValue: 0
     localeKey: 34
     customKey: 
+    customValue: 
   formatKeySlotLimitStats:
+    useCustomValue: 0
     localeKey: 35
     customKey: 
+    customValue: 
   formatKeyGoldRateStats:
+    useCustomValue: 0
     localeKey: 253
     customKey: 
+    customValue: 
   formatKeyExpRateStats:
+    useCustomValue: 0
     localeKey: 254
     customKey: 
+    customValue: 
   formatKeyHpRateStats:
+    useCustomValue: 0
     localeKey: 198
     customKey: 
+    customValue: 
   formatKeyHpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 247
     customKey: 
+    customValue: 
   formatKeyHpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 248
     customKey: 
+    customValue: 
   formatKeyMpRateStats:
+    useCustomValue: 0
     localeKey: 199
     customKey: 
+    customValue: 
   formatKeyMpRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 249
     customKey: 
+    customValue: 
   formatKeyMpLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 250
     customKey: 
+    customValue: 
   formatKeyStaminaRateStats:
+    useCustomValue: 0
     localeKey: 200
     customKey: 
+    customValue: 
   formatKeyStaminaRecoveryRateStats:
+    useCustomValue: 0
     localeKey: 251
     customKey: 
+    customValue: 
   formatKeyStaminaLeechRateRateStats:
+    useCustomValue: 0
     localeKey: 252
     customKey: 
+    customValue: 
   formatKeyFoodRateStats:
+    useCustomValue: 0
     localeKey: 201
     customKey: 
+    customValue: 
   formatKeyWaterRateStats:
+    useCustomValue: 0
     localeKey: 202
     customKey: 
+    customValue: 
   formatKeyAccuracyRateStats:
+    useCustomValue: 0
     localeKey: 203
     customKey: 
+    customValue: 
   formatKeyEvasionRateStats:
+    useCustomValue: 0
     localeKey: 204
     customKey: 
+    customValue: 
   formatKeyCriRateRateStats:
+    useCustomValue: 0
     localeKey: 205
     customKey: 
+    customValue: 
   formatKeyCriDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 206
     customKey: 
+    customValue: 
   formatKeyBlockRateRateStats:
+    useCustomValue: 0
     localeKey: 207
     customKey: 
+    customValue: 
   formatKeyBlockDmgRateRateStats:
+    useCustomValue: 0
     localeKey: 208
     customKey: 
+    customValue: 
   formatKeyMoveSpeedRateStats:
+    useCustomValue: 0
     localeKey: 209
     customKey: 
+    customValue: 
   formatKeyAtkSpeedRateStats:
+    useCustomValue: 0
     localeKey: 210
     customKey: 
+    customValue: 
   formatKeyWeightLimitRateStats:
+    useCustomValue: 0
     localeKey: 211
     customKey: 
+    customValue: 
   formatKeySlotLimitRateStats:
+    useCustomValue: 0
     localeKey: 212
     customKey: 
+    customValue: 
   formatKeyGoldRateRateStats:
+    useCustomValue: 0
     localeKey: 255
     customKey: 
+    customValue: 
   formatKeyExpRateRateStats:
+    useCustomValue: 0
     localeKey: 256
     customKey: 
+    customValue: 
   formatKeyAttributeAmount:
+    useCustomValue: 0
     localeKey: 78
     customKey: 
+    customValue: 
   formatKeyAttributeAmountRate:
+    useCustomValue: 0
     localeKey: 213
     customKey: 
+    customValue: 
   formatKeyResistanceAmount:
+    useCustomValue: 0
     localeKey: 79
     customKey: 
+    customValue: 
   formatKeyDamageAmount:
+    useCustomValue: 0
     localeKey: 87
     customKey: 
+    customValue: 
   formatKeyArmorAmount:
+    useCustomValue: 0
     localeKey: 197
     customKey: 
+    customValue: 
   formatKeySkillLevel:
+    useCustomValue: 0
     localeKey: 82
     customKey: 
+    customValue: 
   uiTextAllBonus: {fileID: 8153316261126152534}
   formatKeySet:
+    useCustomValue: 0
     localeKey: 92
     customKey: 
+    customValue: 
   formatKeyAppliedEffect:
+    useCustomValue: 0
     localeKey: 93
     customKey: 
+    customValue: 
   formatKeyUnappliedEffect:
+    useCustomValue: 0
     localeKey: 94
     customKey: 
+    customValue: 
 --- !u!222 &8641894116499693493
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18922,6 +19709,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19016,6 +19804,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19123,6 +19912,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19219,6 +20009,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19401,6 +20192,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19507,6 +20299,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
