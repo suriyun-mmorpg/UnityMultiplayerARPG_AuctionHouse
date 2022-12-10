@@ -113,13 +113,20 @@ namespace MultiplayerARPG.MMO
             }
             // Require index of non equip items, amount, starting auction price, buyout price (optional, 0 = no buyout)
             // Check player's item, then tell the service to add to bidding list, and remove it from inventory
-            if (request.indexOfItem >= playerCharacterData.NonEquipItems.Count ||
-                playerCharacterData.NonEquipItems[request.indexOfItem].amount < request.amount)
+            if (request.indexOfItem < 0 || request.indexOfItem >= playerCharacterData.NonEquipItems.Count)
             {
-                // Do nothing, wrong index of item or item amount is over than it has
                 result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_INVALID_ITEM_INDEX,
+                });
+                return;
+            }
+            // Check amount
+            if (playerCharacterData.NonEquipItems[request.indexOfItem].amount < request.amount)
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ENOUGH_ITEMS,
                 });
                 return;
             }
