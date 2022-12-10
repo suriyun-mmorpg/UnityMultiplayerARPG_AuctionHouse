@@ -156,6 +156,21 @@ namespace MultiplayerARPG.Auction
             Refresh();
         }
 
+        public void OnClickCancelAuction()
+        {
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).CancelAuction(new CancelAuctionMessage()
+            {
+                auctionId = Data.id,
+            }, OnCancelAuction);
+        }
+
+        private void OnCancelAuction(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseCancelAuctionMessage response)
+        {
+            if (responseCode.ShowUnhandledResponseMessageDialog(response.message))
+                return;
+            Refresh();
+        }
+
         private async void Refresh()
         {
             UnityRestClient.RestClient.Result<AuctionData> result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetAuction(Data.id);

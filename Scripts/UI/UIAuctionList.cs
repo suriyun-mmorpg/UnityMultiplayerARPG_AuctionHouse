@@ -233,5 +233,12 @@ namespace MultiplayerARPG.Auction
                 return;
             CacheSelectionManager.SelectedUI.OnClickBuyout();
         }
+
+        public void OnClickCancelAuction()
+        {
+            if (!CacheSelectionManager.SelectedUI)
+                return;
+            CacheSelectionManager.SelectedUI.OnClickCancelAuction();
+        }
     }
 }

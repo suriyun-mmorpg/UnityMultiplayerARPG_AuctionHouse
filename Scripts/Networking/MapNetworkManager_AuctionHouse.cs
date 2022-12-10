@@ -3,6 +3,7 @@ using LiteNetLibManager;
 using MultiplayerARPG.Auction;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityRestClient;
 
 namespace MultiplayerARPG.MMO
@@ -15,6 +16,7 @@ namespace MultiplayerARPG.MMO
             public ushort createAuctionRequestType;
             public ushort bidRequestType;
             public ushort buyoutRequestType;
+            public ushort cancelAuctionRequestType;
             public ushort getClientConfigRequestType;
         }
 
@@ -27,6 +29,7 @@ namespace MultiplayerARPG.MMO
             createAuctionRequestType = 1300,
             bidRequestType = 1301,
             buyoutRequestType = 1302,
+            cancelAuctionRequestType = 1304,
             getClientConfigRequestType = 1303,
         };
         public string auctionHouseServiceUrl = "http://localhost:9800";
@@ -59,6 +62,7 @@ namespace MultiplayerARPG.MMO
             RegisterRequestToServer<CreateAuctionMessage, ResponseCreateAuctionMessage>(auctionHouseMessageTypes.createAuctionRequestType, HandleCreateAuctionAtServer);
             RegisterRequestToServer<BidMessage, ResponseBidMessage>(auctionHouseMessageTypes.bidRequestType, HandleBidAtServer);
             RegisterRequestToServer<BuyoutMessage, ResponseBuyoutMessage>(auctionHouseMessageTypes.buyoutRequestType, HandleBuyoutAtServer);
+            RegisterRequestToServer<CancelAuctionMessage, ResponseCancelAuctionMessage>(auctionHouseMessageTypes.cancelAuctionRequestType, HandleCancelAuctionAtServer);
             RegisterRequestToServer<EmptyMessage, ResponseClientConfigMessage>(auctionHouseMessageTypes.getClientConfigRequestType, HandleGetClientConfigAtServer);
         }
 
@@ -73,7 +77,6 @@ namespace MultiplayerARPG.MMO
         {
             if (!IsClientConnected)
                 return;
-            // Send create auction message to server
             ClientSendRequest(auctionHouseMessageTypes.createAuctionRequestType, createAuction, callback);
         }
 
@@ -162,7 +165,6 @@ namespace MultiplayerARPG.MMO
         {
             if (!IsClientConnected)
                 return;
-            // Send create auction message to server
             ClientSendRequest(auctionHouseMessageTypes.bidRequestType, bid, callback);
         }
 
@@ -218,7 +220,6 @@ namespace MultiplayerARPG.MMO
             }
             if (playerCharacterData.Gold < getResult.Content.bidPrice)
             {
-                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
                 result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
@@ -229,7 +230,10 @@ namespace MultiplayerARPG.MMO
             RestClient.Result bidResult = await AuctionRestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, request.auctionId, request.price);
             if (bidResult.IsNetworkError || bidResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
+                });
                 return;
             }
             // Reduce gold
@@ -241,7 +245,6 @@ namespace MultiplayerARPG.MMO
         {
             if (!IsClientConnected)
                 return;
-            // Send create auction message to server
             ClientSendRequest(auctionHouseMessageTypes.buyoutRequestType, buyout, callback);
         }
 
@@ -290,14 +293,20 @@ namespace MultiplayerARPG.MMO
             // Validate gold
             if (playerCharacterData.Gold < getResult.Content.buyoutPrice)
             {
-                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD);
+                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
+                });
                 return;
             }
             // Tell the service to add to buyout
             RestClient.Result buyoutResult = await AuctionRestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, request.auctionId);
             if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
             {
-                ServerGameMessageHandlers.SendGameMessage(requestHandler.ConnectionId, UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR);
+                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                {
+                    message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
+                });
                 return;
             }
             // Reduce gold
@@ -305,11 +314,71 @@ namespace MultiplayerARPG.MMO
             result.Invoke(AckResponseCode.Success, new ResponseBuyoutMessage());
         }
 
+        public void CancelAuction(CancelAuctionMessage cancelAuction, ResponseDelegate<ResponseCancelAuctionMessage> callback)
+        {
+            if (!IsClientConnected)
+                return;
+            ClientSendRequest(auctionHouseMessageTypes.cancelAuctionRequestType, cancelAuction, callback);
+        }
+
+        private async UniTaskVoid HandleCancelAuctionAtServer(RequestHandlerData requestHandler, CancelAuctionMessage request,
+            RequestProceedResultDelegate<ResponseCancelAuctionMessage> result)
+        {
+            IPlayerCharacterData playerCharacterData;
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
+            {
+                // Do nothing, player character is not enter the game yet.
+                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
+                });
+                return;
+            }
+            // Get auction data from service
+            RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(request.auctionId);
+            if (getResult.IsNetworkError || getResult.IsHttpError)
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
+                });
+                return;
+            }
+            // Non-seller cannot cancel
+            if (!playerCharacterData.UserId.Equals(getResult.Content.sellerId))
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ALLOWED,
+                });
+                return;
+            }
+            // Bidden cannot be cancelled
+            if (!string.IsNullOrWhiteSpace(getResult.Content.buyerId))
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ALLOWED,
+                });
+                return;
+            }
+            // Tell the service to cancel auction
+            RestClient.Result buyoutResult = await AuctionRestClientForServer.CancelAuction(playerCharacterData.UserId, request.auctionId);
+            if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                {
+                    message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
+                });
+                return;
+            }
+            result.Invoke(AckResponseCode.Success, new ResponseCancelAuctionMessage());
+        }
+
         public void GetAccessToken(ResponseDelegate<ResponseClientConfigMessage> callback)
         {
             if (!IsClientConnected)
                 return;
-            // Send create auction message to server
             ClientSendRequest(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value, callback);
         }
 

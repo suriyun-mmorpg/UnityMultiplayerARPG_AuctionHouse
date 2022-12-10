@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HeroEditor4D.Common;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityRestClient;
 
@@ -77,6 +78,14 @@ namespace MultiplayerARPG.Auction
             form.Add(nameof(characterName), characterName);
             form.Add(nameof(id), id);
             return Post(GetUrl(url, "/internal/buyout"), form, accessToken);
+        }
+
+        public Task<Result> CancelAuction(string userId, int id)
+        {
+            Dictionary<string, object> form = new Dictionary<string, object>();
+            form.Add(nameof(userId), userId);
+            form.Add(nameof(id), id);
+            return Post(GetUrl(url, "/internal/cancel-auction"), form, accessToken);
         }
 
         public Task<Result<DurationOptionsResponse>> GetDurationOptions()
