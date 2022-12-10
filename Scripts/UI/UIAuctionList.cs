@@ -200,6 +200,7 @@ namespace MultiplayerARPG.Auction
                 Page = TotalPage;
             else
                 Page = Page + 1;
+            Refresh();
         }
 
         public void OnClickPreviousPage()
@@ -208,6 +209,7 @@ namespace MultiplayerARPG.Auction
                 Page = 1;
             else
                 Page = Page - 1;
+            Refresh();
         }
 
         public void OnClickBid()
