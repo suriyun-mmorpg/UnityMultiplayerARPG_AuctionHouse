@@ -191,6 +191,7 @@ namespace MultiplayerARPG.Auction
                 listEmptyObject.SetActive(result.Content.list.Count == 0);
             if (textPage)
                 textPage.text = string.Format(formatKeyPage.ToFormat(), result.Content.page, result.Content.totalPage);
+            TotalPage = result.Content.totalPage;
         }
 
         public void OnClickNextPage()
