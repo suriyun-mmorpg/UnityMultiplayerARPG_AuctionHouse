@@ -81,7 +81,7 @@ namespace MultiplayerARPG.Auction
             page = 1;
             if (textPage)
                 textPage.text = string.Format(formatKeyPage.ToFormat(), 1, 1);
-            GetAccessToken();
+            GetClientConfig();
         }
 
         private void OnDisable()
@@ -116,19 +116,19 @@ namespace MultiplayerARPG.Auction
             }
         }
 
-        public void GetAccessToken()
+        public void GetClientConfig()
         {
             if (Time.unscaledTime - lastGetAccessToken < 30)
                 return;
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).GetAccessToken(OnGetAccessToken);
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).GetClientConfig(OnGetClientConfig);
         }
 
-        private void OnGetAccessToken(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseClientConfigMessage response)
+        private void OnGetClientConfig(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseClientConfigMessage response)
         {
             if (responseCode != AckResponseCode.Success)
             {
                 // Cannot get access token
-                GetAccessToken();
+                GetClientConfig();
                 return;
             }
             lastGetAccessToken = Time.unscaledTime;
@@ -179,7 +179,7 @@ namespace MultiplayerARPG.Auction
                 return;
             if (result.IsHttpError)
             {
-                GetAccessToken();
+                GetClientConfig();
                 return;
             }
             if (result.Content.list.Count == 0)

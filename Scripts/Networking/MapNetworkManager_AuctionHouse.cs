@@ -375,7 +375,7 @@ namespace MultiplayerARPG.MMO
             result.Invoke(AckResponseCode.Success, new ResponseCancelAuctionMessage());
         }
 
-        public void GetAccessToken(ResponseDelegate<ResponseClientConfigMessage> callback)
+        public void GetClientConfig(ResponseDelegate<ResponseClientConfigMessage> callback)
         {
             if (!IsClientConnected)
                 return;
