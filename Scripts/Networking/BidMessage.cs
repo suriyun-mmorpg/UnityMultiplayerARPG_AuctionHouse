@@ -10,7 +10,7 @@ namespace MultiplayerARPG.Auction
         public void Deserialize(NetDataReader reader)
         {
             auctionId = reader.GetPackedInt();
-            price = reader.GetPackedShort();
+            price = reader.GetPackedInt();
         }
 
         public void Serialize(NetDataWriter writer)

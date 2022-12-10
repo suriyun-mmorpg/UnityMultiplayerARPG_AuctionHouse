@@ -14,8 +14,8 @@ namespace MultiplayerARPG.Auction
         {
             indexOfItem = reader.GetPackedInt();
             amount = reader.GetPackedShort();
-            startPrice = reader.GetPackedShort();
-            buyoutPrice = reader.GetPackedShort();
+            startPrice = reader.GetPackedInt();
+            buyoutPrice = reader.GetPackedInt();
             durationOption = reader.GetPackedInt();
         }
 
