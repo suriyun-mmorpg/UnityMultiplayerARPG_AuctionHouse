@@ -82,6 +82,7 @@ namespace MultiplayerARPG.Auction
             if (textPage)
                 textPage.text = string.Format(formatKeyPage.ToFormat(), 1, 1);
             GetClientConfig();
+            Refresh();
         }
 
         private void OnDisable()
