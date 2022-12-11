@@ -200,6 +200,15 @@ namespace MultiplayerARPG.MMO
                 });
                 return;
             }
+            // Bidder cannot over bid themself
+            if (playerCharacterData.UserId.Equals(getResult.Content.buyerId))
+            {
+                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                {
+                    message = UITextKeys.UI_ERROR_NOT_ALLOWED,
+                });
+                return;
+            }
             // Validate gold
             if (request.price <= getResult.Content.bidPrice)
             {
@@ -218,7 +227,7 @@ namespace MultiplayerARPG.MMO
                 });
                 return;
             }
-            if (playerCharacterData.Gold < getResult.Content.bidPrice)
+            if (playerCharacterData.Gold < request.price)
             {
                 result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
                 {
