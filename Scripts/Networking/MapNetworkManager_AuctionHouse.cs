@@ -83,11 +83,10 @@ namespace MultiplayerARPG.MMO
         private async UniTaskVoid HandleCreateAuctionAtServer(RequestHandlerData requestHandler, CreateAuctionMessage request,
             RequestProceedResultDelegate<ResponseCreateAuctionMessage> result)
         {
-            IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out IPlayerCharacterData playerCharacter))
             {
                 // Do nothing, player character is not enter the game yet.
-                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                result.InvokeError(new ResponseCreateAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
                 });
@@ -99,16 +98,16 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<DurationOptionsResponse> durationOptionsResult = await AuctionRestClientForServer.GetDurationOptions();
             if (durationOptionsResult.IsNetworkError || durationOptionsResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                result.InvokeError(new ResponseCreateAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
                 });
                 return;
             }
             int createAuctionPrice = durationOptionsResult.Content.durationOptions[request.durationOption].price;
-            if (playerCharacterData.Gold < createAuctionPrice)
+            if (playerCharacter.Gold < createAuctionPrice)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                result.InvokeError(new ResponseCreateAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
                 });
@@ -116,25 +115,25 @@ namespace MultiplayerARPG.MMO
             }
             // Require index of non equip items, amount, starting auction price, buyout price (optional, 0 = no buyout)
             // Check player's item, then tell the service to add to bidding list, and remove it from inventory
-            if (request.indexOfItem < 0 || request.indexOfItem >= playerCharacterData.NonEquipItems.Count)
+            if (request.indexOfItem < 0 || request.indexOfItem >= playerCharacter.NonEquipItems.Count)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                result.InvokeError(new ResponseCreateAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_INVALID_ITEM_INDEX,
                 });
                 return;
             }
             // Check amount
-            if (playerCharacterData.NonEquipItems[request.indexOfItem].amount < request.amount)
+            if (playerCharacter.NonEquipItems[request.indexOfItem].amount < request.amount)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                result.InvokeError(new ResponseCreateAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ENOUGH_ITEMS,
                 });
                 return;
             }
             // Tell the service to add to bidding list
-            CharacterItem clonedItemForAmountChanging = playerCharacterData.NonEquipItems[request.indexOfItem].Clone();
+            CharacterItem clonedItemForAmountChanging = playerCharacter.NonEquipItems[request.indexOfItem].Clone();
             clonedItemForAmountChanging.amount = request.amount;
             Mail mail = new Mail();
             mail.Items.Add(clonedItemForAmountChanging);
@@ -144,21 +143,21 @@ namespace MultiplayerARPG.MMO
                 clonedItemForAmountChanging.level,
                 request.startPrice,
                 request.buyoutPrice,
-                playerCharacterData.UserId,
-                playerCharacterData.CharacterName,
+                playerCharacter.UserId,
+                playerCharacter.CharacterName,
                 request.durationOption);
             if (createResult.IsNetworkError || createResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCreateAuctionMessage()
+                result.InvokeError(new ResponseCreateAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
                 });
                 return;
             }
             // Remove item from inventory
-            playerCharacterData.DecreaseItemsByIndex(request.indexOfItem, request.amount, true);
-            playerCharacterData.Gold -= createAuctionPrice;
-            result.Invoke(AckResponseCode.Success, new ResponseCreateAuctionMessage());
+            playerCharacter.DecreaseItemsByIndex(request.indexOfItem, request.amount, true);
+            playerCharacter.Gold -= createAuctionPrice;
+            result.InvokeSuccess(new ResponseCreateAuctionMessage());
         }
 
         public void Bid(BidMessage bid, ResponseDelegate<ResponseBidMessage> callback)
@@ -171,11 +170,10 @@ namespace MultiplayerARPG.MMO
         private async UniTaskVoid HandleBidAtServer(RequestHandlerData requestHandler, BidMessage request,
             RequestProceedResultDelegate<ResponseBidMessage> result)
         {
-            IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out IPlayerCharacterData playerCharacter))
             {
                 // Do nothing, player character is not enter the game yet.
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
                 });
@@ -185,25 +183,25 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(request.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
                 });
                 return;
             }
             // Seller cannot bid
-            if (playerCharacterData.UserId.Equals(getResult.Content.sellerId))
+            if (playerCharacter.UserId.Equals(getResult.Content.sellerId))
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ALLOWED,
                 });
                 return;
             }
             // Bidder cannot over bid themself
-            if (playerCharacterData.UserId.Equals(getResult.Content.buyerId))
+            if (playerCharacter.UserId.Equals(getResult.Content.buyerId))
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ALLOWED,
                 });
@@ -212,7 +210,7 @@ namespace MultiplayerARPG.MMO
             // Validate gold
             if (request.price <= getResult.Content.bidPrice)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
                 });
@@ -221,33 +219,33 @@ namespace MultiplayerARPG.MMO
             // Validate buyout price
             if (getResult.Content.buyoutPrice > 0 && request.price >= getResult.Content.buyoutPrice)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_BAD_REQUEST,
                 });
                 return;
             }
-            if (playerCharacterData.Gold < request.price)
+            if (playerCharacter.Gold < request.price)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
                 });
                 return;
             }
             // Tell the service to add to bid
-            RestClient.Result bidResult = await AuctionRestClientForServer.Bid(playerCharacterData.UserId, playerCharacterData.CharacterName, request.auctionId, request.price);
+            RestClient.Result bidResult = await AuctionRestClientForServer.Bid(playerCharacter.UserId, playerCharacter.CharacterName, request.auctionId, request.price);
             if (bidResult.IsNetworkError || bidResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBidMessage()
+                result.InvokeError(new ResponseBidMessage()
                 {
                     message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
                 });
                 return;
             }
             // Reduce gold
-            playerCharacterData.Gold -= request.price;
-            result.Invoke(AckResponseCode.Success, new ResponseBidMessage());
+            playerCharacter.Gold -= request.price;
+            result.InvokeSuccess(new ResponseBidMessage());
         }
 
         public void Buyout(BuyoutMessage buyout, ResponseDelegate<ResponseBuyoutMessage> callback)
@@ -260,11 +258,10 @@ namespace MultiplayerARPG.MMO
         private async UniTaskVoid HandleBuyoutAtServer(RequestHandlerData requestHandler, BuyoutMessage request,
             RequestProceedResultDelegate<ResponseBuyoutMessage> result)
         {
-            IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out IPlayerCharacterData playerCharacter))
             {
                 // Do nothing, player character is not enter the game yet.
-                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                result.InvokeError(new ResponseBuyoutMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
                 });
@@ -274,16 +271,16 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(request.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                result.InvokeError(new ResponseBuyoutMessage()
                 {
                     message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
                 });
                 return;
             }
             // Seller cannot bid
-            if (playerCharacterData.UserId.Equals(getResult.Content.sellerId))
+            if (playerCharacter.UserId.Equals(getResult.Content.sellerId))
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                result.InvokeError(new ResponseBuyoutMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ALLOWED,
                 });
@@ -292,7 +289,7 @@ namespace MultiplayerARPG.MMO
             // Validate buyout price
             if (getResult.Content.buyoutPrice <= 0)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                result.InvokeError(new ResponseBuyoutMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ALLOWED,
                 });
@@ -300,27 +297,27 @@ namespace MultiplayerARPG.MMO
             }
             int price = getResult.Content.buyoutPrice;
             // Validate gold
-            if (playerCharacterData.Gold < getResult.Content.buyoutPrice)
+            if (playerCharacter.Gold < getResult.Content.buyoutPrice)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                result.InvokeError(new ResponseBuyoutMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ENOUGH_GOLD,
                 });
                 return;
             }
             // Tell the service to add to buyout
-            RestClient.Result buyoutResult = await AuctionRestClientForServer.Buyout(playerCharacterData.UserId, playerCharacterData.CharacterName, request.auctionId);
+            RestClient.Result buyoutResult = await AuctionRestClientForServer.Buyout(playerCharacter.UserId, playerCharacter.CharacterName, request.auctionId);
             if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseBuyoutMessage()
+                result.InvokeError(new ResponseBuyoutMessage()
                 {
                     message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
                 });
                 return;
             }
             // Reduce gold
-            playerCharacterData.Gold -= price;
-            result.Invoke(AckResponseCode.Success, new ResponseBuyoutMessage());
+            playerCharacter.Gold -= price;
+            result.InvokeSuccess(new ResponseBuyoutMessage());
         }
 
         public void CancelAuction(CancelAuctionMessage cancelAuction, ResponseDelegate<ResponseCancelAuctionMessage> callback)
@@ -333,11 +330,10 @@ namespace MultiplayerARPG.MMO
         private async UniTaskVoid HandleCancelAuctionAtServer(RequestHandlerData requestHandler, CancelAuctionMessage request,
             RequestProceedResultDelegate<ResponseCancelAuctionMessage> result)
         {
-            IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out IPlayerCharacterData playerCharacter))
             {
                 // Do nothing, player character is not enter the game yet.
-                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                result.InvokeError(new ResponseCancelAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
                 });
@@ -347,16 +343,16 @@ namespace MultiplayerARPG.MMO
             RestClient.Result<AuctionData> getResult = await AuctionRestClientForServer.GetAuction(request.auctionId);
             if (getResult.IsNetworkError || getResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                result.InvokeError(new ResponseCancelAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_CONTENT_NOT_AVAILABLE,
                 });
                 return;
             }
             // Non-seller cannot cancel
-            if (!playerCharacterData.UserId.Equals(getResult.Content.sellerId))
+            if (!playerCharacter.UserId.Equals(getResult.Content.sellerId))
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                result.InvokeError(new ResponseCancelAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ALLOWED,
                 });
@@ -365,23 +361,23 @@ namespace MultiplayerARPG.MMO
             // Bidden cannot be cancelled
             if (!string.IsNullOrWhiteSpace(getResult.Content.buyerId))
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                result.InvokeError(new ResponseCancelAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_ALLOWED,
                 });
                 return;
             }
             // Tell the service to cancel auction
-            RestClient.Result buyoutResult = await AuctionRestClientForServer.CancelAuction(playerCharacterData.UserId, request.auctionId);
+            RestClient.Result buyoutResult = await AuctionRestClientForServer.CancelAuction(playerCharacter.UserId, request.auctionId);
             if (buyoutResult.IsNetworkError || buyoutResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseCancelAuctionMessage()
+                result.InvokeError(new ResponseCancelAuctionMessage()
                 {
                     message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
                 });
                 return;
             }
-            result.Invoke(AckResponseCode.Success, new ResponseCancelAuctionMessage());
+            result.InvokeSuccess(new ResponseCancelAuctionMessage());
         }
 
         public void GetClientConfig(ResponseDelegate<ResponseClientConfigMessage> callback)
@@ -394,26 +390,25 @@ namespace MultiplayerARPG.MMO
         private async UniTaskVoid HandleGetClientConfigAtServer(RequestHandlerData requestHandler, EmptyMessage request,
             RequestProceedResultDelegate<ResponseClientConfigMessage> result)
         {
-            IPlayerCharacterData playerCharacterData;
-            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out playerCharacterData))
+            if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out IPlayerCharacterData playerCharacter))
             {
                 // Do nothing, player character is not enter the game yet.
-                result.Invoke(AckResponseCode.Error, new ResponseClientConfigMessage()
+                result.InvokeError(new ResponseClientConfigMessage()
                 {
                     message = UITextKeys.UI_ERROR_NOT_LOGGED_IN,
                 });
                 return;
             }
-            RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await AuctionRestClientForServer.GetAccessToken(playerCharacterData.UserId);
+            RestClient.Result<Dictionary<string, string>> getAccessTokenResult = await AuctionRestClientForServer.GetAccessToken(playerCharacter.UserId);
             if (getAccessTokenResult.IsNetworkError || getAccessTokenResult.IsHttpError)
             {
-                result.Invoke(AckResponseCode.Error, new ResponseClientConfigMessage()
+                result.InvokeError(new ResponseClientConfigMessage()
                 {
                     message = UITextKeys.UI_ERROR_INTERNAL_SERVER_ERROR,
                 });
                 return;
             }
-            result.Invoke(AckResponseCode.Success, new ResponseClientConfigMessage()
+            result.InvokeSuccess(new ResponseClientConfigMessage()
             {
                 serviceUrl = auctionHouseServiceUrl,
                 accessToken = getAccessTokenResult.Content["accessToken"]
