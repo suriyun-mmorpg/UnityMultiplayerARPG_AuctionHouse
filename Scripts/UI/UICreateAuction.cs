@@ -24,12 +24,12 @@ namespace MultiplayerARPG.Auction
         protected bool isReady = false;
         protected readonly List<DurationOption> durationOptions = new List<DurationOption>();
         protected int durationOptionIndex = 0;
-        protected short maxCreateAuctionAmount = 0;
+        protected int maxCreateAuctionAmount = 0;
 
         protected virtual void OnEnable()
         {
             uiItem.onUpdateData += OnUpdateData;
-            short amount = uiItem.CharacterItem == null ? (short)1 : uiItem.CharacterItem.amount;
+            int amount = uiItem.CharacterItem == null ? 1 : uiItem.CharacterItem.amount;
             maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
             {
@@ -101,7 +101,7 @@ namespace MultiplayerARPG.Auction
 
         protected void OnUpdateData(UICharacterItemData data)
         {
-            short amount = uiItem.CharacterItem == null ? (short)1 : data.characterItem.amount;
+            int amount = uiItem.CharacterItem == null ? 1 : data.characterItem.amount;
             maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
                 inputCreateAuctionAmount.text = amount.ToString();

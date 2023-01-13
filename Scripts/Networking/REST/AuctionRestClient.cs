@@ -47,7 +47,7 @@ namespace MultiplayerARPG.Auction
             return Get<Dictionary<string, string>>(GetUrl(url, "/internal/access-token"), queries, accessToken);
         }
 
-        public Task<Result> CreateAuction(string itemData, string metaName, short metaLevel, int startPrice, int buyoutPrice, string sellerId, string sellerName, int durationOption)
+        public Task<Result> CreateAuction(string itemData, string metaName, int metaLevel, int startPrice, int buyoutPrice, string sellerId, string sellerName, int durationOption)
         {
             Dictionary<string, object> form = new Dictionary<string, object>();
             form.Add(nameof(itemData), itemData);
