@@ -109,8 +109,8 @@ namespace MultiplayerARPG.Auction
 
         protected void InputCreateAuctionAmountOnValueChanged(string text)
         {
-            short amount;
-            if (!short.TryParse(text, out amount) || amount < 1)
+            int amount;
+            if (!int.TryParse(text, out amount) || amount < 1)
                 amount = 1;
             inputCreateAuctionAmount.SetTextWithoutNotify(amount.ToString());
         }
@@ -133,7 +133,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickCreateAuction()
         {
-            short amount = short.Parse(inputCreateAuctionAmount.text);
+            int amount = int.Parse(inputCreateAuctionAmount.text);
             int startPrice = int.Parse(inputCreateAuctionStartPrice.text);
             int buyoutPrice = int.Parse(inputCreateAuctionBuyoutPrice.text);
             (BaseGameNetworkManager.Singleton as MapNetworkManager).CreateAuction(new CreateAuctionMessage()
