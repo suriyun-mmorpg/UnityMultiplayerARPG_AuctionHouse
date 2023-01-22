@@ -5,7 +5,7 @@ namespace MultiplayerARPG.Auction
     public struct CreateAuctionMessage : INetSerializable
     {
         public int indexOfItem;
-        public short amount;
+        public int amount;
         public int startPrice;
         public int buyoutPrice;
         public int durationOption;
@@ -13,7 +13,7 @@ namespace MultiplayerARPG.Auction
         public void Deserialize(NetDataReader reader)
         {
             indexOfItem = reader.GetPackedInt();
-            amount = reader.GetPackedShort();
+            amount = reader.GetPackedInt();
             startPrice = reader.GetPackedInt();
             buyoutPrice = reader.GetPackedInt();
             durationOption = reader.GetPackedInt();
@@ -22,7 +22,7 @@ namespace MultiplayerARPG.Auction
         public void Serialize(NetDataWriter writer)
         {
             writer.PutPackedInt(indexOfItem);
-            writer.PutPackedShort(amount);
+            writer.PutPackedInt(amount);
             writer.PutPackedInt(startPrice);
             writer.PutPackedInt(buyoutPrice);
             writer.PutPackedInt(durationOption);
