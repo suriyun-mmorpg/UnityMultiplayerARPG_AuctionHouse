@@ -21,16 +21,16 @@ namespace MultiplayerARPG.Auction
         public UICharacterItem uiItem;
         public UnityEvent onCreateAuction = new UnityEvent();
 
-        protected bool isReady = false;
-        protected readonly List<DurationOption> durationOptions = new List<DurationOption>();
-        protected int durationOptionIndex = 0;
-        protected int maxCreateAuctionAmount = 0;
+        protected bool _isReady = false;
+        protected readonly List<DurationOption> _durationOptions = new List<DurationOption>();
+        protected int _durationOptionIndex = 0;
+        protected int _maxCreateAuctionAmount = 0;
 
         protected virtual void OnEnable()
         {
             uiItem.onUpdateData += OnUpdateData;
             int amount = uiItem.CharacterItem == null ? 1 : uiItem.CharacterItem.amount;
-            maxCreateAuctionAmount = amount;
+            _maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
             {
                 inputCreateAuctionAmount.text = amount.ToString();
@@ -59,38 +59,38 @@ namespace MultiplayerARPG.Auction
 
         protected async void LoadDurationOptions()
         {
-            isReady = false;
+            _isReady = false;
             RestClient.Result<DurationOptionsResponse> durationOptionsResult = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetDurationOptions();
-            durationOptions.Clear();
-            durationOptions.AddRange(durationOptionsResult.Content.durationOptions);
+            _durationOptions.Clear();
+            _durationOptions.AddRange(durationOptionsResult.Content.durationOptions);
             SelectDurationOption(0);
-            isReady = true;
+            _isReady = true;
         }
 
         public void OnClickNextDurationOption()
         {
-            durationOptionIndex++;
-            if (durationOptionIndex > durationOptions.Count - 1)
-                durationOptionIndex = durationOptions.Count - 1;
-            SelectDurationOption(durationOptionIndex);
+            _durationOptionIndex++;
+            if (_durationOptionIndex > _durationOptions.Count - 1)
+                _durationOptionIndex = _durationOptions.Count - 1;
+            SelectDurationOption(_durationOptionIndex);
         }
 
         public void OnClickPreviousDurationOption()
         {
-            durationOptionIndex--;
-            if (durationOptionIndex < 0)
-                durationOptionIndex = 0;
-            SelectDurationOption(durationOptionIndex);
+            _durationOptionIndex--;
+            if (_durationOptionIndex < 0)
+                _durationOptionIndex = 0;
+            SelectDurationOption(_durationOptionIndex);
         }
 
         public void SelectDurationOption(int index)
         {
-            durationOptionIndex = index;
+            _durationOptionIndex = index;
             if (textAuctionCreateDuration)
-                textAuctionCreateDuration.text = string.Format(LanguageManager.GetText(formatKeyDuration), durationOptions[index].hours.ToString("N0"));
+                textAuctionCreateDuration.text = string.Format(LanguageManager.GetText(formatKeyDuration), _durationOptions[index].hours.ToString("N0"));
             if (textAuctionCreatePrice)
             {
-                int requireGold = durationOptions[index].price;
+                int requireGold = _durationOptions[index].price;
                 textAuctionCreatePrice.text = string.Format(
                         LanguageManager.GetText(GameInstance.PlayingCharacter.Gold >= requireGold ?
                         formatKeyRequireGold : formatKeyRequireGoldNotEnough),
@@ -102,7 +102,7 @@ namespace MultiplayerARPG.Auction
         protected void OnUpdateData(UICharacterItemData data)
         {
             int amount = uiItem.CharacterItem == null ? 1 : data.characterItem.amount;
-            maxCreateAuctionAmount = amount;
+            _maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
                 inputCreateAuctionAmount.text = amount.ToString();
         }
@@ -142,7 +142,7 @@ namespace MultiplayerARPG.Auction
                 amount = amount,
                 startPrice = startPrice,
                 buyoutPrice = buyoutPrice,
-                durationOption = durationOptionIndex,
+                durationOption = _durationOptionIndex,
             }, OnCreateAuction);
         }
 

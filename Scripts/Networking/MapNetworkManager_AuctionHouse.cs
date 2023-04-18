@@ -68,8 +68,8 @@ namespace MultiplayerARPG.MMO
         [DevExtMethods("OnStartServer")]
         private void OnStartServer_AuctionHouse()
         {
-            AuctionRestClientForServer.url = auctionHouseServiceUrl;
-            AuctionRestClientForServer.accessToken = auctionHouseSecretKey;
+            AuctionRestClientForServer.apiUrl = auctionHouseServiceUrl;
+            AuctionRestClientForServer.secretKey = auctionHouseSecretKey;
         }
 
         public void CreateAuction(CreateAuctionMessage createAuction, ResponseDelegate<ResponseCreateAuctionMessage> callback)

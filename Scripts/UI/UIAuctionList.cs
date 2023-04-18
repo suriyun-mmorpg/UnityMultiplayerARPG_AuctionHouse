@@ -27,13 +27,13 @@ namespace MultiplayerARPG.Auction
         public InputFieldWrapper inputBidPrice;
         public TextWrapper textPage;
         public int limitPerPage = 20;
-        private int page = 1;
+        private int _page = 1;
         public int Page
         {
-            get { return page; }
+            get { return _page; }
             set
             {
-                page = value;
+                _page = value;
             }
         }
         public int TotalPage
@@ -41,34 +41,34 @@ namespace MultiplayerARPG.Auction
             get; set;
         }
 
-        private UIList cacheList;
+        private UIList _cacheList;
         public UIList CacheList
         {
             get
             {
-                if (cacheList == null)
+                if (_cacheList == null)
                 {
-                    cacheList = gameObject.AddComponent<UIList>();
-                    cacheList.uiPrefab = uiPrefab.gameObject;
-                    cacheList.uiContainer = uiContainer;
+                    _cacheList = gameObject.AddComponent<UIList>();
+                    _cacheList.uiPrefab = uiPrefab.gameObject;
+                    _cacheList.uiContainer = uiContainer;
                 }
-                return cacheList;
+                return _cacheList;
             }
         }
 
-        private UIAuctionSelectionManager cacheSelectionManager;
+        private UIAuctionSelectionManager _cacheSelectionManager;
         public UIAuctionSelectionManager CacheSelectionManager
         {
             get
             {
-                if (cacheSelectionManager == null)
-                    cacheSelectionManager = gameObject.GetOrAddComponent<UIAuctionSelectionManager>();
-                cacheSelectionManager.selectionMode = UISelectionMode.Toggle;
-                return cacheSelectionManager;
+                if (_cacheSelectionManager == null)
+                    _cacheSelectionManager = gameObject.GetOrAddComponent<UIAuctionSelectionManager>();
+                _cacheSelectionManager.selectionMode = UISelectionMode.Toggle;
+                return _cacheSelectionManager;
             }
         }
 
-        private float lastGetAccessToken = float.MinValue;
+        private float _lastGetAccessToken = float.MinValue;
 
         private void OnEnable()
         {
@@ -78,7 +78,7 @@ namespace MultiplayerARPG.Auction
             CacheSelectionManager.eventOnDeselected.AddListener(OnDeselect);
             if (uiDialog != null)
                 uiDialog.onHide.AddListener(OnDialogHide);
-            page = 1;
+            _page = 1;
             if (textPage)
                 textPage.text = string.Format(formatKeyPage.ToFormat(), 1, 1);
             GetClientConfig();
@@ -119,7 +119,7 @@ namespace MultiplayerARPG.Auction
 
         public void GetClientConfig()
         {
-            if (Time.unscaledTime - lastGetAccessToken < 30)
+            if (Time.unscaledTime - _lastGetAccessToken < 30)
                 return;
             (BaseGameNetworkManager.Singleton as MapNetworkManager).GetClientConfig(OnGetClientConfig);
         }
@@ -132,9 +132,9 @@ namespace MultiplayerARPG.Auction
                 GetClientConfig();
                 return;
             }
-            lastGetAccessToken = Time.unscaledTime;
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.url = response.serviceUrl;
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.accessToken = response.accessToken;
+            _lastGetAccessToken = Time.unscaledTime;
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.apiUrl = response.serviceUrl;
+            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.secretKey = response.accessToken;
             Refresh();
         }
 
@@ -204,7 +204,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickNextPage()
         {
-            if (page + 1 > TotalPage)
+            if (_page + 1 > TotalPage)
                 Page = TotalPage;
             else
                 Page = Page + 1;
@@ -213,7 +213,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickPreviousPage()
         {
-            if (page - 1 < 1)
+            if (_page - 1 < 1)
                 Page = 1;
             else
                 Page = Page - 1;
