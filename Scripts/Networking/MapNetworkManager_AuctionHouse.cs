@@ -32,6 +32,7 @@ namespace MultiplayerARPG.MMO
             getClientConfigRequestType = 1303,
         };
         public string auctionHouseServiceUrl = "http://localhost:9800";
+        public string auctionHouseServiceUrlForClient = "http://localhost:9800";
         public string auctionHouseSecretKey = "secret";
 
         private AuctionRestClient _auctionRestClientForClient;
@@ -409,7 +410,7 @@ namespace MultiplayerARPG.MMO
             }
             result.InvokeSuccess(new ResponseClientConfigMessage()
             {
-                serviceUrl = auctionHouseServiceUrl,
+                serviceUrl = auctionHouseServiceUrlForClient,
                 accessToken = getAccessTokenResult.Content["accessToken"]
             });
         }
