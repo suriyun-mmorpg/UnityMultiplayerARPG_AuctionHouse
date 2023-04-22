@@ -57,7 +57,7 @@ namespace MultiplayerARPG
         }
 
         [DevExtMethods("RegisterMessages")]
-        private void RegisterMessages_AuctionHouse()
+        protected void RegisterMessages_AuctionHouse()
         {
             RegisterRequestToServer<CreateAuctionMessage, ResponseCreateAuctionMessage>(auctionHouseMessageTypes.createAuctionRequestType, HandleCreateAuctionAtServer);
             RegisterRequestToServer<BidMessage, ResponseBidMessage>(auctionHouseMessageTypes.bidRequestType, HandleBidAtServer);
@@ -67,7 +67,7 @@ namespace MultiplayerARPG
         }
 
         [DevExtMethods("OnStartServer")]
-        private void OnStartServer_AuctionHouse()
+        protected void OnStartServer_AuctionHouse()
         {
             AuctionRestClientForServer.apiUrl = auctionHouseServiceUrl;
             AuctionRestClientForServer.secretKey = auctionHouseSecretKey;
@@ -75,7 +75,7 @@ namespace MultiplayerARPG
 
 
         [DevExtMethods("OnClientOnlineSceneLoaded")]
-        private void OnClientOnlineSceneLoaded_Auction()
+        protected void OnClientOnlineSceneLoaded_Auction()
         {
             GetAuctionClientConfig(null);
         }
