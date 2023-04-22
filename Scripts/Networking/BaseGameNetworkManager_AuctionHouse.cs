@@ -63,7 +63,7 @@ namespace MultiplayerARPG
             RegisterRequestToServer<BidMessage, ResponseBidMessage>(auctionHouseMessageTypes.bidRequestType, HandleBidAtServer);
             RegisterRequestToServer<BuyoutMessage, ResponseBuyoutMessage>(auctionHouseMessageTypes.buyoutRequestType, HandleBuyoutAtServer);
             RegisterRequestToServer<CancelAuctionMessage, ResponseCancelAuctionMessage>(auctionHouseMessageTypes.cancelAuctionRequestType, HandleCancelAuctionAtServer);
-            RegisterRequestToServer<EmptyMessage, ResponseClientConfigMessage>(auctionHouseMessageTypes.getClientConfigRequestType, HandleGetClientConfigAtServer);
+            RegisterRequestToServer<EmptyMessage, ResponseClientConfigMessage>(auctionHouseMessageTypes.getClientConfigRequestType, HandleGetAuctionClientConfigAtServer);
         }
 
         [DevExtMethods("OnStartServer")]
@@ -387,7 +387,7 @@ namespace MultiplayerARPG
             ClientSendRequest(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value, callback);
         }
 
-        private async UniTaskVoid HandleGetClientConfigAtServer(RequestHandlerData requestHandler, EmptyMessage request,
+        private async UniTaskVoid HandleGetAuctionClientConfigAtServer(RequestHandlerData requestHandler, EmptyMessage request,
             RequestProceedResultDelegate<ResponseClientConfigMessage> result)
         {
             if (!ServerUserHandlers.TryGetPlayerCharacter(requestHandler.ConnectionId, out IPlayerCharacterData playerCharacter))
