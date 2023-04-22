@@ -73,6 +73,13 @@ namespace MultiplayerARPG
             AuctionRestClientForServer.secretKey = auctionHouseSecretKey;
         }
 
+
+        [DevExtMethods("OnClientOnlineSceneLoaded")]
+        private void OnClientOnlineSceneLoaded_Auction()
+        {
+            GetAuctionClientConfig(null);
+        }
+
         public void CreateAuction(CreateAuctionMessage createAuction, ResponseDelegate<ResponseCreateAuctionMessage> callback)
         {
             if (!IsClientConnected)
@@ -384,7 +391,18 @@ namespace MultiplayerARPG
         {
             if (!IsClientConnected)
                 return;
-            ClientSendRequest(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value, callback);
+            ClientSendRequest(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value, (ResponseHandlerData responseHandler, AckResponseCode responseCode, ResponseClientConfigMessage response) =>
+            {
+                if (responseCode == AckResponseCode.Success)
+                {
+                    AuctionRestClientForClient.apiUrl = response.serviceUrl;
+                    AuctionRestClientForClient.secretKey = response.accessToken;
+                }
+                if (callback != null)
+                {
+                    callback.Invoke(responseHandler, responseCode, response);
+                }
+            });
         }
 
         private async UniTaskVoid HandleGetAuctionClientConfigAtServer(RequestHandlerData requestHandler, EmptyMessage request,

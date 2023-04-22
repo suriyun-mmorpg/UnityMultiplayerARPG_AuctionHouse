@@ -75,8 +75,6 @@ namespace MultiplayerARPG.Auction
             get { return BaseGameNetworkManager.Singleton.AuctionRestClientForClient; }
         }
 
-        private float _lastGetAccessToken = float.MinValue;
-
         private void OnEnable()
         {
             CacheSelectionManager.eventOnSelected.RemoveListener(OnSelect);
@@ -125,8 +123,6 @@ namespace MultiplayerARPG.Auction
 
         public void GetClientConfig()
         {
-            if (Time.unscaledTime - _lastGetAccessToken < 30)
-                return;
             BaseGameNetworkManager.Singleton.GetAuctionClientConfig(OnGetClientConfig);
         }
 
@@ -139,9 +135,6 @@ namespace MultiplayerARPG.Auction
                 GetClientConfig();
                 return;
             }
-            _lastGetAccessToken = Time.unscaledTime;
-            RestClient.apiUrl = response.serviceUrl;
-            RestClient.secretKey = response.accessToken;
             Refresh();
         }
 
@@ -164,12 +157,6 @@ namespace MultiplayerARPG.Auction
 
         private async void GoToPageRoutine(int page)
         {
-            if (string.IsNullOrEmpty(RestClient.apiUrl) ||
-                string.IsNullOrEmpty(RestClient.secretKey))
-            {
-                GetClientConfig();
-                return;
-            }
             RestClient.Result<AuctionListResponse> result;
             switch (listMode)
             {
