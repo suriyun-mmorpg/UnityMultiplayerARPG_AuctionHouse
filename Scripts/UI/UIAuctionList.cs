@@ -1,4 +1,5 @@
-﻿using LiteNetLibManager;
+﻿using Cysharp.Threading.Tasks;
+using LiteNetLibManager;
 using MultiplayerARPG.MMO;
 using UnityEngine;
 using UnityRestClient;
@@ -27,6 +28,7 @@ namespace MultiplayerARPG.Auction
         public InputFieldWrapper inputBidPrice;
         public TextWrapper textPage;
         public int limitPerPage = 20;
+        public int reconnectDelayInMilliseconds = 5000;
         private int _page = 1;
         public int Page
         {
@@ -68,6 +70,11 @@ namespace MultiplayerARPG.Auction
             }
         }
 
+        public AuctionRestClient RestClient
+        {
+            get { return (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient; }
+        }
+
         private float _lastGetAccessToken = float.MinValue;
 
         private void OnEnable()
@@ -81,7 +88,6 @@ namespace MultiplayerARPG.Auction
             _page = 1;
             if (textPage)
                 textPage.text = string.Format(formatKeyPage.ToFormat(), 1, 1);
-            GetClientConfig();
             Refresh();
         }
 
@@ -124,17 +130,18 @@ namespace MultiplayerARPG.Auction
             (BaseGameNetworkManager.Singleton as MapNetworkManager).GetClientConfig(OnGetClientConfig);
         }
 
-        private void OnGetClientConfig(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseClientConfigMessage response)
+        private async void OnGetClientConfig(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseClientConfigMessage response)
         {
             if (responseCode != AckResponseCode.Success)
             {
                 // Cannot get access token
+                await UniTask.Delay(reconnectDelayInMilliseconds);
                 GetClientConfig();
                 return;
             }
             _lastGetAccessToken = Time.unscaledTime;
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.apiUrl = response.serviceUrl;
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.secretKey = response.accessToken;
+            RestClient.apiUrl = response.serviceUrl;
+            RestClient.secretKey = response.accessToken;
             Refresh();
         }
 
@@ -157,17 +164,23 @@ namespace MultiplayerARPG.Auction
 
         private async void GoToPageRoutine(int page)
         {
+            if (string.IsNullOrEmpty(RestClient.apiUrl) ||
+                string.IsNullOrEmpty(RestClient.secretKey))
+            {
+                GetClientConfig();
+                return;
+            }
             RestClient.Result<AuctionListResponse> result;
             switch (listMode)
             {
                 case ListMode.SellHistory:
-                    result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetSellHistoryList(limitPerPage, page);
+                    result = await RestClient.GetSellHistoryList(limitPerPage, page);
                     break;
                 case ListMode.BuyHistory:
-                    result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetBuyHistoryList(limitPerPage, page);
+                    result = await RestClient.GetBuyHistoryList(limitPerPage, page);
                     break;
                 default:
-                    result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetAuctionList(limitPerPage, page);
+                    result = await RestClient.GetAuctionList(limitPerPage, page);
                     break;
             }
             int selectedId = CacheSelectionManager.SelectedUI != null ? CacheSelectionManager.SelectedUI.Data.id : 0;
