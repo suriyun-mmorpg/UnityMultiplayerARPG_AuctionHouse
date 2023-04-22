@@ -127,7 +127,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickBid(int bidPrice)
         {
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).Bid(new BidMessage()
+            BaseGameNetworkManager.Singleton.Bid(new BidMessage()
             {
                 auctionId = Data.id,
                 price = bidPrice,
@@ -143,7 +143,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickBuyout()
         {
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).Buyout(new BuyoutMessage()
+            BaseGameNetworkManager.Singleton.Buyout(new BuyoutMessage()
             {
                 auctionId = Data.id,
             }, OnBuyout);
@@ -158,7 +158,7 @@ namespace MultiplayerARPG.Auction
 
         public void OnClickCancelAuction()
         {
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).CancelAuction(new CancelAuctionMessage()
+            BaseGameNetworkManager.Singleton.CancelAuction(new CancelAuctionMessage()
             {
                 auctionId = Data.id,
             }, OnCancelAuction);
@@ -173,7 +173,7 @@ namespace MultiplayerARPG.Auction
 
         private async void Refresh()
         {
-            UnityRestClient.RestClient.Result<AuctionData> result = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetAuction(Data.id);
+            UnityRestClient.RestClient.Result<AuctionData> result = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetAuction(Data.id);
             if (result.IsNetworkError || result.IsHttpError)
                 return;
             Data = result.Content;

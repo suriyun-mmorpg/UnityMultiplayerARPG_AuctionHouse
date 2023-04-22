@@ -72,7 +72,7 @@ namespace MultiplayerARPG.Auction
 
         public AuctionRestClient RestClient
         {
-            get { return (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient; }
+            get { return BaseGameNetworkManager.Singleton.AuctionRestClientForClient; }
         }
 
         private float _lastGetAccessToken = float.MinValue;
@@ -127,7 +127,7 @@ namespace MultiplayerARPG.Auction
         {
             if (Time.unscaledTime - _lastGetAccessToken < 30)
                 return;
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).GetClientConfig(OnGetClientConfig);
+            BaseGameNetworkManager.Singleton.GetAuctionClientConfig(OnGetClientConfig);
         }
 
         private async void OnGetClientConfig(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseClientConfigMessage response)

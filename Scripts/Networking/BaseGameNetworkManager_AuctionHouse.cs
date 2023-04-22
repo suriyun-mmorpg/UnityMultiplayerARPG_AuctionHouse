@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityRestClient;
 
-namespace MultiplayerARPG.MMO
+namespace MultiplayerARPG
 {
-    public partial class MapNetworkManager
+    public partial class BaseGameNetworkManager
     {
         [System.Serializable]
         public struct AuctionHouseMessageTypes
@@ -380,7 +380,7 @@ namespace MultiplayerARPG.MMO
             result.InvokeSuccess(new ResponseCancelAuctionMessage());
         }
 
-        public void GetClientConfig(ResponseDelegate<ResponseClientConfigMessage> callback)
+        public void GetAuctionClientConfig(ResponseDelegate<ResponseClientConfigMessage> callback)
         {
             if (!IsClientConnected)
                 return;

@@ -60,7 +60,7 @@ namespace MultiplayerARPG.Auction
         protected async void LoadDurationOptions()
         {
             _isReady = false;
-            RestClient.Result<DurationOptionsResponse> durationOptionsResult = await (BaseGameNetworkManager.Singleton as MapNetworkManager).AuctionRestClientForClient.GetDurationOptions();
+            RestClient.Result<DurationOptionsResponse> durationOptionsResult = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetDurationOptions();
             _durationOptions.Clear();
             _durationOptions.AddRange(durationOptionsResult.Content.durationOptions);
             SelectDurationOption(0);
@@ -136,7 +136,7 @@ namespace MultiplayerARPG.Auction
             int amount = int.Parse(inputCreateAuctionAmount.text);
             int startPrice = int.Parse(inputCreateAuctionStartPrice.text);
             int buyoutPrice = int.Parse(inputCreateAuctionBuyoutPrice.text);
-            (BaseGameNetworkManager.Singleton as MapNetworkManager).CreateAuction(new CreateAuctionMessage()
+            BaseGameNetworkManager.Singleton.CreateAuction(new CreateAuctionMessage()
             {
                 indexOfItem = uiItem.IndexOfData,
                 amount = amount,
