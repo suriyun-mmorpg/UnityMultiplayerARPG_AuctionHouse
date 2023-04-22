@@ -157,6 +157,12 @@ namespace MultiplayerARPG.Auction
 
         private async void GoToPageRoutine(int page)
         {
+            if (string.IsNullOrEmpty(RestClient.apiUrl) ||
+                string.IsNullOrEmpty(RestClient.secretKey))
+            {
+                GetClientConfig();
+                return;
+            }
             RestClient.Result<AuctionListResponse> result;
             switch (listMode)
             {

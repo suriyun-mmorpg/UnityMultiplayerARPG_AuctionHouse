@@ -73,13 +73,6 @@ namespace MultiplayerARPG
             AuctionRestClientForServer.secretKey = auctionHouseSecretKey;
         }
 
-
-        [DevExtMethods("OnClientOnlineSceneLoaded")]
-        protected void OnClientOnlineSceneLoaded_Auction()
-        {
-            GetAuctionClientConfig(null);
-        }
-
         public void CreateAuction(CreateAuctionMessage createAuction, ResponseDelegate<ResponseCreateAuctionMessage> callback)
         {
             if (!IsClientConnected)
