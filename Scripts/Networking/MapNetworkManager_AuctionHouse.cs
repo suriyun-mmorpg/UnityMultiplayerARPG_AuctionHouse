@@ -10,7 +10,7 @@ namespace MultiplayerARPG.MMO
     public partial class MapNetworkManager
     {
         [System.Serializable]
-        public class AuctionHouseMessageTypes
+        public struct AuctionHouseMessageTypes
         {
             public ushort createAuctionRequestType;
             public ushort bidRequestType;
