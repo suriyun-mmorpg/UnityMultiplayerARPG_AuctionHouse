@@ -121,14 +121,10 @@ namespace MultiplayerARPG.Auction
             }
         }
 
-        public void GetClientConfig()
+        public async void GetClientConfig()
         {
-            BaseGameNetworkManager.Singleton.GetAuctionClientConfig(OnGetClientConfig);
-        }
-
-        private async void OnGetClientConfig(ResponseHandlerData requestHandler, AckResponseCode responseCode, ResponseClientConfigMessage response)
-        {
-            if (responseCode != AckResponseCode.Success)
+            AsyncResponseData<ResponseClientConfigMessage> result = await BaseGameNetworkManager.Singleton.GetAuctionClientConfig();
+            if (result.ResponseCode != AckResponseCode.Success)
             {
                 // Cannot get access token
                 await UniTask.Delay(reconnectDelayInMilliseconds);

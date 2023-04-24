@@ -380,22 +380,15 @@ namespace MultiplayerARPG
             result.InvokeSuccess(new ResponseCancelAuctionMessage());
         }
 
-        public void GetAuctionClientConfig(ResponseDelegate<ResponseClientConfigMessage> callback)
+        public async UniTask<AsyncResponseData<ResponseClientConfigMessage>> GetAuctionClientConfig()
         {
-            if (!IsClientConnected)
-                return;
-            ClientSendRequest(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value, (ResponseHandlerData responseHandler, AckResponseCode responseCode, ResponseClientConfigMessage response) =>
+            AsyncResponseData<ResponseClientConfigMessage> result = await ClientSendRequestAsync<EmptyMessage, ResponseClientConfigMessage>(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value);
+            if (result.ResponseCode == AckResponseCode.Success)
             {
-                if (responseCode == AckResponseCode.Success)
-                {
-                    AuctionRestClientForClient.apiUrl = response.serviceUrl;
-                    AuctionRestClientForClient.secretKey = response.accessToken;
-                }
-                if (callback != null)
-                {
-                    callback.Invoke(responseHandler, responseCode, response);
-                }
-            });
+                AuctionRestClientForClient.apiUrl = result.Response.serviceUrl;
+                AuctionRestClientForClient.secretKey = result.Response.accessToken;
+            }
+            return result;
         }
 
         private async UniTaskVoid HandleGetAuctionClientConfigAtServer(RequestHandlerData requestHandler, EmptyMessage request,
