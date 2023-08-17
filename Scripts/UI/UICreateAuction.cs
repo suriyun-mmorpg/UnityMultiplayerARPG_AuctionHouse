@@ -1,5 +1,4 @@
 ﻿using LiteNetLibManager;
-using MultiplayerARPG.MMO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,7 +14,9 @@ namespace MultiplayerARPG.Auction
         public InputFieldWrapper inputCreateAuctionBuyoutPrice;
         public UILocaleKeySetting formatKeyDuration = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_SIMPLE);
         public TextWrapper textAuctionCreateDuration;
+        [Tooltip("Format => {0} = {Current Gold Amount}, {1} = {Target Amount}")]
         public UILocaleKeySetting formatKeyRequireGold = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_REQUIRE_GOLD);
+        [Tooltip("Format => {0} = {Current Gold Amount}, {1} = {Target Amount}")]
         public UILocaleKeySetting formatKeyRequireGoldNotEnough = new UILocaleKeySetting(UIFormatKeys.UI_FORMAT_REQUIRE_GOLD_NOT_ENOUGH);
         public TextWrapper textAuctionCreatePrice;
         public UICharacterItem uiItem;
