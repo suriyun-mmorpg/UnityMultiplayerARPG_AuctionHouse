@@ -383,10 +383,19 @@ namespace MultiplayerARPG
         public async UniTask<AsyncResponseData<ResponseClientConfigMessage>> GetAuctionClientConfig()
         {
             AsyncResponseData<ResponseClientConfigMessage> result = await ClientSendRequestAsync<EmptyMessage, ResponseClientConfigMessage>(auctionHouseMessageTypes.getClientConfigRequestType, EmptyMessage.Value);
-            if (result.ResponseCode == AckResponseCode.Success)
+            switch (result.ResponseCode)
             {
-                AuctionRestClientForClient.apiUrl = result.Response.serviceUrl;
-                AuctionRestClientForClient.secretKey = result.Response.accessToken;
+                case AckResponseCode.Success:
+                    AuctionRestClientForClient.apiUrl = result.Response.serviceUrl;
+                    AuctionRestClientForClient.secretKey = result.Response.accessToken;
+                    break;
+                case AckResponseCode.Error:
+                    Logging.LogError(LogTag, $"Error occuring when retrieving client connection data from server, code: {result.Response.message}");
+                    ClientGenericActions.ClientReceiveGameMessage(result.Response.message);
+                    break;
+                default:
+                    Logging.LogError(LogTag, $"Cannot retrieving client connection data from server, response code: {result.ResponseCode}");
+                    break;
             }
             return result;
         }
