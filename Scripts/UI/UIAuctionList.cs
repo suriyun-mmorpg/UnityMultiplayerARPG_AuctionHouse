@@ -195,7 +195,7 @@ namespace MultiplayerARPG.Auction
                 tempUi.Show();
                 CacheSelectionManager.Add(tempUi);
                 if (selectedId == data.id)
-                    tempUi.OnClickSelect();
+                    tempUi.SelectByManager();
             });
             if (listEmptyObject != null)
                 listEmptyObject.SetActive(result.Content.list.Count == 0);
