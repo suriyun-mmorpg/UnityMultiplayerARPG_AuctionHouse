@@ -30,7 +30,7 @@ namespace MultiplayerARPG.Auction
         protected virtual void OnEnable()
         {
             uiItem.onUpdateData += OnUpdateData;
-            int amount = uiItem.CharacterItem == null ? 1 : uiItem.CharacterItem.amount;
+            int amount = uiItem.CharacterItem.amount;
             _maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
             {
@@ -102,7 +102,7 @@ namespace MultiplayerARPG.Auction
 
         protected void OnUpdateData(UICharacterItemData data)
         {
-            int amount = uiItem.CharacterItem == null ? 1 : data.characterItem.amount;
+            int amount = data.characterItem.amount;
             _maxCreateAuctionAmount = amount;
             if (inputCreateAuctionAmount)
                 inputCreateAuctionAmount.text = amount.ToString();
