@@ -32,6 +32,22 @@ namespace MultiplayerARPG.Auction
         public GameObject[] boughtOutObjects;
         public GameObject[] notBoughtOutObjects;
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            inputBidPrice = null;
+            textBidPrice = null;
+            textBuyoutPrice = null;
+            textSellerName = null;
+            textBuyerName = null;
+            textTimeLeft = null;
+            uiItem = null;
+            auctionEndedObjects.Nulling();
+            underAuctioningObjects.Nulling();
+            boughtOutObjects.Nulling();
+            notBoughtOutObjects.Nulling();
+        }
+
         protected override void UpdateData()
         {
             if (textBidPrice != null)

@@ -75,6 +75,19 @@ namespace MultiplayerARPG.Auction
             get { return BaseGameNetworkManager.Singleton.AuctionRestClientForClient; }
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            listEmptyObject = null;
+            uiDialog = null;
+            uiPrefab = null;
+            uiContainer = null;
+            inputBidPrice = null;
+            textPage = null;
+            _cacheList = null;
+            _cacheSelectionManager = null;
+        }
+
         private void OnEnable()
         {
             CacheSelectionManager.eventOnSelected.RemoveListener(OnSelect);
