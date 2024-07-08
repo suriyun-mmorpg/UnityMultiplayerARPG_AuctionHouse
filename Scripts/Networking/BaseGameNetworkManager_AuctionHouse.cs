@@ -1,7 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
 using LiteNetLibManager;
 using MultiplayerARPG.Auction;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityRestClient;
 
@@ -9,7 +12,7 @@ namespace MultiplayerARPG
 {
     public partial class BaseGameNetworkManager
     {
-        [System.Serializable]
+        [Serializable]
         public struct AuctionHouseMessageTypes
         {
             public ushort createAuctionRequestType;
@@ -17,6 +20,14 @@ namespace MultiplayerARPG
             public ushort buyoutRequestType;
             public ushort cancelAuctionRequestType;
             public ushort getClientConfigRequestType;
+        }
+
+        [Serializable]
+        public struct AuctionHouseConfig
+        {
+            public string auctionHouseServiceUrl;
+            public string auctionHouseServiceUrlForClient;
+            public string auctionHouseSecretKey;
         }
 
         /*
@@ -56,6 +67,59 @@ namespace MultiplayerARPG
             }
         }
 
+        public void ReadAuctionHouseConfig()
+        {
+            // Json file read
+            bool configFileFound = false;
+            const string configFolder = "./Config";
+            const string configFilePath = configFolder + "/auctionHouseConfig.json";
+            AuctionHouseConfig config = new AuctionHouseConfig()
+            {
+                auctionHouseServiceUrl = auctionHouseServiceUrl,
+                auctionHouseServiceUrlForClient = auctionHouseServiceUrlForClient,
+                auctionHouseSecretKey = auctionHouseSecretKey,
+            };
+            Logging.Log(LogTag, "Reading auction house config file from " + configFilePath);
+            if (File.Exists(configFilePath))
+            {
+                Logging.Log(LogTag, "Found auction house config file");
+                string dataAsJson = File.ReadAllText(configFilePath);
+                AuctionHouseConfig replacingConfig = JsonConvert.DeserializeObject<AuctionHouseConfig>(dataAsJson);
+                if (replacingConfig.auctionHouseServiceUrl != null)
+                    config.auctionHouseServiceUrl = replacingConfig.auctionHouseServiceUrl;
+                if (replacingConfig.auctionHouseServiceUrlForClient != null)
+                    config.auctionHouseServiceUrlForClient = replacingConfig.auctionHouseServiceUrlForClient;
+                if (replacingConfig.auctionHouseSecretKey != null)
+                    config.auctionHouseSecretKey = replacingConfig.auctionHouseSecretKey;
+                configFileFound = true;
+            }
+
+            auctionHouseServiceUrl = config.auctionHouseServiceUrl;
+            auctionHouseServiceUrlForClient = config.auctionHouseServiceUrlForClient;
+            auctionHouseSecretKey = config.auctionHouseSecretKey;
+
+            // Read configs from ENV
+            string envVal;
+            envVal = Environment.GetEnvironmentVariable("auctionHouseServiceUrl");
+            if (!string.IsNullOrEmpty(envVal))
+                auctionHouseServiceUrl = envVal;
+            envVal = Environment.GetEnvironmentVariable("auctionHouseServiceUrlForClient");
+            if (!string.IsNullOrEmpty(envVal))
+                auctionHouseServiceUrlForClient = envVal;
+            envVal = Environment.GetEnvironmentVariable("auctionHouseSecretKey");
+            if (!string.IsNullOrEmpty(envVal))
+                auctionHouseSecretKey = envVal;
+
+            if (!configFileFound)
+            {
+                // Write config file
+                Logging.Log(LogTag, "Not found auction house config file, creating a new one");
+                if (!Directory.Exists(configFolder))
+                    Directory.CreateDirectory(configFolder);
+                File.WriteAllText(configFilePath, JsonConvert.SerializeObject(config, Formatting.Indented));
+            }
+        }
+
         [DevExtMethods("RegisterMessages")]
         protected void RegisterMessages_AuctionHouse()
         {
@@ -69,6 +133,7 @@ namespace MultiplayerARPG
         [DevExtMethods("OnStartServer")]
         protected void OnStartServer_AuctionHouse()
         {
+            ReadAuctionHouseConfig();
             AuctionRestClientForServer.apiUrl = auctionHouseServiceUrl;
             AuctionRestClientForServer.secretKey = auctionHouseSecretKey;
         }
