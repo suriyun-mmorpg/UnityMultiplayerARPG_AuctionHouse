@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine.Serialization;
 using UnityRestClient;
 
 namespace MultiplayerARPG.Auction
 {
     public class AuctionRestClient : RestClient
     {
-        [FormerlySerializedAs("url")]
         public string apiUrl;
-        [FormerlySerializedAs("accessToken")]
         public string secretKey;
 
+        #region Client APIs
         public Task<Result<AuctionListResponse>> GetAuctionList(int limit = 20, int page = 1)
         {
             Dictionary<string, object> queries = new Dictionary<string, object>();
@@ -41,7 +39,9 @@ namespace MultiplayerARPG.Auction
             Dictionary<string, object> queries = new Dictionary<string, object>();
             return Get<AuctionData>(GetUrl(apiUrl, $"/{id}"), queries, secretKey);
         }
+        #endregion
 
+        #region Server APIs
         public Task<Result<Dictionary<string, string>>> GetAccessToken(string userId)
         {
             Dictionary<string, object> queries = new Dictionary<string, object>();
@@ -97,6 +97,7 @@ namespace MultiplayerARPG.Auction
             };
             return Post(GetUrl(apiUrl, "/internal/cancel-auction"), form, secretKey);
         }
+        #endregion
 
         public Task<Result<DurationOptionsResponse>> GetDurationOptions()
         {
