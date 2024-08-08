@@ -134,19 +134,6 @@ namespace MultiplayerARPG.Auction
             }
         }
 
-        public async void GetClientConfig()
-        {
-            AsyncResponseData<ResponseClientConfigMessage> result = await BaseGameNetworkManager.Singleton.GetAuctionClientConfig();
-            if (result.ResponseCode != AckResponseCode.Success)
-            {
-                // Cannot get access token
-                await UniTask.Delay(reconnectDelayInMilliseconds);
-                GetClientConfig();
-                return;
-            }
-            Refresh();
-        }
-
         public void Refresh()
         {
             GoToPageRoutine(Page);
@@ -166,12 +153,6 @@ namespace MultiplayerARPG.Auction
 
         private async void GoToPageRoutine(int page)
         {
-            if (string.IsNullOrEmpty(RestClient.apiUrl) ||
-                string.IsNullOrEmpty(RestClient.secretKey))
-            {
-                GetClientConfig();
-                return;
-            }
             RestClient.Result<AuctionListResponse> result;
             switch (listMode)
             {
@@ -191,13 +172,8 @@ namespace MultiplayerARPG.Auction
             CacheList.HideAll();
             if (listEmptyObject != null)
                 listEmptyObject.SetActive(true);
-            if (result.IsNetworkError)
+            if (result.IsNetworkError || result.IsHttpError)
                 return;
-            if (result.IsHttpError)
-            {
-                GetClientConfig();
-                return;
-            }
             if (result.Content.list.Count == 0)
                 return;
             UIAuction tempUi;
