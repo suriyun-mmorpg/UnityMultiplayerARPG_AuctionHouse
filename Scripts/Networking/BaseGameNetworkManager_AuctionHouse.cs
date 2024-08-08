@@ -94,7 +94,7 @@ namespace MultiplayerARPG
         {
             ReadAuctionHouseServerConfig();
             AuctionRestClientForServer.apiUrl = auctionHouseServiceUrl;
-            AuctionRestClientForServer.secretKey = auctionHouseSecretKey;
+            AuctionRestClientForServer.appSecret = auctionHouseSecretKey;
         }
 
         [DevExtMethods("OnStartClient")]

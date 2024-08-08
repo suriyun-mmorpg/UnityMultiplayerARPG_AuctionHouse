@@ -7,7 +7,7 @@ namespace MultiplayerARPG.Auction
     public class AuctionRestClient : RestClient
     {
         public string apiUrl;
-        public string secretKey;
+        public string appSecret;
 
         #region Client APIs
         public Task<Result<AuctionListResponse>> GetAuctionList(int limit = 20, int page = 1)
@@ -46,7 +46,7 @@ namespace MultiplayerARPG.Auction
         {
             Dictionary<string, object> queries = new Dictionary<string, object>();
             queries[nameof(userId)] = userId;
-            return Get<Dictionary<string, string>>(GetUrl(apiUrl, "/internal/access-token"), queries, secretKey, ApiKeyAuthHeaderSettings);
+            return Get<Dictionary<string, string>>(GetUrl(apiUrl, "/internal/access-token"), queries, appSecret, ApiKeyAuthHeaderSettings);
         }
 
         public Task<Result> CreateAuction(string itemData, string metaName, int metaLevel, int startPrice, int buyoutPrice, string sellerId, string sellerName, int durationOption)
@@ -62,7 +62,7 @@ namespace MultiplayerARPG.Auction
                 { nameof(sellerName), sellerName },
                 { nameof(durationOption), durationOption }
             };
-            return Post(GetUrl(apiUrl, "/internal/auction"), form, secretKey, ApiKeyAuthHeaderSettings);
+            return Post(GetUrl(apiUrl, "/internal/auction"), form, appSecret, ApiKeyAuthHeaderSettings);
         }
 
         public Task<Result> Bid(string userId, string characterName, int id, int price)
@@ -74,7 +74,7 @@ namespace MultiplayerARPG.Auction
                 { nameof(id), id },
                 { nameof(price), price }
             };
-            return Post(GetUrl(apiUrl, "/internal/bid"), form, secretKey, ApiKeyAuthHeaderSettings);
+            return Post(GetUrl(apiUrl, "/internal/bid"), form, appSecret, ApiKeyAuthHeaderSettings);
         }
 
         public Task<Result> Buyout(string userId, string characterName, int id)
@@ -85,7 +85,7 @@ namespace MultiplayerARPG.Auction
                 { nameof(characterName), characterName },
                 { nameof(id), id }
             };
-            return Post(GetUrl(apiUrl, "/internal/buyout"), form, secretKey, ApiKeyAuthHeaderSettings);
+            return Post(GetUrl(apiUrl, "/internal/buyout"), form, appSecret, ApiKeyAuthHeaderSettings);
         }
 
         public Task<Result> CancelAuction(string userId, int id)
@@ -95,7 +95,7 @@ namespace MultiplayerARPG.Auction
                 { nameof(userId), userId },
                 { nameof(id), id }
             };
-            return Post(GetUrl(apiUrl, "/internal/cancel-auction"), form, secretKey, ApiKeyAuthHeaderSettings);
+            return Post(GetUrl(apiUrl, "/internal/cancel-auction"), form, appSecret, ApiKeyAuthHeaderSettings);
         }
         #endregion
 
