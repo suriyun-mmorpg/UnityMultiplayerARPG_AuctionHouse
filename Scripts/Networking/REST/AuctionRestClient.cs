@@ -15,7 +15,12 @@ namespace MultiplayerARPG.Auction
             Dictionary<string, object> queries = new Dictionary<string, object>();
             queries[nameof(limit)] = limit;
             queries[nameof(page)] = page;
-            return Get<AuctionListResponse>(GetUrl(apiUrl, "/"), queries, GameInstance.AccessToken, BearerAuthHeaderSettings);
+            return Get<AuctionListResponse>(GetUrl(apiUrl, "/"), queries);
+        }
+
+        public Task<Result<AuctionData>> GetAuction(int id)
+        {
+            return Get<AuctionData>(GetUrl(apiUrl, $"/{id}"));
         }
 
         public Task<Result<AuctionListResponse>> GetSellHistoryList(int limit = 20, int page = 1)
@@ -33,22 +38,9 @@ namespace MultiplayerARPG.Auction
             queries[nameof(page)] = page;
             return Get<AuctionListResponse>(GetUrl(apiUrl, "/buy-history"), queries, GameInstance.AccessToken, BearerAuthHeaderSettings);
         }
-
-        public Task<Result<AuctionData>> GetAuction(int id)
-        {
-            Dictionary<string, object> queries = new Dictionary<string, object>();
-            return Get<AuctionData>(GetUrl(apiUrl, $"/{id}"), queries, GameInstance.AccessToken, BearerAuthHeaderSettings);
-        }
         #endregion
 
         #region Server APIs
-        public Task<Result<Dictionary<string, string>>> GetAccessToken(string userId)
-        {
-            Dictionary<string, object> queries = new Dictionary<string, object>();
-            queries[nameof(userId)] = userId;
-            return Get<Dictionary<string, string>>(GetUrl(apiUrl, "/internal/access-token"), queries, appSecret, ApiKeyAuthHeaderSettings);
-        }
-
         public Task<Result> CreateAuction(string itemData, string metaName, int metaLevel, int startPrice, int buyoutPrice, string sellerId, string sellerName, int durationOption)
         {
             Dictionary<string, object> form = new Dictionary<string, object>
