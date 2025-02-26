@@ -119,7 +119,7 @@ namespace MultiplayerARPG.Auction
             if (uiDialog != null)
             {
                 uiDialog.selectionManager = CacheSelectionManager;
-                uiDialog.Data = ui.Data;
+                ui.CloneTo(uiDialog);
                 uiDialog.Show();
             }
         }
