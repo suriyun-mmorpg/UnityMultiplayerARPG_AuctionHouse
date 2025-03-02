@@ -1,8 +1,8 @@
-﻿using LiteNetLibManager;
+﻿using Insthync.UnityRestClient;
+using LiteNetLibManager;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityRestClient;
 
 namespace MultiplayerARPG.Auction
 {

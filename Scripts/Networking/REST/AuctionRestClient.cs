@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Insthync.UnityRestClient;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityRestClient;
 
 namespace MultiplayerARPG.Auction
 {

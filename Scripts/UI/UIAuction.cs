@@ -1,5 +1,5 @@
-﻿using LiteNetLibManager;
-using MultiplayerARPG.MMO;
+﻿using Insthync.UnityRestClient;
+using LiteNetLibManager;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -189,7 +189,7 @@ namespace MultiplayerARPG.Auction
 
         private async void Refresh()
         {
-            UnityRestClient.RestClient.Result<AuctionData> result = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetAuction(Data.id);
+            RestClient.Result<AuctionData> result = await BaseGameNetworkManager.Singleton.AuctionRestClientForClient.GetAuction(Data.id);
             if (result.IsNetworkError || result.IsHttpError)
                 return;
             Data = result.Content;
