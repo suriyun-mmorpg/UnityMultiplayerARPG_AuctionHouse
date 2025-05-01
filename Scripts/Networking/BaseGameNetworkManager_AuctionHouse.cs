@@ -74,9 +74,9 @@ namespace MultiplayerARPG
                 auctionHouseSecretKey = envVal;
         }
 
-        public void ReadAuctionHouseClientConfig()
+        public async void ReadAuctionHouseClientConfig()
         {
-            ClientConfig clientConfig = ConfigManager.ReadClientConfig();
+            ClientConfig clientConfig = await ConfigManager.ReadClientConfig();
             if (!string.IsNullOrEmpty(clientConfig.auctionHouseServiceUrl))
                 auctionHouseServiceUrlForClient = clientConfig.auctionHouseServiceUrl;
         }
