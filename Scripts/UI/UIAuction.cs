@@ -42,10 +42,10 @@ namespace MultiplayerARPG.Auction
             textBuyerName = null;
             textTimeLeft = null;
             uiItem = null;
-            auctionEndedObjects.Nulling();
-            underAuctioningObjects.Nulling();
-            boughtOutObjects.Nulling();
-            notBoughtOutObjects.Nulling();
+            auctionEndedObjects.Nullify();
+            underAuctioningObjects.Nullify();
+            boughtOutObjects.Nullify();
+            notBoughtOutObjects.Nullify();
         }
 
         protected override void UpdateData()
